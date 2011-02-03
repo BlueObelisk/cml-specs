@@ -1,0 +1,51 @@
+.good {
+	border: solid green;
+	border-width: 2px;
+	color: green;
+	font-weight: bold;
+	margin-right: 5%;
+	margin-left: 0;
+}
+.bad  {
+	border: solid red;
+	border-width: 2px;
+	margin-left: 0;
+	margin-right: 5%;
+	color: rgb(192, 101, 101);
+}
+
+
+table.namespace-table {
+ margin-left: auto;
+ margin-right: auto;
+ empty-cells: show;
+ border-collapse: collapse;
+}
+table.namespace-table th {
+ padding: 3px;
+ border: 2px solid #000000;
+ text-align: center;
+ font-weight: bold;
+ font-style: italic;
+}
+table.namespace-table td {
+ padding: 2px;
+ border: 2px solid #000000;
+ text-align: left;
+}
+table#namespace-table caption {
+ font-weight: normal;
+ font-style: italic;
+ text-align: left;
+ margin-bottom: .5ex;
+}
+
+body {
+  background-image: url(./logo-PR.png);
+}
+
+
+.deprecated {
+    text-decoration: line-through;
+    color: #c08000;
+}

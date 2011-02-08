@@ -95,7 +95,7 @@
         <td>Chemical Markup Language elements</td>
     </tr>
     <tr>
-        <td><code>cml-conv</code></td>
+        <td><code>conventions</code></td>
         <td><code>http://www.xml-cml.org/convention/</code></td>
         <td>Standard Chemical Markup Language convention namespace</td>
     </tr>
@@ -109,10 +109,15 @@
 
 <h1>2. Dictionaries</h1>
 
+<p>
+    CML dictionaries consist of a collection of entries, each of which defines a single concept.
+    Dictionaries are constructed using the <code>dictionary</code> element.
+</p>
+
 <h2>2.x Namespace</h2>
 
 <p>
-    Dictionaries MUST have a <code>namespace</code> attribute, which MUST be a valid URI.
+    A <code>dictionary</code> element MUST have a <code>namespace</code> attribute, the value of which MUST be a valid URI.
     The namespace defines the scope within which the entry terms are unique.
     A dictionary's namespace URI SHOULD resolve to a representation of the dictionary.
     A dictionary's namespace URI SHOULD end with either a '/' character or a '#' character
@@ -127,14 +132,67 @@
     TODO: conflicting namespaces
 </p>
 
+<p><strong><em>CORRECT: dictionary has a namespace</em></strong></p>
+<div class="good">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+    namespace="http://www.xml-cml.org/dictionaries/example#"
+    ...
+</pre>
+</div>
+
+<p><strong><em>INCORRECT: no namespace specified</em></strong></p>
+<div class="bad">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"&gt;
+    ...
+</pre>
+</div>
+
 
 <h2>2.x Convention</h2>
 
 <p>
-    Dictionaries SHOULD specify a convention.  The RECOMMENDED convention is <code>cml-conv:dictionary</code>.
+    Dictionaries SHOULD specify a convention.  The RECOMMENDED convention is <code>conventions:dictionary</code>.
+    A convention is specified using a <code>convention</code> attribute.  The <code>convention</code> attribute
+    MUST either be attached to the <code>dictionary</code> element, or to a parent <code>cml</code> element, holding
+    the <code>dictionary</code> element.
 </p>
 
-<p>TODO: convention on parent <code>cml</code> element.</p>
+<p><strong><em>CORRECT: dictionary specifies a convention</em></strong></p>
+<div class="good">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+    xmlns:conventions="http://www.xml-cml.org/convention/"
+    namespace="http://www.xml-cml.org/dictionaries/example#"
+    convention="conventions:dictionary"
+    ...
+</pre>
+</div>
+
+<p><strong><em>INCORRECT: no convention specified</em></strong></p>
+<div class="poor">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+    namespace="http://www.xml-cml.org/dictionaries/example#"
+    ...
+</pre>
+</div>
+
+<p><strong><em>INCORRECT: convention is not a valid QName</em></strong></p>
+<div class="bad">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+    namespace="http://www.xml-cml.org/dictionaries/example#"
+    convention="foo:dictionary"
+    ...
+</pre>
+</div>
 
 
 <h2>2.x Title</h2>
@@ -147,8 +205,29 @@
 
 <p>
     Dictionaries SHOULD have a single <code>description</code> child, the contents of which describe
-    the domain of the dictionary.
+    the domain of the dictionary.  A <code>description</code> element MUST contain one or more
+    children in the <code>XHTML</code> namespace.  A <code>description</code> element MUST NOT contain
+    any child elements not in the <code>XHTML</code> namespace.
 </p>
+
+<p><strong><em>CORRECT: dictionary specifies a convention</em></strong></p>
+<div class="good">
+<pre>
+&lt;?xml version="1.x" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+    xmlns:conventions="http://www.xml-cml.org/convention/"
+    xmlns:x="http://www.w3.org/1999/xhtml"
+    namespace="http://www.xml-cml.org/dictionaries/example#"
+    convention="conventions:dictionary"
+    title="Example Dictionary"&gt;
+
+  &lt;description&gt;
+    &lt;x:p&gt;The dictionary is an example for documentation purposes.&lt;/x:p&gt;
+  &lt;/description&gt;
+
+    ...
+</pre>
+</div>
 
 
 <h2>2.x Prefix</h2>
@@ -159,27 +238,29 @@
     [XML QName prefix -- i.e. cannot be 'xml'], and SHOULD be unique within the CML domain.
 </p>
 
-<h2>2.x. Conformance</h2>
+
+<h2>2.x. Convention conformance</h2>
 
 <p>
-    Dictionaries conforming to the <code>cml-conv:dictionary</code> convention MUST contain
+    Dictionaries conforming to the <code>conventions:dictionary</code> convention MUST contain
     at least one entry.
 </p>
 
 <p>
-    Dictionaries conforming to the <code>cml-conv:dictionary</code> convention MUST have a title.
+    Dictionaries conforming to the <code>conventions:dictionary</code> convention MUST have a title.
 </p>
 
 
 <h2>2.x Example</h2>
 
+<p><strong><em>CORRECT:</em></strong></p>
 <div class="good">
 <pre>
 &lt;?xml version="1.x" encoding="UTF-8"?&gt;
 &lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    xmlns:cml-conv="http://www.xml-cml.org/convention/"
+    xmlns:conventions="http://www.xml-cml.org/convention/"
     namespace="http://www.xml-cml.org/dictionary#"
-    convention="cml-conv:dictionary"
+    convention="conventions:dictionary"
     title="My dictionary"
     dictionaryPrefix="my"&gt;
 
@@ -193,8 +274,7 @@
 </pre>
 </div>
 
-<p></p>
-
+<p><strong><em>INCORRECT: no namespace specified</em></strong></p>
 <div class="bad">
 <pre>
 &lt;?xml version="1.x" encoding="UTF-8"?&gt;

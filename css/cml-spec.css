@@ -13,6 +13,13 @@
 	margin-right: 5%;
 	color: rgb(192, 101, 101);
 }
+.poor  {
+	border: solid orange;
+	border-width: 2px;
+	margin-left: 0;
+	margin-right: 5%;
+	color: rgb(160, 128, 101);
+}
 
 
 table.namespace-table {
@@ -41,7 +48,7 @@ table#namespace-table caption {
 }
 
 body {
-  background-image: url(./logo-PR.png);
+  background-image: url(./logo-DR.png);
 }
 
 

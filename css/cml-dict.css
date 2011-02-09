@@ -116,3 +116,7 @@ table#namespace-table caption {
  text-align: left;
  margin-bottom: .5ex;
 }
+
+.warn {
+    color: #ffcc66;
+}

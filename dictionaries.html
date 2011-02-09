@@ -10,14 +10,14 @@
 <body>
 <div class="head">
     <h1>Chemical Markup Language - Dictionaries</h1>
-    <h2>3 February 2011</h2>
+    <h2>9 February 2011</h2>
 
     <dl>
         <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
-        <dd><a href="http://www.xml-cml.org/spec/dict-20110203">http://www.xml-cml.org/spec/dictionaries-20110203</a></dd>
+        <dd><a href="http://www.xml-cml.org/spec/dictionaries-20110209">http://www.xml-cml.org/spec/dictionaries-20110209</a></dd>
 
         <dt>Latest version:</dt>
-        <dd><a href="http://www.xml-cml.org/spec/dict">http://www.xml-cml.org/spec/dictionaries</a></dd>
+        <dd><a href="http://www.xml-cml.org/spec/dictionaries">http://www.xml-cml.org/spec/dictionaries</a></dd>
 
         <dt>Authors:</dt>
         <dd>See <a href="#acks">acknowledgments</a>.</dd>
@@ -29,38 +29,54 @@
 
     <h2><a name="abstract" id="abstract"></a> Abstract</h2>
 
-    <p>This specification defines ...</p>
+    <p>
+        This specification explains the CML dictionaries mechanism, and
+        defines the minimum requirements for interoperability.
+    </p>
 
     <hr />
 </div>
 
 <h1><a name="contents" id="contents"></a>Table of Contents</h1>
 
-<p>TODO</p>
+<p class="toc">1. <a href="#introduction">Introduction</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1.1 <a href="#notational_conventions">Notational Conventions</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a><br/>
+2. <a href="#dictionary-mechanism">The Dictionary Mechanism</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.1 <a href="#dictionary-namespace">Dictionary Namespace</a><br/>
+3. <a href="#convention">Convention</a><br/>
+4. <a href="#authoring-dictionaries">Authoring Dictionaries</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#dictionary-element">Dictionary Element</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#entry-element">Entry Element</a><br/>
+5. <a href="#standard-dictionaries">Standard Dictionaries</a></p>
+<h2>Appendices</h2>
+<p>A. <a href="#refs">References</a><br/>
+B. <a href="#acks">Acknowledgements</a></p>
 
 <hr />
 
 
-<h1><a name="intro" id="intro">1.</a> Introduction</h1>
-
-<p>Dictionaries allow CML to be understood by machines. Much of physical science is managed through the dictionary mechanism. We find terms and units relating to a aspect of science (such as heat of formation, melting point, point group) and create entries for these items in a dictionary.</p>
-
-<p>The entries can consist of just a unique id (within the dictionary's namespace) and some human-understandable definition but we highly encourage more information to be given. For instance what are the units, are there upper and lower bounds, what is the type of the data (string, integer, float etc).</p>
-
-<p>Different programs sometimes produce data with the same label but a different interpretation; does density mean electron density or physical density? Therefore each computational chemistry code will have its own dictionary and then the community can then decide to group particular concepts together.</p>
-
+<h1><a name="introduction">1.</a> Introduction</h1>
 
 <p>
-    Where concepts are defined by the CML schema they SHOULD NOT be redefined using the dictionary mechanism.
+    Dictionaries allow concepts beyond those defined by the core CML schema
+    types to be understood by machines.  Much of physical science can managed
+    through referencing appropriate dictionary entries, which can represent
+    data types (e.g. string, integer, double), units (e.g. grams, Kelvin),
+    physical properties (e.g heat of formation, melting point) and other
+    scientific concepts (e.g. point group).
 </p>
+
 <p>
-    Where concepts are defined by standard dictionaries these entries SHOULD be referenced, rather than
-    redefining the concept in another dictionary.
+    Dictionaries aso provide for disambiguation between similarly named
+    concepts.  Different programs sometimes produce data with the same label
+    but a different interpretation; does density mean electron density or
+    physical density? This ambiguity can be resolved through referencing
+    specific dictionary entries.
 </p>
 
 
-
-<h2>1.x <a id="Notational_Conventions" name="Notational_Conventions">Notational Conventions</a></h2>
+<h2><a name="notational_conventions">1.1</a> Notational Conventions</h2>
 
 <p>
     The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
@@ -79,7 +95,7 @@
     <li>Schema terms, including elements and attributes, are written in <code>this font</code>.</li>
 </ul>
 
-<h2>1.x <a id="Namespaces" name="Namespaces">Namespaces</a></h2>
+<h2><a name="namespaces">1.2</a> Namespaces</h2>
 
 <p>This specification uses the following namespaces and prefixes to indicate those namespaces:</p>
 
@@ -95,327 +111,176 @@
         <td>Chemical Markup Language elements</td>
     </tr>
     <tr>
-        <td><code>conventions</code></td>
+        <td><code>convention</code></td>
         <td><code>http://www.xml-cml.org/convention/</code></td>
         <td>Standard Chemical Markup Language convention namespace</td>
     </tr>
     <tr>
-        <td><code>x</code></td>
+        <td><code>xhtml</code></td>
         <td><code>http://www.w3.org/1999/xhtml</code></td>
         <td>XHTML</td>
     </tr>
 </table>
 
 
-<h1>2. Dictionaries</h1>
+<h1><a name="dictionary-mechanism">2.</a> The Dictionary Mechanism</h1>
 
 <p>
-    CML dictionaries consist of a collection of entries, each of which defines a single concept.
-    Dictionaries are constructed using the <code>dictionary</code> element.
+    CML dictionaries consist of a collection of entries, each of which defines
+    a single concept.  Dictionaries are constructed using the
+    <code>dictionary</code> element, and entries using the <code>entry</code>
+    element.
 </p>
 
-<h2>2.x Namespace</h2>
+<p>
+    Concepts defined by dictionary entries can be referenced from other
+    locations using dictionary references, specified using <code>dictRef</code>
+    attributes.
+    In order to be referenceable a dictionary MUST specify a namespace using
+    the <code>namespace</code> attribute, and entries MUST specify an ID using
+    the <code>id</code> attribute, which MUST be unique within the scope
+    of the entry's parent dictionary.
+    The value of the <code>dictRef</code> attribute MUST be a QName which
+    expands to the <code>namespace</code> and <code>id</code> of the
+    dictionary entry defining the concept being referenced.
+</p>
 
 <p>
-    A <code>dictionary</code> element MUST have a <code>namespace</code> attribute, the value of which MUST be a valid URI.
-    The namespace defines the scope within which the entry terms are unique.
+    The value of an <code>entry</code>'s <code>id</code> attribute MUST start
+    with a letter, and MUST only contain letters, numbers, dot, hyphen or
+    underscore.
+</p>
+
+<table>
+    <tr>
+        <td><code>IdStartChar</code></td>
+        <td>::=</td>
+        <td><code>[A-Z] | [a-z]</code></td>
+    </tr>
+    <tr>
+        <td><code>IdChar</code></td>
+        <td>::=</td>
+        <td><code>IdStartChar | [0-9] | "." | "-" | "_"</code></td>
+    </tr>
+    <tr>
+        <td><code>Id</code></td>
+        <td>::=</td>
+        <td><code>IdStartChar (IdChar)*</code></td>
+    </tr>
+</table>
+
+
+<p><strong>A minimal CML dictionary:</strong></p>
+
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+        namespace="http://www.xml-cml.org/dictionary/dummy/"&gt;
+
+    &lt;entry id="mw" term="Molecular Weight" /&gt;
+    
+&lt;/dictionary&gt;
+</pre>
+</div>
+
+<p><strong>A CML property referencing a concept defined by a dictionary entry:</strong></p>
+
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cml xmlns="http://www.xml-cml.org/schema"
+        xmlns:dummy="http://www.xml-cml.org/dictionary/dummy/"&gt;
+
+    &lt;property dictRef="dummy:mw"&gt;
+        &lt;scalar dataType="xsd:double"&gt;72.02&lt;/scalar&gt;
+    &lt;/property&gt;
+
+&lt;/cml&gt;
+</pre>
+</div>
+
+
+<h2><a name="dictionary-namespace">2.1</a> Dictionary Namespace</h2>
+
+<p>
     A dictionary's namespace URI SHOULD resolve to a representation of the dictionary.
     A dictionary's namespace URI SHOULD end with either a '/' character or a '#' character
-    so that terms may be referenced by appending them to the URI.
+    so that referenced terms may be resolved by appending them to the URI.
 </p>
 
 <p>
-    In order for namespaces to be resolvable a CML document SHOULD NOT contain more than one dictionary.
+    In order for dictionary namespaces to be resolvable a CML document SHOULD NOT contain
+    more than one dictionary.
+</p>
+
+
+<h1><a name="convention">3.</a> Convention</h1>
+
+<p>
+    The CML schema only loosely defines the structure of a dictionary. More
+    detailed structure is imposed through use of conventions.
 </p>
 
 <p>
-    TODO: conflicting namespaces
+    To promote interoperability between CML aware software and dictionaries,
+    all dictionaries SHOULD specify a convention, using the
+    <code>convention</code> attribute.  The RECOMMENDED convention for a
+    dictionary is <code>http://www.xml-cml.org/convention/dictionary</code>.
 </p>
 
-<p><strong><em>CORRECT: dictionary has a namespace</em></strong></p>
-<div class="good">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    namespace="http://www.xml-cml.org/dictionaries/example#"
-    ...
-</pre>
-</div>
 
-<p><strong><em>INCORRECT: no namespace specified</em></strong></p>
-<div class="bad">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"&gt;
-    ...
-</pre>
-</div>
+<h1><a name="authoring-dictionaries">4.</a> Authoring Dictionaries</h1>
+
+<h2><a name="dictionary-element">4.1</a> Dictionary Element</h2>
 
 
-<h2>2.x Convention</h2>
+
+
+<h2><a name="entry-element">4.2</a> Entry Element</h2>
+
+
+
+<h1><a name="standard-dictionaries">5.</a> Standard Dictionaries</h1>
 
 <p>
-    Dictionaries SHOULD specify a convention.  The RECOMMENDED convention is <code>conventions:dictionary</code>.
-    A convention is specified using a <code>convention</code> attribute.  The <code>convention</code> attribute
-    MUST either be attached to the <code>dictionary</code> element, or to a parent <code>cml</code> element, holding
-    the <code>dictionary</code> element.
-</p>
-
-<p><strong><em>CORRECT: dictionary specifies a convention</em></strong></p>
-<div class="good">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    xmlns:conventions="http://www.xml-cml.org/convention/"
-    namespace="http://www.xml-cml.org/dictionaries/example#"
-    convention="conventions:dictionary"
-    ...
-</pre>
-</div>
-
-<p><strong><em>INCORRECT: no convention specified</em></strong></p>
-<div class="poor">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    namespace="http://www.xml-cml.org/dictionaries/example#"
-    ...
-</pre>
-</div>
-
-<p><strong><em>INCORRECT: convention is not a valid QName</em></strong></p>
-<div class="bad">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    namespace="http://www.xml-cml.org/dictionaries/example#"
-    convention="foo:dictionary"
-    ...
-</pre>
-</div>
-
-
-<h2>2.x Title</h2>
-
-<p>
-    Dictionaries SHOULD have a <code>title</code> attribute intended for human-readability.
-</p>
-
-<h2>2.x Description</h2>
-
-<p>
-    Dictionaries SHOULD have a single <code>description</code> child, the contents of which describe
-    the domain of the dictionary.  A <code>description</code> element MUST contain one or more
-    children in the <code>XHTML</code> namespace.  A <code>description</code> element MUST NOT contain
-    any child elements not in the <code>XHTML</code> namespace.
-</p>
-
-<p><strong><em>CORRECT: dictionary specifies a convention</em></strong></p>
-<div class="good">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    xmlns:conventions="http://www.xml-cml.org/convention/"
-    xmlns:x="http://www.w3.org/1999/xhtml"
-    namespace="http://www.xml-cml.org/dictionaries/example#"
-    convention="conventions:dictionary"
-    title="Example Dictionary"&gt;
-
-  &lt;description&gt;
-    &lt;x:p&gt;The dictionary is an example for documentation purposes.&lt;/x:p&gt;
-  &lt;/description&gt;
-
-    ...
-</pre>
-</div>
-
-
-<h2>2.x Prefix</h2>
-
-<p>
-    Dictionaries SHOULD have a <code>dictionaryPrefix</code> attribute specifying the recommended prefix
-    to use when referencing dictionary entries. The <code>dictionaryPrefix</code> MUST be a valid
-    [XML QName prefix -- i.e. cannot be 'xml'], and SHOULD be unique within the CML domain.
-</p>
-
-
-<h2>2.x. Convention conformance</h2>
-
-<p>
-    Dictionaries conforming to the <code>conventions:dictionary</code> convention MUST contain
-    at least one entry.
-</p>
-
-<p>
-    Dictionaries conforming to the <code>conventions:dictionary</code> convention MUST have a title.
-</p>
-
-
-<h2>2.x Example</h2>
-
-<p><strong><em>CORRECT:</em></strong></p>
-<div class="good">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"
-    xmlns:conventions="http://www.xml-cml.org/convention/"
-    namespace="http://www.xml-cml.org/dictionary#"
-    convention="conventions:dictionary"
-    title="My dictionary"
-    dictionaryPrefix="my"&gt;
-
-    &lt;description&gt;
-
-    &lt;/description&gt;
-
-    &lt;!-- entry goes here --&gt;
-
-&lt;/dictionary&gt;
-</pre>
-</div>
-
-<p><strong><em>INCORRECT: no namespace specified</em></strong></p>
-<div class="bad">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema"&gt;
-
-&lt;/dictionary&gt;
-</pre>
-</div>
-
-
-<h1>3. Dictionary Entries</h1>
-
-<h2>3.x Id</h2>
-
-<p>
-    A dictionary <code>entry</code> MUST have an <code>id</code> attribute, the value
-    of which MUST be unique within the scope of the dictionary.
+    Where concepts are defined by the CML schema they SHOULD NOT be redefined
+    using the dictionary mechanism.
 </p>
 <p>
-    TODO: The id MUST start with a letter, and MUST only contain letters, numbers, dot, hyphen or underscore.
-</p>
-<p>
-    The <code>id</code> is used to reference specific entries in a dictionary.
-</p>
-
-
-<h2>3.x Term</h2>
-
-<p>
-    A dictionary <code>entry</code> MUST have a <code>term</code> attribute, the value
-    of which provides a unique nounal phrase linguistically identifying the object.
-</p>
-<p class="deprecated">
-    The value of the <code>term</code> attribute SHOULD only contain characters from the
-    ASCII subset (codepoints 32-127). Non-ASCII characters (e.g. greek letters, degree symbol)
-    SHOULD be spelt out using the ASCII subset (e.g. alpha, degree).
+    Where concepts are defined by standard dictionaries these entries SHOULD be
+    referenced, rather than redefining the concept in another dictionary.
+    Standard (widely used) dictionaries SHOULD be namespaced under the
+    <code>http://www.xml-cml.org/dictionary/</code> domain, and registered
+    with the <code>xml-cml.org</code> site.
 </p>
 
+<p>The following standard dictionaries are / are expected to be defined.</p>
 
-<h2>3.x Definition</h2>
-
-<p>
-    A dictionary <code>entry</code> MUST have a single <code>definition</code> child, the content
-    of which provides a nounal phrase defining of the subject of the entry more verbosely
-    than the term.
-</p>
-<p>
-    Children of the <code>definition</code> element MUST be in the XHTML namespace.
-</p>
-
-<h2>3.x Description</h2>
-
-<p>
-    An <code>entry</code> MAY have a single <code>description</code> child, the content
-    of which provides further information regarding the term, including, but not limited to:
-    examples, human-readable semantics and hyperlinks to other useful resources.
-</p>
-<p>
-    Children of the <code>description</code> element MUST be in the XHTML namespace.
-</p>
-
-<h2>3.x Data type</h2>
-
-<p>
-    When applicable to the concept defined, an <code>entry</code> SHOULD have <code>dataType</code>
-    attribute defining ...
-</p>
-
-<h2>3.x Unit type</h2>
-
-<p>
-    When applicable to the concept defined, an <code>entry</code> SHOULD have a <code>unitType</code>
-    attribute referencing a unit type (e.g. temperature) in a dictionary of unit types.
-</p>
-
-<h2>3.x Default unit</h2>
-
-<p>
-    When applicable to the concept defined, an <code>entry</code> SHOULD have a <code>unit</code>
-    attribute defining the default unit used to qualify values referenced against this
-    <code>entry</code>, referencing a unit (e.g. Kelvin) in a dictionary of units.
-</p>
-
-
-
-<h2>3.x Example</h2>
-
-
-<div class="good">
-<pre>
-&lt;?xml version="1.x" encoding="UTF-8"?&gt;
-&lt;dictionary xmlns="http://www.xml-cml.org/schema" xmlns:x="http://www.w3.org/1999/xhtml"&gt;
-    &lt;entry id="" term=""&gt;
-        &lt;definition&gt;
-
-        &lt;/definition&gt;
-
-        &lt;description&gt;
-            &lt;x:p&gt;
-
-            &lt;x:/p&gt;
-        &lt;/description&gt;
-    &lt;/entry&gt;
-&lt;/dictionary&gt;
-</pre>
-</div>
-
-
-<h1>4. Standard Dictionaries</h1>
-
-<p>
-    Standard (widely used) dictionaries SHOULD be namespaced under the <code>http://www.xml-cml.org/dictionary/</code>
-    domain, and registered with the <code>xml-cml.org</code> site.
-</p>
-
-
-<h2>4.x Dummy</h2>
+<h2>5.x Dummy</h2>
 
 <p>
     For testing purposes: conceptually equivalent to <code>http://example.com</code>.
 </p>
 
 
-<h2>4.x Core Concepts</h2>
+<h2>5.x Core Concepts</h2>
 
-<h2>4.x Units</h2>
+<h2>5.x Units</h2>
 
+<h2>5.x Comp Chem</h2>
 
-<h2>4.x Comp Chem</h2>
+<h2>5.x Crystallography</h2>
 
-<h2>4.x Crystallography</h2>
+<h2>5.x Polymers</h2>
 
-<h2>4.x Polymers</h2>
+<h2>5.x Reactions</h2>
 
-<h2>4.x Reactions</h2>
-
-<h2>4.x Spectroscopy</h2>
-
+<h2>5.x Spectroscopy</h2>
 
 
-<h1><a name="refs">x.</a> References</h1>
+
+<h1><a name="refs">A.</a> References</h1>
 
 <dl>
 
@@ -441,7 +306,7 @@
 
 
 
-<h1><a name="acks">A.</a> Acknowledgements</h1>
+<h1><a name="acks">B.</a> Acknowledgements</h1>
 
 <ul>
     <li>Peter Murray-Rust</li>

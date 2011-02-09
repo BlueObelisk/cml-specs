@@ -15,7 +15,7 @@
 <head>
     <title>CML Dictionary - <xsl:value-of select="@title" /></title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    <link rel="stylesheet" href="./css/cml-dict.css" type="text/css" />
+    <link rel="stylesheet" href="./style/cml-dict.css" type="text/css" />
 </head>
 
 <body>

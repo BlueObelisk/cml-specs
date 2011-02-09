@@ -234,11 +234,58 @@ B. <a href="#acks">Acknowledgements</a></p>
 
 <h2><a name="dictionary-element">4.1</a> Dictionary Element</h2>
 
-
+<p>
+    A <code>dictionary</code> element SHOULD have a <code>namespace</code>
+    attribute defining the the scope within which the entry terms are unique.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>title</code> attribute
+    specifying a human-readable name for the dictionary.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>description</code> child
+    element specifying a human-readable description of the dictionary.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>dictionaryPrefix</code>
+    attribute specifying a default prefix to use when referencing dictionary
+    entries.
+</p>
 
 
 <h2><a name="entry-element">4.2</a> Entry Element</h2>
 
+<p>
+    An <code>entry</code> element SHOULD have a <code>id</code> attribute
+    specifying a unique ID, within the scope of the dictionary, by which the
+    entry can be referenced.
+</p>
+<p>
+    An <code>entry</code> element SHOULD have a <code>term</code> attribute
+    specifying unique nounal phrase linguistically identifying the subject
+    of the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>definition</code>
+    element containing a nounal phrase defining of the subject of the entry
+    more verbosely than the term.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>description</code>
+    element containing further information regarding the term.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>dataType</code>
+    attribute specifying the data type of values referencing the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>unitType</code>
+    attribute specifying the unit type of values referencing the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>units</code>
+    attribute specifying the units of values referencing the entry.
+</p>
 
 
 <h1><a name="standard-dictionaries">5.</a> Standard Dictionaries</h1>

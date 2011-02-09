@@ -1,0 +1,372 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Chemical Markup Language - Dictionaries</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css" />
+</head>
+
+<body>
+<div class="head">
+    <h1>Chemical Markup Language - Dictionaries</h1>
+    <h2>9 February 2011</h2>
+
+    <dl>
+        <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
+        <dd><a href="http://www.xml-cml.org/spec/dictionaries-20110209">http://www.xml-cml.org/spec/dictionaries-20110209</a></dd>
+
+        <dt>Latest version:</dt>
+        <dd><a href="http://www.xml-cml.org/spec/dictionaries">http://www.xml-cml.org/spec/dictionaries</a></dd>
+
+        <dt>Authors:</dt>
+        <dd>See <a href="#acks">acknowledgments</a>.</dd>
+
+        <dt>Editors:</dt>
+        <dd>Sam Adams, University of Cambridge</dd>
+        <dd>Joe Townsend, University of Cambridge</dd>
+    </dl>
+
+    <h2><a name="abstract" id="abstract"></a> Abstract</h2>
+
+    <p>
+        This specification explains the CML dictionaries mechanism, and
+        defines the minimum requirements for interoperability.
+    </p>
+
+    <hr />
+</div>
+
+<h1><a name="contents" id="contents"></a>Table of Contents</h1>
+
+<p class="toc">1. <a href="#introduction">Introduction</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1.1 <a href="#notational_conventions">Notational Conventions</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a><br/>
+2. <a href="#dictionary-mechanism">The Dictionary Mechanism</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;2.1 <a href="#dictionary-namespace">Dictionary Namespace</a><br/>
+3. <a href="#convention">Convention</a><br/>
+4. <a href="#authoring-dictionaries">Authoring Dictionaries</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#dictionary-element">Dictionary Element</a><br/>
+&nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#entry-element">Entry Element</a><br/>
+5. <a href="#standard-dictionaries">Standard Dictionaries</a></p>
+<h2>Appendices</h2>
+<p>A. <a href="#refs">References</a><br/>
+B. <a href="#acks">Acknowledgements</a></p>
+
+<hr />
+
+
+<h1><a name="introduction">1.</a> Introduction</h1>
+
+<p>
+    Dictionaries allow concepts beyond those defined by the core CML schema
+    types to be understood by machines.  Much of physical science can managed
+    through referencing appropriate dictionary entries, which can represent
+    data types (e.g. string, integer, double), units (e.g. grams, Kelvin),
+    physical properties (e.g heat of formation, melting point) and other
+    scientific concepts (e.g. point group).
+</p>
+
+<p>
+    Dictionaries aso provide for disambiguation between similarly named
+    concepts.  Different programs sometimes produce data with the same label
+    but a different interpretation; does density mean electron density or
+    physical density? This ambiguity can be resolved through referencing
+    specific dictionary entries.
+</p>
+
+
+<h2><a name="notational_conventions">1.1</a> Notational Conventions</h2>
+
+<p>
+    The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+    &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
+    in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC 2119</a></cite>].
+</p>
+
+<p>
+    The terms &quot;element&quot;, &quot;attribute&quot;, &quot;child&quot; and &quot;parent&quot;
+    in this document are to be interpreted as described in the W3C Recommendation for Extensible Markup
+    Language (XML) [<cite><a href="#ref-XML">W3C XML</a></cite>].
+</p>
+
+<p>The use of fonts is as follows:</p>
+<ul>
+    <li>Schema terms, including elements and attributes, are written in <code>this font</code>.</li>
+</ul>
+
+<h2><a name="namespaces">1.2</a> Namespaces</h2>
+
+<p>This specification uses the following namespaces and prefixes to indicate those namespaces:</p>
+
+<table class="namespace-table" summary="Namespaces table">
+    <tr>
+        <th>Prefix</th>
+        <th>Namespace URI</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td><code>cml</code></td>
+        <td><code>http://www.xml-cml.org/schema</code></td>
+        <td>Chemical Markup Language elements</td>
+    </tr>
+    <tr>
+        <td><code>convention</code></td>
+        <td><code>http://www.xml-cml.org/convention/</code></td>
+        <td>Standard Chemical Markup Language convention namespace</td>
+    </tr>
+    <tr>
+        <td><code>xhtml</code></td>
+        <td><code>http://www.w3.org/1999/xhtml</code></td>
+        <td>XHTML</td>
+    </tr>
+</table>
+
+
+<h1><a name="dictionary-mechanism">2.</a> The Dictionary Mechanism</h1>
+
+<p>
+    CML dictionaries consist of a collection of entries, each of which defines
+    a single concept.  Dictionaries are constructed using the
+    <code>dictionary</code> element, and entries using the <code>entry</code>
+    element.
+</p>
+
+<p>
+    Concepts defined by dictionary entries can be referenced from other
+    locations using dictionary references, specified using <code>dictRef</code>
+    attributes.
+    In order to be referenceable a dictionary MUST specify a namespace using
+    the <code>namespace</code> attribute, and entries MUST specify an ID using
+    the <code>id</code> attribute, which MUST be unique within the scope
+    of the entry's parent dictionary.
+    The value of the <code>dictRef</code> attribute MUST be a QName which
+    expands to the <code>namespace</code> and <code>id</code> of the
+    dictionary entry defining the concept being referenced.
+</p>
+
+<p>
+    The value of an <code>entry</code>'s <code>id</code> attribute MUST start
+    with a letter, and MUST only contain letters, numbers, dot, hyphen or
+    underscore.
+</p>
+
+<table>
+    <tr>
+        <td><code>IdStartChar</code></td>
+        <td>::=</td>
+        <td><code>[A-Z] | [a-z]</code></td>
+    </tr>
+    <tr>
+        <td><code>IdChar</code></td>
+        <td>::=</td>
+        <td><code>IdStartChar | [0-9] | "." | "-" | "_"</code></td>
+    </tr>
+    <tr>
+        <td><code>Id</code></td>
+        <td>::=</td>
+        <td><code>IdStartChar (IdChar)*</code></td>
+    </tr>
+</table>
+
+
+<p><strong>A minimal CML dictionary:</strong></p>
+
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;dictionary xmlns="http://www.xml-cml.org/schema"
+        namespace="http://www.xml-cml.org/dictionary/dummy/"&gt;
+
+    &lt;entry id="mw" term="Molecular Weight" /&gt;
+
+&lt;/dictionary&gt;
+</pre>
+</div>
+
+<p><strong>A CML property referencing a concept defined by a dictionary entry:</strong></p>
+
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cml xmlns="http://www.xml-cml.org/schema"
+        xmlns:dummy="http://www.xml-cml.org/dictionary/dummy/"&gt;
+
+    &lt;property dictRef="dummy:mw"&gt;
+        &lt;scalar dataType="xsd:double"&gt;72.02&lt;/scalar&gt;
+    &lt;/property&gt;
+
+&lt;/cml&gt;
+</pre>
+</div>
+
+
+<h2><a name="dictionary-namespace">2.1</a> Dictionary Namespace</h2>
+
+<p>
+    A dictionary's namespace URI SHOULD resolve to a representation of the dictionary.
+    A dictionary's namespace URI SHOULD end with either a '/' character or a '#' character
+    so that referenced terms may be resolved by appending them to the URI.
+</p>
+
+<p>
+    In order for dictionary namespaces to be resolvable a CML document SHOULD NOT contain
+    more than one dictionary.
+</p>
+
+
+<h1><a name="convention">3.</a> Convention</h1>
+
+<p>
+    The CML schema only loosely defines the structure of a dictionary. More
+    detailed structure is imposed through use of conventions.
+</p>
+
+<p>
+    To promote interoperability between CML aware software and dictionaries,
+    all dictionaries SHOULD specify a convention, using the
+    <code>convention</code> attribute.  The RECOMMENDED convention for a
+    dictionary is <code><a href="http://www.xml-cml.org/convention/dictionary">http://www.xml-cml.org/convention/dictionary</a></code>.
+</p>
+
+
+<h1><a name="authoring-dictionaries">4.</a> Authoring Dictionaries</h1>
+
+<h2><a name="dictionary-element">4.1</a> Dictionary Element</h2>
+
+<p>
+    A <code>dictionary</code> element SHOULD have a <code>namespace</code>
+    attribute defining the the scope within which the entry terms are unique.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>title</code> attribute
+    specifying a human-readable name for the dictionary.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>description</code> child
+    element specifying a human-readable description of the dictionary.
+</p>
+<p>
+    A <code>dictionary</code> element MAY have a <code>dictionaryPrefix</code>
+    attribute specifying a default prefix to use when referencing dictionary
+    entries.
+</p>
+
+
+<h2><a name="entry-element">4.2</a> Entry Element</h2>
+
+<p>
+    An <code>entry</code> element SHOULD have a <code>id</code> attribute
+    specifying a unique ID, within the scope of the dictionary, by which the
+    entry can be referenced.
+</p>
+<p>
+    An <code>entry</code> element SHOULD have a <code>term</code> attribute
+    specifying unique nounal phrase linguistically identifying the subject
+    of the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>definition</code>
+    element containing a nounal phrase defining of the subject of the entry
+    more verbosely than the term.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>description</code>
+    element containing further information regarding the term.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>dataType</code>
+    attribute specifying the data type of values referencing the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>unitType</code>
+    attribute specifying the unit type of values referencing the entry.
+</p>
+<p>
+    An <code>entry</code> element MAY have a child <code>units</code>
+    attribute specifying the units of values referencing the entry.
+</p>
+
+
+<h1><a name="standard-dictionaries">5.</a> Standard Dictionaries</h1>
+
+<p>
+    Where concepts are defined by the CML schema they SHOULD NOT be redefined
+    using the dictionary mechanism.
+</p>
+<p>
+    Where concepts are defined by standard dictionaries these entries SHOULD be
+    referenced, rather than redefining the concept in another dictionary.
+    Standard (widely used) dictionaries SHOULD be namespaced under the
+    <code>http://www.xml-cml.org/dictionary/</code> domain, and registered
+    with the <code>xml-cml.org</code> site.
+</p>
+
+<p>The following standard dictionaries are / are expected to be defined.</p>
+
+<h2>5.x Dummy</h2>
+
+<p>
+    For testing purposes: conceptually equivalent to <code>http://example.com</code>.
+</p>
+
+
+<h2>5.x Core Concepts</h2>
+
+<h2>5.x Units</h2>
+
+<h2>5.x Comp Chem</h2>
+
+<h2>5.x Crystallography</h2>
+
+<h2>5.x Polymers</h2>
+
+<h2>5.x Reactions</h2>
+
+<h2>5.x Spectroscopy</h2>
+
+
+
+<h1><a name="refs">A.</a> References</h1>
+
+<dl>
+
+    <dt>
+        <a name="ref-RFC2119">[RFC2119]</a>
+    </dt>
+    <dd>
+        IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
+        S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
+    </dd>
+
+    <dt>
+        <a name="ref-XML">[XML]</a>
+    </dt>
+    <dd>
+        <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a></cite>,
+        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
+        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+    </dd>
+
+</dl>
+
+
+
+
+<h1><a name="acks">B.</a> Acknowledgements</h1>
+
+<ul>
+    <li>Peter Murray-Rust</li>
+    <li>Joe Townsend</li>
+    <li>Nick England</li>
+    <li>Weerapong Phadungsukanan</li>
+    <li>Daniel Lowe</li>
+    <li>Sam Adams</li>
+    <li>Hannah Barjat</li>
+</ul>
+
+<hr />
+
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+
+</body>
+</html>

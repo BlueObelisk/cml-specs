@@ -122,8 +122,20 @@
 
 <h3>3.x Child molecules</h3>
 
+<p>
+    A <code>molecule</code> MAY contain one or more child <code>molecule</code> elements.
+    If a <code>molecule</code> does contain child <code>molecule</code> elements, then it
+    MUST NOT also contain an <code>atomArray</code> or <code>bondArray</code> element.
+    A child <code>molecule</code> element MUST have a <code>count</code> attribute.
+</p>
 
 <h2>4.x Connection tables</h2>
+
+<p>
+    A molecule MAY specify a connection table, using <code>atom</code> and <code>bond</code>
+    elements, contained in an <code>atomArray</code> and a <code>bondArray</code> element,
+    respectively.
+</p>
 
 <h3>4.1 Atom Elements</h3>
 
@@ -150,7 +162,7 @@
 <h4>4.3.x 2D Coordinates</h4>
 
 <p>
-    An <code>atom</code> MAY have <code>x2</code> and <code>y2</code> attributes.
+    An <code>atom</code> MAY specify 2D coordinates using the <code>x2</code> and <code>y2</code> attributes.
     If an <code>atom</code> has either an <code>x2</code> or a <code>y2</code> attribute then
     it MUST have both an <code>x2</code> and a <code>y2</code> attribute.
 </p>
@@ -158,13 +170,19 @@
 <h4>4.4.x 3D Coordinates</h4>
 
 <p>
-    An <code>atom</code> MAY have <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
+    An <code>atom</code> MAY specify 3D coordinates using the <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
     If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
     it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
 </p>
 
 <h4>4.5.x Atom Parity Elements</h4>
 
+<p>
+    Atom stereochemistry MAY be specified using the <code>atomParity</code> element.
+    An <code>atomParity</code> element MUST be a child of an <code>atom</code> element.
+    An <code>atomParity</code> element MUST have an <code>atomRefs4</code> attribute,
+    which MUST reference four different atoms.
+</p>
 
 <h3>4.2 Bond Elements</h3>
 
@@ -185,8 +203,8 @@
 <h4>4.2.2 AtomRefs</h4>
 
 <p>
-    A <code>bond</code> MUST have a <code>atomRefs2</code> attribute.
-    The atoms in the <code>atomRefs2</code> attribute MUST be within the socpe of the eldest containing molecule.
+    A <code>bond</code> MUST have an <code>atomRefs2</code> attribute.
+    The atoms in the <code>atomRefs2</code> attribute MUST be within the scope of the eldest containing molecule.
     A <code>bond</code> MUST be between two different atoms.
 </p>
 
@@ -202,12 +220,54 @@
 
 <h4>4.2.4 Bond Stereo Elements</h4>
 
+<p>
+    Bond stereochemistry MAY be specified using the <code>bondStereo</code> element.
+    A <code>bondStereo</code> element MUST be a child of a <code>bond</code> element.
+    Wedge, hatch, cis and trans bond stereochemistry is specified using the values
+    'W', 'H', 'C' and 'T', respectively.
+</p>
+<p>
+    A <code>bondStereo</code> element specifying cis or trans stereochemistry MUST have an
+    <code>atomRefs4</code> attribute, which MUST contain the IDs of the atoms in the parent bond.
+</p>
+<p>
+    A <code>bondStereo</code> element specifying wedge or hatch stereochemistry MAY have an
+    <code>atomRefs2</code> attribute, which MUST contain the IDs of the atoms in the parent bond.
+</p>
+<p>
+    A <code>bondStereo</code> element of type 'other' SHOULD use a <code>dictRef</code> attribute
+    to add further semantics.
+</p>
+
 
 <h2>5. Formula Elements</h2>
 
 
 <h2>6. Property Elements</h2>
 
+<p>
+    Properties on atoms, bonds and molecules MAY be specified using the <code>property</code> element.
+    A <code>property</code> element MUST have a <code>dictRef</code> attribute the value of which
+    MUST be a QName the expands to a CML dictionary entry defining the property, and SHOULD
+    have a <code>title</code> attribute the value of which is a human-readable title of the
+    property, probably the same as the value of the dictionary entry's <code>term</code> attribute.
+</p>
+
+<p>
+    Scalar properties MUST have a child <code>scalar</code> element, containing the value of the property.
+    The <code>scalar</code> element MUST have a <code>units</code> attribute, specifying the units of the value.
+    The <code>scalar</code> element MUST have a <code>dataType</code> attribute, specifying the data type of the value (i.e. string, integer, double etc...).
+</p>
+
+
+
+<h1>TODO</h1>
+
+<p>name</p>
+<p>label</p>
+
+
+<h1>x. Example</h1>
 
 
 

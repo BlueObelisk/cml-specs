@@ -230,6 +230,10 @@ B. <a href="#acks">Acknowledgements</a></p>
     the subject of the entry.
 </p>
 <p>
+    The <code>term</code> attribute MUST NOT be empty and MUST contain at least one 
+    non-whitespace character.
+</p>
+<p>
     The value of the <code>term</code> attribute MAY contain any valid unicode
     character, however it is RECOMMENDED that any character from outside of
     the ASCII subset (codepoints 32-127) is represented using an entity reference.
@@ -245,9 +249,13 @@ B. <a href="#acks">Acknowledgements</a></p>
 </p>
 <p>
     The <code>definition</code> element MUST contain one or more child elements in the
-    <code>http://www.w3.org/1999/xhtml</code> namespace.
+    <code>http://www.w3.org/1999/xhtml</code> namespace. 
     The <code>definition</code> element MUST NOT contain any child elements not in
     the <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the 
+    <code>http://www.w3.org/1999/xhtml</code> element. 
 </p>
 
 
@@ -264,6 +272,10 @@ B. <a href="#acks">Acknowledgements</a></p>
     <code>http://www.w3.org/1999/xhtml</code> namespace.
     The <code>description</code> element MUST NOT contain any child elements not in
     the <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the 
+    <code>http://www.w3.org/1999/xhtml</code> element. 
 </p>
 
 

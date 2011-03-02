@@ -4,8 +4,8 @@
     <title>Chemical Markup Language - CMLComp Convention</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
     <meta http-equiv="refresh" content="5"> 
-    <link rel="stylesheet" href="./style/W3C-PR.css" type="text/css" />
-    <link rel="stylesheet" href="./style/cml-spec.css" type="text/css" />
+    <link rel="stylesheet" href="../style/W3C-PR.css" type="text/css" />
+    <link rel="stylesheet" href="../style/cml-spec.css" type="text/css" />
 </head>
 
 <body>
@@ -384,6 +384,139 @@ parameterised property
 <h3>4.8.3 Matrix</h3>
 <h3>4.8.4 Unit and UnitType</h3>
 
+<p id="example8">
+<strong>Example : Fully qualified CMLComp document</strong>
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cml 
+    cmlx:note="A valid cmlcomp containg two jobs is valid."
+    convention="conventions:cmlcomp"
+    xmlns="http://www.xml-cml.org/schema"
+    xmlns:conventions="http://www.xml-cml.org/convention/"
+    xmlns:units="http://www.xml-cml.org/units/units"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"&gt;
+    &lt;module role="joblist"&gt;
+        &lt;identifier convention="chemid:EmpiricalFormula" value="CCl2O2"/&gt;
+        &lt;identifier convention="chemid:InChI" value="InChI=1/CCl2O2/c2-1(4)5-3"/&gt;
+        &lt;identifier convention="chemid:CanonicalSmiles" value="ClOC(=O)Cl"/&gt;
+        &lt;identifier convention="chemid:IsomericSmiles" value="C(=O)(Cl)OCl"/&gt;
+        &lt;module role="job" title="job1"&gt;
+            &lt;module role="init"&gt;
+                &lt;parameterList&gt;
+                    &lt;parameter dictRef="cmlqm:qm.method"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;B97-1&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.basis"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;6-311+G(d,p)&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.integral"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;UltraFine&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.symm"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;None&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.pop"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Regular&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.freq"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Frequency analysis&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.geo"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Geometry optimization&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.scf"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Tight, SCF Convergence Criteria of 10^-8&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                &lt;/parameterList&gt;
+                &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.6629" y3="-1.148" z3="-0.0578"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.0407" y3="-0.0568" z3="-0.2355"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.5528" y3="-0.8196" z3="0.1622"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.1799" y3="-2.3872" z3="-0.2293"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.0066" y3="-3.6732" z3="-0.1014"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+            &lt;/module&gt;
+            &lt;module role="final"&gt;
+                &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.661722" y3="-1.150648" z3="-0.057744"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.041068" y3="-0.059007" z3="-0.235698"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.55104" y3="-0.821319" z3="0.162394"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.180501" y3="-2.387568" z3="-0.229457"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.00857" y3="-3.666258" z3="-0.101295"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+                &lt;propertyList&gt;
+                    &lt;property dictRef="cmlqm:property.nsymrot"&gt;
+                        &lt;scalar dataType="xsd:integer"&gt;1&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.rotconstants"&gt;
+                        &lt;array dataType="xsd:double" units="units:GHz" delimiter="" size="3"&gt;
+                            9.610774107948902 1.6540686120943338 1.4111941740951228
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoi"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu.rbohr2" delimiter="" size="3"&gt;
+                            187.7832739452039 1091.092965516907 1278.876188881425
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoiaxis"&gt;
+                        &lt;matrix rows="3" columns="3" dataType="xsd:double"&gt;
+                            0.4547378900162555 0.8730253212283468 -0.17618240513089256
+                            -0.8902808990268888 0.45108016953679547 -0.06266260031733822
+                            0.02476635240479569 0.18534688868388882 0.9823610123797482
+                        &lt;/matrix&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.scfenergy"&gt;
+                        &lt;scalar dataType="xsd:double" units="units:hartree"&gt;-1108.82623721&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.hf298"&gt;
+                        &lt;scalar units="units:kcal.mol-1" dataType="xsd:double"&gt;-61.5885860322&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.freqmode"&gt;
+                        &lt;array dataType="xsd:double" units="units:cm-1" delimiter="" size="9"&gt;
+                            142.6122 218.2282 326.208 471.9528 665.9777 708.8044 841.3894 1047.4277 1905.0634
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.forceconstant"&gt;
+                        &lt;array dataType="xsd:double" units="units:mDyne.A-1" delimiter="" size="9"&gt;
+                            0.2216 0.5379 1.7308 2.7391 3.3245 5.34 6.1336 8.6831 28.3818
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.irintensity"&gt;
+                        &lt;array dataType="xsd:double" units="units:KM.mol-1" delimiter="" size="9"&gt;
+                            0.4756 1.7945 5.3957 3.2514 12.5217 26.7365 85.8421 376.7849 400.4058
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.reducedmass"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu" delimiter="" size="9"&gt;
+                            18.4952 19.1715 27.6069 20.8721 12.7222 18.04 14.7051 13.4331 13.273
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                &lt;/propertyList&gt;
+            &lt;/module&gt;
+        &lt;/module&gt;
+    &lt;/module&gt;
+&lt;/cml&gt;
+</pre>
+</div>
+</p>
 
 <!--h2>4.x Connection tables</h2>
 

@@ -169,30 +169,207 @@
 </div>
 </p>
 
-<h1>3. Computational Concepts and Elements</h1>
+<h1>3. CMLComp Concepts and Elements</h1>
 
 <h2>3.1 Joblist</h2>
 <p>
-    In computing a quantum chemistry task, it often requries to perform a series of subtasks, e.g. coarse optimisation > fine optimisation > NMR Spectrum Analysis, in order to achieve a final desired results. The job list concept is introduced to capture these series of successive subtasks and links the information from one subtask to the next subtask.
+    In computing a quantum chemistry task, it often requries to perform a series of subtasks, e.g. coarse optimisation > fine optimisation > NMR Spectrum Analysis, in order to achieve a final desired results. This is because most quantum chemistry software are designed to be modularised and only perform a single task at a time. The job list concept is introduced to capture these series of successive subtasks and links the information from one subtask to the next subtask.
 </p>
 
 <p>
-    The job list can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>joblist</code>.
+    The job list can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>joblist</code>, i.e. <code>cml:module[@role="joblist"]</code>. This is shown in <a href="#example1">Example 1</a>.
 </p>
+
 <p>
-    The job list module, i.e. module[@role="joblist"], is a required element and there MUST be at least one element of job list module present in the <code>cml</code> container. This is shown in <a href="#example1">Example 1</a>.
+    The job list module is a required element and there MUST be at least one element of job list module present in the <code>cml</code> container, see <a href="#example3">Example 3</a>.
+</p>
+
+<p id="example3">
+<strong>Example 3: Minimal requirements for CMLComp Joblist</strong>
+<div class="good">
+<pre>
+&lt;module role="joblist"&gt;
+    &lt;module role="job" title="geometry optimisation"&gt;
+        &lt;!-- job body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+</pre>
+</div>
 </p>
 
 <h2>3.2 Job</h2>
+<p>
+    A job concept represents the computational job performed by quantum chemistry software, e.g. geometry optimisation job, frequency analysis job, etc. The job concept is the smallest unit which can fully describe a general picture of computational modelling. It consists of model parameters, model optimisations or calculations and model results. These three components are fundamental to every modelling in every field. However, a job in CMLComp does not requires all three components. Only model parameters are mandatory.
+</p>
 
 <p>
-    A <code>molecule</code> element MAY contain one or more <code>name</code> child elements.
-    A <code>name</code> element MUST have a <code>dictRef</code> specified.
+    The job can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>job</code> and it MUST conform with the following rules:
+
+<ul>
+    <li>The CMLComp Job is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>job</code>.</li>
+    <li>The CMLComp Job MUST be titled using <code>title</code> attribute with <strong><em>unique string identifier</em></strong> within its job list module, i.e. <code>cml:module[@role="joblist" and @title="unique ID"]</code>. The job title only serves as human readable text and machine distinguishable identifier.</li>
+    <li>There MUST be at <strong><em>least one</em></strong> CMLComp Job in any CMLComp Joblist.</li>
+    <li>There MUST contains <strong><em>exactly one</em></strong> module of initialisation.</li>
+    <li>The CMLComp Job MAY contains at <strong><em>least one</em></strong> of calculation or optimsation module <strong><em>after</em></strong> the initialisation module stated in previous bullet point.</li>
+    <li>The CMLComp Job MAY contains <strong><em>exactly one</em></strong> finalisation module <strong><em>after</em></strong> the calculation or optimsation modules (if present) stated in previous bullet point <strong><em>or</em></strong> <strong><em>after</em></strong> the initialisation module (if calculation or optimsation modules are not present).</li>
+    <li>If the calculation or optimsation modules is present, CMLComp Job MUST contain a finalisation module.</li>
+    <li>The finalisation module MUST be the <strong><em>last</em></strong> element in CMLComp Job.</li>
+    <li>TODO: other elements allowed are <code>identifier</code>.</li>
+</ul>
+</p>
+
+
+<p>
+    A CMLComp Job which contains only the initialisation module can be used for storing program or model inputs. It can be considered as an XML version of program input file.
+</p>
+
+<p id="example4">
+<strong>Example 4: Minimal requirements for CMLComp Job module</strong>
+<div class="good">
+<pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+</pre>
+</div>
+</p>
+
+<p id="example5">
+<strong>Example 5: CMLComp Job module with multiple calculation steps</strong>
+<div class="good">
+<pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="final"&gt;
+        &lt;!-- requried final body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+</pre>
+</div>
+</p>
+
+<p id="example6">
+<strong>Example 6: CMLComp Job module without calculation steps</strong>
+<div class="good">
+<pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="final"&gt;
+        &lt;!-- requried final body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+</pre>
+</div>
 </p>
 
 <h2>3.3 Init</h2>
+
+<p>
+    An initialisation module represents the concept of the model parameters and inputs for computational job. The initialisation module is mandatory in CMLComp. Here is a list of requirements:
+
+<ul>
+    <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
+    <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+    <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+    <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Init in a given CMLComp Job.</li>
+    <li>There MUST NOT be any other elements than given above in CMLComp Init.</li>
+</ul>
+</p>
+
+<p id="example7">
+<strong>Example 7: CMLComp Init module</strong>
+<div class="good">
+<pre>
+&lt;module role="init"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;parameterList&gt;
+        &lt;!-- parameterList body is omitted. --&gt;
+    &lt;/parameterList&gt;
+&lt;/module&gt;
+</pre>
+</div>
+</p>
+
 <h2>3.4 Calculation</h2>
+
+<p>
+    A calculation module represents the concept of the model calculation or optimisation or iteration processes for computational job. The calculation module is optional in CMLComp. Here is a list of requirements:
+
+<ul>
+    <li>The CMLComp Calculation is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>calculation</code>.</li>
+    <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+    <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+    <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+    <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or <code>cml:propertyList</code> element.</li>
+    <li>There MAY be <strong><em>zero or more than one</em></strong> of CMLComp Calculation in a given CMLComp Job.</li>
+    <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
+</ul>
+</p>
+
+<p id="example8">
+<strong>Example 8: CMLComp Calculation module</strong>
+<div class="good">
+<pre>
+&lt;module role="calculation"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;parameterList&gt;
+        &lt;!-- parameterList body is omitted. --&gt;
+    &lt;/parameterList&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+</pre>
+</div>
+</p>
 <h2>3.5 Final</h2>
+
+<p>
+    A finalisation module represents the concept of the model results for computational job. The finalisation module is optional in CMLComp. Here is a list of requirements:
+
+<ul>
+    <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
+    <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+    <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+    <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Final in a given CMLComp Job.</li>
+    <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
+</ul>
+</p>
+
+<p id="example8">
+<strong>Example 8: CMLComp Final module</strong>
+<div class="good">
+<pre>
+&lt;module role="final"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+</pre>
+</div>
+</p>
 <h1>4. Imported CML Elements</h1>
 <h2>4.1 Molecule</h2>
 <h2>4.2 z-Matrix</h2>
@@ -208,7 +385,7 @@ parameterised property
 <h3>4.8.4 Unit and UnitType</h3>
 
 
-<h2>4.x Connection tables</h2>
+<!--h2>4.x Connection tables</h2>
 
 <h3>4.1 Atom Elements</h3>
 
@@ -282,7 +459,7 @@ parameterised property
     A <code>bond</code> MUST have an <code>order</code> attribute.
     If the value of the <code>order</code> attribute is <code>other</code>, then the <code>bond</code> SHOULD
     have further semantics given using the <code>dictRef</code> attribute.
-</p>
+</p-->
 
 
 

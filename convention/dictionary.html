@@ -3,7 +3,7 @@
 <head>
     <title>Chemical Markup Language - Dictionary Convention</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    <link rel="stylesheet" href="./style/cml-spec.css" type="text/css" />
+    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css" />
 </head>
 
 <body>
@@ -13,10 +13,10 @@
 
     <dl>
         <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
-        <dd><a href="http://www.xml-cml.org/convention/dictionary-20110209/">http://www.xml-cml.org/convention/dictionary-20110209/</a></dd>
+        <dd><a href="http://www.xml-cml.org/convention/dictionary-20110209">http://www.xml-cml.org/convention/dictionary-20110209</a></dd>
 
         <dt>Latest version:</dt>
-        <dd><a href="http://www.xml-cml.org/convention/dictionary/">http://www.xml-cml.org/convention/dictionary/</a></dd>
+        <dd><a href="http://www.xml-cml.org/convention/dictionary">http://www.xml-cml.org/convention/dictionary</a></dd>
         
         <dt>Authors:</dt>
         <dd>See <a href="#acks">acknowledgments</a>.</dd>
@@ -230,7 +230,11 @@ B. <a href="#acks">Acknowledgements</a></p>
     the subject of the entry.
 </p>
 <p>
-    The value of the <code>term</code> attribute MAY contain and valid unicode
+    The <code>term</code> attribute MUST NOT be empty and MUST contain at least one 
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>term</code> attribute MAY contain any valid unicode
     character, however it is RECOMMENDED that any character from outside of
     the ASCII subset (codepoints 32-127) is represented using an entity reference.
 </p>
@@ -245,9 +249,13 @@ B. <a href="#acks">Acknowledgements</a></p>
 </p>
 <p>
     The <code>definition</code> element MUST contain one or more child elements in the
-    <code>http://www.w3.org/1999/xhtml</code> namespace.
+    <code>http://www.w3.org/1999/xhtml</code> namespace. 
     The <code>definition</code> element MUST NOT contain any child elements not in
     the <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the 
+    <code>http://www.w3.org/1999/xhtml</code> element. 
 </p>
 
 
@@ -264,6 +272,10 @@ B. <a href="#acks">Acknowledgements</a></p>
     <code>http://www.w3.org/1999/xhtml</code> namespace.
     The <code>description</code> element MUST NOT contain any child elements not in
     the <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the 
+    <code>http://www.w3.org/1999/xhtml</code> element. 
 </p>
 
 

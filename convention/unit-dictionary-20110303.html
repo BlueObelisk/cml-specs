@@ -1,0 +1,550 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <title>Chemical Markup Language - Unit Dictionary Convention</title>
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
+</head>
+
+<body>
+<div class="head">
+    <h1>Chemical Markup Language - Unit Dictionary Convention</h1>
+
+    <h2>3 March 2011</h2>
+    <dl>
+        <dt>
+            <a id="thisVersion" name="thisVersion">This version</a>:
+        </dt>
+        <dd>
+            <a href="http://www.xml-cml.org/convention/unit-20110303">http://www.xml-cml.org/convention/unit-dictionary-20110303</a>
+        </dd>
+
+        <dt>Latest version:</dt>
+        <dd>
+            <a href="http://www.xml-cml.org/convention/unit">http://www.xml-cml.org/convention/unit-dictionary</a>
+        </dd>
+
+        <dt>Authors:</dt>
+        <dd>See <a href="#acks">acknowledgments</a>.</dd>
+
+        <dt>Editors:</dt>
+        <dd>Sam Adams, University of Cambridge</dd>
+        <dd>Joe Townsend, University of Cambridge</dd>
+    </dl>
+    <h2>
+        <a name="abstract" id="abstract"/>Abstract</h2>
+    <p>This specification defines the requirements of the Chemical Markup Language unit convention.</p>
+    <hr/>
+</div>
+
+<h1>
+    <a name="contents" id="contents"/>Table of Contents</h1>
+
+<p class="toc">1. <a href="#introduction">Introduction</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;1.1 <a href="#notational-conventions">Notational Conventions</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a>
+    <br/>
+    2. <a href="#applying">Applying the unit-dictionary convention</a>
+    <br/>
+    3. <a href="#unitList-element">UnitList Element</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.1 <a href="#unitList-namespace">Namespace</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.2 <a href="#unitList-title">Title</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.3 <a href="#unitList-description">Description</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.4 <a href="#unitList-units">Units</a>
+    <br/>
+    4. <a href="#unit-elements">Unit Elements</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#unit-id">ID</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#unit-title">Title</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.3 <a href="#unit-symbol">Symbol</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.4 <a href="#unit-parentSI">Parent SI</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.5 <a href="#unit-toSI">Multiplier and/or Constant to SI</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.6 <a href="#unit-unitType">Unit Type</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.7 <a href="#unit-definition">Definition</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.8 <a href="#unit-description">Description</a>
+    <br/>
+    5. <a href="#example">Example Unit Dictionary</a>
+</p>
+
+<h2>Appendices</h2>
+
+<p>A. <a href="#refs">References</a>
+    <br/>
+    B. <a href="#acks">Acknowledgements</a>
+</p>
+<hr/>
+<h1>
+    <a name="introduction">1.</a> Introduction</h1>
+
+<p>
+    Units are required throughout CML and are usually indicated using the <code>units</code> attribute.
+    Each unit needs to have a unique identifier and be defined in such a way that they can be understood
+    by both humans and machines.
+</p>
+
+<p>
+    Lists of units are similar to <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
+    but require more information for each "entry" such as their relationship to a standard (SI) base unit
+    or what type of unit they are <i>i.e.</i> the units metre, angstrom and picometre are all of type
+    length whilst the unit Kelvin is of type temperature. The phrases "unit list" and "unit dictionary" 
+    are used interchangably; the only reason for choosing one term over the other is for readability.
+</p>
+
+<p>
+    Where units are already defined in the standard unit dictionaries (see <a href="http://www.xml-cml.org/unit/">http://www.xml-cml.org/unit/</a>)
+    these units SHOULD be used, rather than redefining the concepts in another unit dictionary.
+</p>
+
+<h2>
+    <a name="notational-conventions">1.1</a> Notational Conventions</h2>
+
+<p>
+    The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+    &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
+    in this document are to be interpreted as described in RFC 2119 [<cite>
+    <a href="#ref-RFC2119">IETF RFC 2119</a>
+</cite>].
+</p>
+
+<p>
+    The terms &quot;element&quot;, &quot;attribute&quot;, &quot;child&quot; and &quot;parent&quot;
+    in this document are to be interpreted as described in the W3C Recommendation for Extensible Markup
+    Language (XML) [<cite>
+    <a href="#ref-XML">W3C XML</a>
+</cite>].
+</p>
+
+<p>The use of fonts is as follows:</p>
+<ul>
+    <li>Schema terms, including elements and attributes, are written in <code>this font</code>.</li>
+</ul>
+
+<h2>
+    <a name="namespaces">1.2</a> Namespaces</h2>
+
+<p>This specification uses the following namespaces and prefixes to indicate those namespaces:</p>
+
+<table class="namespace-table" summary="Namespaces table">
+    <tr>
+        <th>Prefix</th>
+        <th>Namespace URI</th>
+        <th>Description</th>
+    </tr>
+    <tr>
+        <td>
+            <code>cml</code>
+        </td>
+        <td>
+            <code>http://www.xml-cml.org/schema</code>
+        </td>
+        <td>Chemical Markup Language elements</td>
+    </tr>
+    <tr>
+        <td>
+            <code>convention</code>
+        </td>
+        <td>
+            <code>http://www.xml-cml.org/convention/</code>
+        </td>
+        <td>Standard Chemical Markup Language convention namespace</td>
+    </tr>
+    <tr>
+        <td>
+            <code>xhtml</code>
+        </td>
+        <td>
+            <code>http://www.w3.org/1999/xhtml</code>
+        </td>
+        <td>XHTML</td>
+    </tr>
+</table>
+<h1>
+    <a name="applying">2.</a> Applying the unit-dictionary convention</h1>
+
+<p>
+    The unit-dictionary convention MUST be specified using the <code>convention</code>
+    attribute on a <code>unitList</code> element.
+</p>
+
+<h1>
+    <a name="unitList-element">3.</a> UnitList Element</h1>
+
+<h2>
+    <a name="unitList-namespace">3.1</a> Namespace</h2>
+<p>
+    The <code>unitList</code> element MUST have a <code>namespace</code> attribute,
+    the value of which MUST be a valid URI defining the the scope within which the
+    entry terms are unique.
+    </p>
+    <p>
+    The unitList's namespace URI SHOULD resolve to a representation of the dictionary of units.
+    The unitList's namespace URI SHOULD end with either a '/' character or a '#' character
+    so that terms may be referenced by appending them to the URI.
+</p>
+
+<h2>
+    <a name="unitList-title">3.2</a> Title</h2>
+
+<p>
+    The <code>unitList</code> element SHOULD have a <code>title</code>
+    attribute intended for human-readability.
+</p>
+<p>
+    The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>title</code> attribute MAY contain any valid unicode
+    character, however it is RECOMMENDED that any character from outside of
+    the ASCII subset (codepoints 32-127) is represented using an entity reference.
+</p>
+
+<h2>
+    <a name="unitList-description">3.3</a> Description</h2>
+<p>
+    The <code>unitList</code> element SHOULD have a single <code>description</code>
+    child element, the contents of which provide a human-readable description of the
+    domain of the dictionary.
+    The <code>description</code> element MUST contain one or more child elements in the
+    <code>http://www.w3.org/1999/xhtml</code> namespace.
+    The <code>description</code> element MUST NOT contain any child elements not in
+    the <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+
+
+<h2>
+    <a name="unitList-units">3.4</a> Units</h2>
+
+<p>
+    The <code>unitList</code> element MUST contain one more more child <code>unit</code>
+    elements, and MUST not contain any other child elements from the
+    <code>http://www.xml-cml.org/schema</code> namespace.
+</p>
+<div class="good">
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;unitList xmlns="http://www.xml-cml.org/schema"
+     xmlns:convention="http://www.xml-cml.org/convention/"
+     xmlns:xhtml="http://www.w3.org/1999/xhtml"
+     convention="convention:unit-dictionary"
+     title="example unit list"
+     namespace="http://www.xml-cml.org/unit/"&gt;
+     &lt;description&gt;
+         &lt;xhtml:p&gt;
+            This is an example unit list for demonstration purposes
+         &lt;/xhtml:p&gt;
+     &lt;/description&gt;
+     &lt;unit&gt;
+     &lt;!-- rest of document omitted --&gt;
+     &lt;/unit&gt;
+&lt;/unitList&gt;
+</pre>
+</div>
+<h1>
+    <a name="unit-elements">4.</a> Unit Elements</h1>
+
+<h2>
+    <a name="entry-id">4.1</a> ID</h2>
+<p>
+    A <code>unit</code> element MUST have an <code>id</code> attribute, the
+    value of which MUST be unique within the scope of the unitList. 
+</p>
+
+<p>
+    The value of the <code>id</code> attribute MUST start with a letter, and
+    MUST only contain letters, numbers, dot, hyphen or underscore.
+</p>
+<table>
+    <tr>
+        <td>
+            <code>IdStartChar</code>
+        </td>
+        <td>::=</td>
+        <td>
+            <code>[A-Z] | [a-z]</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>IdChar</code>
+        </td>
+        <td>::=</td>
+        <td>
+            <code>IdStartChar | [0-9] | "." | "-" | "_"</code>
+        </td>
+    </tr>
+    <tr>
+        <td>
+            <code>Id</code>
+        </td>
+        <td>::=</td>
+        <td>
+            <code>IdStartChar (IdChar)*</code>
+        </td>
+    </tr>
+</table>
+
+<h2><a name="unit-title">4.2</a> Title</h2>
+<p>
+    A <code>unit</code> element MUST have a <code>title</code> attribute, the
+    value of which will typically be the full name of the unit whilst the id is typically an 
+    abbreviation. For example, the SI unit of mass is the kilogram; the id is 'kg' and the title is 
+    'kilogram'.
+</p>
+<p>
+    The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+
+<h2><a name="unit-symbol">4.3</a> Symbol</h2>
+<p>
+    A <code>unit</code> element MUST have a <code>symbol</code> attribute, the
+    value of which is the full symbol used to represent this unit. For example the units 'Kelvin', 
+    'Hertz', 'Joule' and 'Becquerel' have symbols 'K', 'Hz', 'J' and 'Bq' respectively.
+</p>
+<p>
+    The <code>symbol</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>symbol</code> attribute MAY contain any valid unicode
+    character, however it is RECOMMENDED that any character from outside of
+    the ASCII subset (codepoints 32-127) is represented using an entity reference.
+</p>
+
+<h2><a name="unit-parentSI">4.4</a> Parent SI</h2>
+<p>
+A <code>unit</code> element MUST have a <code>parentSI</code> attribute, the value of which is a 
+QName referencing the parent SI unit <i>e.g.</i> 'calorie' has the SI parent 'joule'. 
+</p>
+
+<h2><a name="unit-toSI">4.5</a> Multiplier and/or Constant to SI</h2>
+<p>
+A <code>unit</code> element MUST have at least one of a <code>multiplierToSI</code> attribute and a 
+<code>constantToSI</code> attribute, the value of which must be a double. 
+</p>
+<p>
+<code>multiplerToSI</code> specifies the factor by which the non-SI unit should be multiplied to 
+convert a quantity to its representation in SI Units. This is applied <em>before</em> 
+<code>constantToSI</code>. The value is unity for an SI unit by definition.
+</p>
+<p>
+<code>constantToSI</code> specifies the amount to add to a quantity in non-SI units to convert its
+representation to SI Units. This is applied <em>after</em> <code>multiplierToSI</code>. The value is 
+zero for SI units by definition.
+</p>
+<p>
+A unit that is related to an SI unit only by a constant offset <i>e.g.</i> Celsius, which has a constant to the 
+SI unit of temperature (Kelvin) of '273' need not specify a multiplier (although it MAY specify a 
+multiplier to SI of '1'). 
+</p>
+<p>
+A unit that is related to an SI unit only by a constant multiplier <i>e.g.</i> gram, which has a 
+multiplier to the SI unit kilogram of '0.001' need not specify a constant (although it MAY specify a
+constant to SI of '0').  
+</p>
+<h2><a name="unit-unitType">4.6</a> Unit Type</h2>
+<p>
+    Every <code>unit</code> element MUST have a <code>unitType</code> attribute, the value of which 
+    is a QName referencing the unit type (<i>e.g.</i> time, temperature, length, force) of the unit.
+</p>
+
+<h2><a name="unit-definition">4.7</a> Definition</h2>
+    A <code>unit</code> element MUST contain a single <code>definition</code>
+    child element, the content of which provides a concise human-readable definition of the unit. 
+    For example, the definition of the SI unit of time (a second) would be;
+    <br />
+    "The SI base unit of time, equal to the duration of 9192631770 periods of the radiation 
+    corresponding to the transition between the two hyperfine levels of the ground state of the 
+    caesium-133 atom."
+</p>
+<p>
+    The <code>definition</code> element MUST contain one or more child elements in the
+    <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the
+    <code>http://www.w3.org/1999/xhtml</code> element.
+</p>
+
+<h2><a name="unit-description">4.8</a> Description</h2>
+<p>
+    A <code>unit</code> element MAY have a single <code>description</code>
+    child element, the content of which provides further information regarding
+    the unit, including, but not limited to: examples, human-readable semantics
+    and hyperlinks to other useful resources.
+</p>
+<p>
+    The <code>description</code> element MUST contain one or more child elements in the
+    <code>http://www.w3.org/1999/xhtml</code> namespace.
+</p>
+<p>
+    There MUST be at least one non-whitespace character as a child of the
+    <code>http://www.w3.org/1999/xhtml</code> element.
+</p>
+
+<h1>
+    <a name="example">5.</a> Example Dictionary</h1>
+
+<div class="good">
+            <pre>
+                &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+                &lt;unitList
+                        xmlns:convention="http://www.xml-cml.org/convention/"
+                        xmlns:siUnits="http://www.xml-cml.org/unit/si/"
+                        xmlns="http://www.xml-cml.org/schema"
+                        xmlns:h="http://www.w3.org/1999/xhtml"
+                        xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
+                        convention="convention:unit-dictionary"
+                        title="example units dictionary"
+                        namespace="http://www.xml-cml.org/unit/example/"
+                        &gt;
+                    &lt;description&gt;
+                        &lt;h:p&gt;
+                            An example units dictionary.
+                        &lt;/h:p&gt;
+                    &lt;/description&gt;
+                    &lt;unit
+                            title="second"
+                            id="s"
+                            symbol="s"
+                            parentSI="siUnits:s"
+                            multiplierToSI="1" 
+                            constantToSI="0"
+                            unitType="unitType:time"&gt;
+                        &lt;definition&gt;
+                            &lt;h:p&gt;
+                                The SI base unit of time, equal to the duration of 9192631770 periods of the radiation corresponding 
+                                to the transition between the two hyperfine levels of the ground state of the 
+                                caesium-133 atom.
+                            &lt;/h:p&gt;
+                        &lt;/definition&gt;
+                        &lt;description&gt;
+                            &lt;h:p&gt;
+                                The second has had many definitions throughout history; originally, it was one sixtieth
+                                of one twenty-fourth of a solar day (the factor of sixty coming from Babylonian counting
+                                and the factor of 24 from Ancient Egypt).
+                            &lt;/h:p&gt;
+                            &lt;h:p&gt;
+                                The present definition dates from the Thirteenth General Conference on Weights and Measures,
+                                which took place in 1967.
+                            &lt;/h:p&gt;
+                        &lt;/description&gt;
+                    &lt;/unit&gt;
+                    &lt;unit
+                            title="metre"
+                            id="m"
+                            symbol="m"
+                            parentSI="siUnits:m"
+                            multiplierToSI="1.0" 
+                            unitType="unitType:length"&gt;
+                        &lt;definition&gt;
+                            &lt;h:p&gt;
+                                The SI base unit of length, defined as the length of the path travelled by 
+                                light in absolute vacuum during 1/299792458 of a second.
+                            &lt;/h:p&gt;
+                        &lt;/definition&gt;	
+                        &lt;description&gt;
+                            &lt;h:p&gt;
+                                The modern metre dates from 1791, when it was defined one ten-millionth of
+                                the length of the earth's meridian along a quadrant; it became France's
+                                official unit of length in 1793. Until 1960, the metre (like the kilogram)
+                                was defined by a prototype - in this case, a platinum-iridium bar; in 1960,
+                                the SI defined the metre as 1650763.73 wavelengths of the orange-red 
+                                emission line (the 2p10 - 5d5 transition) in the EM spectrum of Krypton-86 
+                                in vacuum. Since 1983, the present definition has been used.
+                            &lt;/h:p&gt;
+                        &lt;/description&gt;
+                    &lt;/unit&gt;
+                    &lt;unit 
+                            title="Angstrom" 
+                            id="angstrom" 
+                            symbol="&amp;#197;" 
+                            parentSI="siUnits:m"
+                            multiplierToSI="1E-10" 
+                            unitType="unitType:length"&gt;
+                    &lt;definition&gt;
+                      &lt;h:p&gt;
+                        1E-10 metres.
+                    &lt;/h:p&gt;
+                    &lt;/definition&gt;
+                    &lt;description&gt;
+                      &lt;h:p&gt;
+                        The angstrom is named after the Swedish physicist Anders Jonas Angstrom
+                        (1814-1874), one of the founders of spectroscopy, after his
+                        spectrum chart
+                        of solar radiation in the electromagnetic spectrum on the order
+                        of multiples of one ten-millionth of a millimetre, or 1E-10 metres.
+                      &lt;/h:p&gt;
+                    &lt;/description&gt;
+                  &lt;/unit&gt;
+                &lt;/unitList&gt;
+            </pre>
+</div>
+
+
+<h1>
+    <a name="refs">A.</a> References</h1>
+
+<dl>
+
+    <dt>
+        <a name="ref-RFC2119">[RFC2119]</a>
+    </dt>
+    <dd>
+        IETF <cite>
+        <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement
+            Levels</a>
+    </cite>,
+        S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
+    </dd>
+
+    <dt>
+        <a name="ref-XML">[XML]</a>
+    </dt>
+    <dd>
+        <cite>
+            <a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth
+                Edition)</a>
+        </cite>,
+        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors. World Wide Web Consortium.
+        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a
+            href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+    </dd>
+
+</dl>
+
+
+<h1>
+    <a name="acks">B.</a> Acknowledgements</h1>
+
+<ul>
+    <li>Peter Murray-Rust</li>
+    <li>Joe Townsend</li>
+    <li>Sam Adams</li>
+    <li>Egon Willighagen</li>
+</ul>
+
+<hr/>
+
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+    <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png"/>
+</a>
+<br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+    Attribution 3.0 Unported License</a>.
+
+</body>
+</html>

@@ -1,14 +1,14 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Chemical Markup Language - Unit Convention</title>
+    <title>Chemical Markup Language - Unit Dictionary Convention</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
     <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
 </head>
 
 <body>
 <div class="head">
-    <h1>Chemical Markup Language - Unit Convention</h1>
+    <h1>Chemical Markup Language - Unit Dictionary Convention</h1>
 
     <h2>3 March 2011</h2>
     <dl>
@@ -16,12 +16,12 @@
             <a id="thisVersion" name="thisVersion">This version</a>:
         </dt>
         <dd>
-            <a href="http://www.xml-cml.org/convention/unit-20110303">http://www.xml-cml.org/convention/unit-20110303</a>
+            <a href="http://www.xml-cml.org/convention/unit-20110303">http://www.xml-cml.org/convention/unit-dictionary-20110303</a>
         </dd>
 
         <dt>Latest version:</dt>
         <dd>
-            <a href="http://www.xml-cml.org/convention/unit">http://www.xml-cml.org/convention/unit</a>
+            <a href="http://www.xml-cml.org/convention/unit">http://www.xml-cml.org/convention/unit-dictionary</a>
         </dd>
 
         <dt>Authors:</dt>
@@ -46,7 +46,7 @@
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a>
     <br/>
-    2. <a href="#applying">Applying the unit convention</a>
+    2. <a href="#applying">Applying the unit-dictionary convention</a>
     <br/>
     3. <a href="#unitList-element">UnitList Element</a>
     <br/>
@@ -99,8 +99,8 @@
     Lists of units are similar to <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
     but require more information for each "entry" such as their relationship to a standard (SI) base unit
     or what type of unit they are <i>i.e.</i> the units metre, angstrom and picometre are all of type
-    length. The phrases "unit list" and "unit dictionary" are used interchangably; the only reason
-    for choosing one term over the other is for readability.
+    length whilst the unit Kelvin is of type temperature. The phrases "unit list" and "unit dictionary" 
+    are used interchangably; the only reason for choosing one term over the other is for readability.
 </p>
 
 <p>
@@ -172,10 +172,10 @@
     </tr>
 </table>
 <h1>
-    <a name="applying">2.</a> Applying the unit convention</h1>
+    <a name="applying">2.</a> Applying the unit-dictionary convention</h1>
 
 <p>
-    The unit convention MUST be specified using the <code>convention</code>
+    The unit-dictionary convention MUST be specified using the <code>convention</code>
     attribute on a <code>unitList</code> element.
 </p>
 
@@ -188,6 +188,8 @@
     The <code>unitList</code> element MUST have a <code>namespace</code> attribute,
     the value of which MUST be a valid URI defining the the scope within which the
     entry terms are unique.
+    </p>
+    <p>
     The unitList's namespace URI SHOULD resolve to a representation of the dictionary of units.
     The unitList's namespace URI SHOULD end with either a '/' character or a '#' character
     so that terms may be referenced by appending them to the URI.
@@ -199,6 +201,15 @@
 <p>
     The <code>unitList</code> element SHOULD have a <code>title</code>
     attribute intended for human-readability.
+</p>
+<p>
+    The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>title</code> attribute MAY contain any valid unicode
+    character, however it is RECOMMENDED that any character from outside of
+    the ASCII subset (codepoints 32-127) is represented using an entity reference.
 </p>
 
 <h2>
@@ -228,7 +239,7 @@
 &lt;unitList xmlns="http://www.xml-cml.org/schema"
      xmlns:convention="http://www.xml-cml.org/convention/"
      xmlns:xhtml="http://www.w3.org/1999/xhtml"
-     convention="convention:unit"
+     convention="convention:unit-dictionary"
      title="example unit list"
      namespace="http://www.xml-cml.org/unit/"&gt;
      &lt;description&gt;
@@ -397,7 +408,7 @@ constant to SI of '0').
                         xmlns="http://www.xml-cml.org/schema"
                         xmlns:h="http://www.w3.org/1999/xhtml"
                         xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
-                        convention="convention:unit"
+                        convention="convention:unit-dictionary"
                         title="example units dictionary"
                         namespace="http://www.xml-cml.org/unit/example/"
                         &gt;

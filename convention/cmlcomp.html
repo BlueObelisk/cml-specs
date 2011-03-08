@@ -11,11 +11,11 @@
     <body>
         <div class="head">
             <h1>Chemical Markup Language - CMLComp Convention</h1>
-            <h2>28 February 2011</h2>
+            <h2>08 March 2011</h2>
 
             <dl>
                 <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
-                <dd><a href="http://www.xml-cml.org/convention/cmlcomp-20110228">http://www.xml-cml.org/convention/cmlcomp-20110228</a></dd>
+                <dd><a href="http://www.xml-cml.org/convention/cmlcomp-20110308">http://www.xml-cml.org/convention/cmlcomp-20110308</a></dd>
 
                 <dt>Latest version:</dt>
                 <dd><a href="http://www.xml-cml.org/convention/cmlcomp">http://www.xml-cml.org/convention/cmlcomp</a></dd>
@@ -154,8 +154,9 @@
 
         <p id="example2">
             <strong>Example 2: CMLComp document MUST contain at least one <code>module[@role="joblist"]</code></strong>
-            <div class="bad">
-                <pre>
+        </p>
+        <div class="bad">
+            <pre>
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;cml xmlns="http://www.xml-cml.org/schema"
      xmlns:convention="http://www.xml-cml.org/convention/"
@@ -163,9 +164,8 @@
 
      &lt;!-- Empty body is invalid CMLComp document. --&gt;
 &lt;/cml&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <h1>3. CMLComp Concepts and Elements</h1>
 
@@ -184,16 +184,16 @@
 
         <p id="example3">
             <strong>Example 3: Minimal requirements for CMLComp Joblist</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="joblist"&gt;
     &lt;module role="job" title="geometry optimisation"&gt;
         &lt;!-- job body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <h2>3.2 Job</h2>
         <p>
@@ -202,19 +202,18 @@
 
         <p>
             The job can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>job</code> and it MUST conform with the following rules:
-
-            <ul>
-                <li>The CMLComp Job is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>job</code>.</li>
-                <li>The CMLComp Job MUST be titled using <code>title</code> attribute with <strong><em>unique string identifier</em></strong> within its job list module, i.e. <code>cml:module[@role="joblist" and @title="unique ID"]</code>. The job title only serves as human readable text and machine distinguishable identifier.</li>
-                <li>There MUST be at <strong><em>least one</em></strong> CMLComp Job in any CMLComp Joblist.</li>
-                <li>There MUST contains <strong><em>exactly one</em></strong> module of initialisation.</li>
-                <li>The CMLComp Job MAY contains at <strong><em>least one</em></strong> of calculation or optimsation module <strong><em>after</em></strong> the initialisation module stated in previous bullet point.</li>
-                <li>The CMLComp Job MAY contains <strong><em>exactly one</em></strong> finalisation module <strong><em>after</em></strong> the calculation or optimsation modules (if present) stated in previous bullet point <strong><em>or</em></strong> <strong><em>after</em></strong> the initialisation module (if calculation or optimsation modules are not present).</li>
-                <li>If the calculation or optimsation modules is present, CMLComp Job MUST contain a finalisation module.</li>
-                <li>The finalisation module MUST be the <strong><em>last</em></strong> element in CMLComp Job.</li>
-                <li>TODO: other elements allowed are <code>identifier</code>.</li>
-            </ul>
         </p>
+        <ul>
+            <li>The CMLComp Job is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>job</code>.</li>
+            <li>The CMLComp Job MUST be titled using <code>title</code> attribute with <strong><em>unique string identifier</em></strong> within its job list module, i.e. <code>cml:module[@role="joblist" and @title="unique ID"]</code>. The job title only serves as human readable text and machine distinguishable identifier.</li>
+            <li>There MUST be at <strong><em>least one</em></strong> CMLComp Job in any CMLComp Joblist.</li>
+            <li>There MUST contains <strong><em>exactly one</em></strong> module of initialisation.</li>
+            <li>The CMLComp Job MAY contains at <strong><em>least one</em></strong> of calculation or optimsation module <strong><em>after</em></strong> the initialisation module stated in previous bullet point.</li>
+            <li>The CMLComp Job MAY contains <strong><em>exactly one</em></strong> finalisation module <strong><em>after</em></strong> the calculation or optimsation modules (if present) stated in previous bullet point <strong><em>or</em></strong> <strong><em>after</em></strong> the initialisation module (if calculation or optimsation modules are not present).</li>
+            <li>If the calculation or optimsation modules is present, CMLComp Job MUST contain a finalisation module.</li>
+            <li>The finalisation module MUST be the <strong><em>last</em></strong> element in CMLComp Job.</li>
+            <li>TODO: other elements allowed are <code>identifier</code>.</li>
+        </ul>
 
 
         <p>
@@ -223,21 +222,22 @@
 
         <p id="example4">
             <strong>Example 4: Minimal requirements for CMLComp Job module</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="job" title="coarse geometry optimisation"&gt;
     &lt;module role="init"&gt;
         &lt;!-- requried init body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <p id="example5">
             <strong>Example 5: CMLComp Job module with multiple calculation steps</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="job" title="coarse geometry optimisation"&gt;
     &lt;module role="init"&gt;
         &lt;!-- requried init body is omitted. --&gt;
@@ -255,14 +255,14 @@
         &lt;!-- requried final body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <p id="example6">
             <strong>Example 6: CMLComp Job module without calculation steps</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="job" title="coarse geometry optimisation"&gt;
     &lt;module role="init"&gt;
         &lt;!-- requried init body is omitted. --&gt;
@@ -271,28 +271,28 @@
         &lt;!-- requried final body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <h2>3.3 Init</h2>
 
         <p>
             An initialisation module represents the concept of the model parameters and inputs for computational job. The initialisation module is mandatory in CMLComp. Here is a list of requirements:
-
-            <ul>
-                <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
-                <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-                <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
-                <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Init in a given CMLComp Job.</li>
-                <li>There MUST NOT be any other elements than given above in CMLComp Init.</li>
-            </ul>
         </p>
+
+        <ul>
+            <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
+            <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Init in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Init.</li>
+        </ul>
 
         <p id="example7">
             <strong>Example 7: CMLComp Init module</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="init"&gt;
     &lt;molecule convention="convention:molecular"&gt;
         &lt;!-- consult molecular convention and molecule section below. --&gt;
@@ -301,30 +301,30 @@
         &lt;!-- parameterList body is omitted. --&gt;
     &lt;/parameterList&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
 
         <h2>3.4 Calculation</h2>
 
         <p>
             A calculation module represents the concept of the model calculation or optimisation or iteration processes for computational job. The calculation module is optional in CMLComp. Here is a list of requirements:
-
-            <ul>
-                <li>The CMLComp Calculation is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>calculation</code>.</li>
-                <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-                <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
-                <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
-                <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or <code>cml:propertyList</code> element.</li>
-                <li>There MAY be <strong><em>zero or more than one</em></strong> of CMLComp Calculation in a given CMLComp Job.</li>
-                <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
-            </ul>
         </p>
+
+        <ul>
+            <li>The CMLComp Calculation is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>calculation</code>.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or <code>cml:propertyList</code> element.</li>
+            <li>There MAY be <strong><em>zero or more than one</em></strong> of CMLComp Calculation in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
+        </ul>
 
         <p id="example8">
             <strong>Example 8: CMLComp Calculation module</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="calculation"&gt;
     &lt;molecule convention="convention:molecular"&gt;
         &lt;!-- consult molecular convention and molecule section below. --&gt;
@@ -336,27 +336,27 @@
         &lt;!-- propertyList body is omitted. --&gt;
     &lt;/propertyList&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
         <h2>3.5 Final</h2>
 
         <p>
             A finalisation module represents the concept of the model results for computational job. The finalisation module is optional in CMLComp. Here is a list of requirements:
-
-            <ul>
-                <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
-                <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-                <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
-                <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Final in a given CMLComp Job.</li>
-                <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
-            </ul>
         </p>
 
-        <p id="example8">
+        <ul>
+            <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
+            <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Final in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
+        </ul>
+
+        <p id="example9">
             <strong>Example 8: CMLComp Final module</strong>
-            <div class="good">
-                <pre>
+        </p>
+        <div class="good">
+            <pre>
 &lt;module role="final"&gt;
     &lt;molecule convention="convention:molecular"&gt;
         &lt;!-- consult molecular convention and molecule section below. --&gt;
@@ -365,12 +365,12 @@
         &lt;!-- propertyList body is omitted. --&gt;
     &lt;/propertyList&gt;
 &lt;/module&gt;
-                </pre>
-            </div>
-        </p>
+            </pre>
+        </div>
         <h1>4. Data Structure with CML Elements</h1>
-
-        CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+        <p>
+            CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+        </p>
 
         <h2>4.1 Molecule</h2>
         <h2>4.2 z-Matrix</h2>
@@ -378,19 +378,20 @@
         <h2>4.4 PropertyList</h2>
         <h2>4.5 Parameter</h2>
         <h2>4.6 Property</h2>
-        parameterised property
+        <p>parameterised property</p>
+
         <h2>4.7 Value container</h2>
         <h3>4.8.1 Unit and UnitType</h3>
-        
+
         <p>Units and unit types are one of the most important information in scientific data. All values without units </p>
-        
+
         <ul>
             <li>The unit on <code>scalar</code> MUST be specified using <code>unit</code> attribute and the value MUST be QName of an entry in a unit dictionary. The unit dictionary can be a user defined dictionary but it must be provided along with the CMLComp document.</li>
             <li>The unit type on <code>scalar</code> MUST be specified using <code>unitType</code> attribute and the value MUST be QName of an entry in a unit type dictionary. The unit type dictionary can be a user defined dictionary but it must be provided along with the CMLComp document.</li>
             <li>TODO: If The unit type is either <code>unitType:none</code> or <code>unitType:unknown</code>, the <code>unit</code> attribute is OPTIONAL.</li>
         </ul>
 
-            <h3>4.8.2 Scalar</h3>
+        <h3>4.8.2 Scalar</h3>
 
         <p>
             A CML Scalar element is used to hold scalar data, which can be a single-value number of integer or real. The CML Scalar is also extended to include string or text value.
@@ -437,10 +438,12 @@
             <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
         </ul>
 
-        <p id="example8">
+        <p id="example10">
             <strong>Example : Fully qualified CMLComp document</strong>
-            <div class="good">
-                <pre>
+        </p>
+
+        <div class="good">
+            <pre>
 &lt;?xml version="1.0" encoding="UTF-8"?&gt;
 &lt;cml 
     cmlx:note="A valid cmlcomp containg two jobs is valid."
@@ -567,10 +570,8 @@
         &lt;/module&gt;
     &lt;/module&gt;
 &lt;/cml&gt;
-                </pre>
-            </div>
-        </p>
-
+            </pre>
+        </div>
         <!--h2>4.x Connection tables</h2>
         
         <h3>4.1 Atom Elements</h3>
@@ -685,7 +686,13 @@
 
         <hr />
 
-        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+                <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
+            </a>
+            <br/>
+            This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+        </p>
 
     </body>
 </html>

@@ -381,13 +381,15 @@
         <p>parameterised property</p>
 
         <h2>4.7 Value container</h2>
+        <p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc. These elements will be addressed as value container in the current context. In CMLComp, we current <strong><em>only</em></strong> allow <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
+        
         <h3>4.8.1 Unit and UnitType</h3>
 
-        <p>Units and unit types are one of the most important information in scientific data. All values without units </p>
+        <p>Units and unit types are one of the most important information in scientific data. All values MUST have unit and unit type associated with them <strong><em>except</em></strong> that they are dimensionless.</p>
 
         <ul>
-            <li>The unit on <code>scalar</code> MUST be specified using <code>unit</code> attribute and the value MUST be QName of an entry in a unit dictionary. The unit dictionary can be a user defined dictionary but it must be provided along with the CMLComp document.</li>
-            <li>The unit type on <code>scalar</code> MUST be specified using <code>unitType</code> attribute and the value MUST be QName of an entry in a unit type dictionary. The unit type dictionary can be a user defined dictionary but it must be provided along with the CMLComp document.</li>
+            <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CMLComp document if the unit entry used in the CMLComp document does not exist on xml-cml.org.</li>
+            <li>The unit type on a value container MUST be specified using <code>unitType</code> attribute and the value MUST be <code>QName</code> of an entry in a unit type dictionary. The unit type dictionary MUST be provided along with the CMLComp document if the unit type entry used in the CMLComp document does not exist on xml-cml.org.</li>
             <li>TODO: If The unit type is either <code>unitType:none</code> or <code>unitType:unknown</code>, the <code>unit</code> attribute is OPTIONAL.</li>
         </ul>
 
@@ -398,44 +400,46 @@
         </p>
 
         <p>
-            In CMLComp, <code>scalar</code> MUST conform with the following additional rules :
+            In CMLComp, <code>scalar</code> MUST conform with the following rules :
         </p>
 
         <ul>
+            <li>CML Scalar is defined by a <code>cml:scalar</code> element and MUST conform with CML schema version 3.</li>
             <li><code>scalar</code> MUST have data type specified. This can be specified by <code>dataType</code> attribute and the value MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</li>
-            <li><code>scalar</code> MUST have unit and unit type if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code>.</li>
+            <li><code>scalar</code> MUST have unit and unit type if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if they are dimensionless.</li>
             <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
         </ul>
 
         <h3>4.8.3 Array</h3>
 
         <p>
-            A CML Scalar element is used to hold scalar data, which can be a single-value number of integer or real. The CML Scalar is also extended to include string or text value.
+            A CML Array element is used to hold array data structure of <strong><em>only either</em></strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of this value container MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>.
         </p>
 
         <p>
-            In CMLComp, <code>scalar</code> MUST conform with the following additional rules :
+            In CMLComp, <code>array</code> MUST conform with the following rules :
         </p>
 
         <ul>
-            <li><code>scalar</code> MUST have data type specified. This can be specified by <code>dataType</code> attribute and the value MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</li>
-            <li><code>scalar</code> MUST have unit and unit type if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code>.</li>
-            <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
+            <li>CML Array is defined by a <code>cml:array</code> element and MUST conform with CML schema version 3, e.g. the <code>length</code> attribute MUST be specified to match the size of the array.</li>
+            <li><code>array</code> MUST have data type specified. This can be specified by <code>dataType</code> attribute and the value MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</li>
+            <li><code>array</code> MUST have unit and unit type even if they are dimensionless.</li>
         </ul>
+
         <h3>4.8.4 Matrix</h3>
 
         <p>
-            A CML Scalar element is used to hold scalar data, which can be a single-value number of integer or real. The CML Scalar is also extended to include string or text value.
+            A CML Matrix element is used to hold matrix data structure of <strong><em>only either</em></strong> integer or real values. Thus, the data type of this value container MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>.
         </p>
 
         <p>
-            In CMLComp, <code>scalar</code> MUST conform with the following additional rules :
+            In CMLComp, <code>matrix</code> MUST conform with the following rules :
         </p>
 
         <ul>
-            <li><code>scalar</code> MUST have data type specified. This can be specified by <code>dataType</code> attribute and the value MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</li>
-            <li><code>scalar</code> MUST have unit and unit type if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code>.</li>
-            <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
+            <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform with CML schema version 3, e.g. the dimension of matrix MUST be specified to match the dimension of the matrix.</li>
+            <li><code>matrix</code> MUST have data type specified. This can be specified by <code>dataType</code> attribute and the value MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</li>
+            <li><code>matrix</code> MUST have unit and unit type even if they are dimensionless.</li>
         </ul>
 
         <p id="example10">

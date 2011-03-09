@@ -282,10 +282,11 @@
 
         <ul>
             <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
-            <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-            <li>The CMLComp Init MUST contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>The CMLComp Init MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Init MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>The CMLComp Init MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or user defined <code>module</code> element.</li>
             <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Init in a given CMLComp Job.</li>
-            <li>There MUST NOT be any other elements than given above in CMLComp Init.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Init <strong><em>except for one or more</em></strong> of user defined <code>module</code>.</li>
         </ul>
 
         <p id="example7">
@@ -315,7 +316,7 @@
             <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
             <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
             <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
-            <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
             <li>There MAY be <strong><em>zero or more than one</em></strong> of CMLComp Calculation in a given CMLComp Job.</li>
             <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
         </ul>
@@ -346,8 +347,9 @@
 
         <ul>
             <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
-            <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-            <li>The CMLComp Final MUST contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Final MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Final MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Final MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
             <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Final in a given CMLComp Job.</li>
             <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
         </ul>
@@ -367,6 +369,10 @@
 &lt;/module&gt;
             </pre>
         </div>
+
+        <h2>3.6 User Defined Module</h2>
+        CMLComp allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CMLComp validator.<em class="bad">Not finished</em>
+
         <h1>4. Data Structure with CML Elements</h1>
         <p>
             CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.

@@ -383,24 +383,31 @@
 
         <h2>4.3 ParameterList</h2>
 
-        <p>CMLComp uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST only have the child(s) of CML Parameter(s).</p>
+        <p>CMLComp uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST have only the CML Parameter(s) as child(s).</p>
 
         <h2>4.4 PropertyList</h2>
 
-        <p>CMLComp uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST only have the child(s) of CML Property(s).</p>
+        <p>CMLComp uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST have only the CML Property(s) as child(s).</p>
 
         <h2>4.5 Parameter</h2>
+        
+        <p>CMLComp uses CML Parameter to represent the concept of the inputs of the quantum chemistry calculations.</p>
+
+        <p>A CML Parameter is defined by <code>cml:parameter</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the parameter.</p>
+
+        <p>A <code>parameter</code> MUST contain only <strong><em>one of</em></strong> the value containers given in section 4.8.</p>
 
         <h2>4.6 Property</h2>
 
-        <p>parameterised property</p>
-
-        <h2>4.7 Value container</h2>
-        <p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CMLComp, we current <strong><em>only</em></strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
+        <p>CMLComp uses CML Property to represent the concept of the outputs of the quantum chemistry calculations.</p>
         
-        <h3>4.8.1 Unit and UnitType</h3>
+        <p>A CML Property is defined by <code>cml:property</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the property.</p>
 
-        <p>Units and unit types are one of the most important information in scientific data. All values MUST have unit and unit type associated with them <strong><em>except</em></strong> that they are dimensionless.</p>
+        <p>A <code>property</code> MUST contain only <strong><em>one of</em></strong> the value containers given in section 4.8.</p>
+
+        <h2>4.7 Unit and UnitType</h2>
+
+        <p>Units and unit types are one of the most important information in scientific data. All value containers, see section 4.8, MUST have unit and unit type associated with them <strong><em>except</em></strong> that they are string or text values.</p>
 
         <ul>
             <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CMLComp document if the unit entry used in the CMLComp document does not exist on xml-cml.org.</li>
@@ -408,7 +415,11 @@
             <li><em class="bad">TODO: If The unit type is either <code>unitType:none</code> or <code>unitType:unknown</code>, the <code>unit</code> attribute is OPTIONAL.</em></li>
         </ul>
 
-        <h3>4.8.2 Scalar</h3>
+        <h2>4.8 Value container</h2>
+        <p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CMLComp, we current <strong><em>only</em></strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
+        
+
+        <h3>4.8.1 Scalar</h3>
 
         <p>
             A CML Scalar element in CMLComp is used to hold a scalar data, which can be a single value of integer or real. The CML Scalar is also extended to include string or text value.
@@ -425,7 +436,7 @@
             <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
         </ul>
 
-        <h3>4.8.3 Array</h3>
+        <h3>4.8.2 Array</h3>
 
         <p>
             A CML Array element in CMLComp is used to hold a one dimentioanl array data structure of <strong><em>only either</em></strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :
@@ -439,7 +450,7 @@
             <li><code>array</code> MUST have unit and unit type even if they are dimensionless.</li>
         </ul>
 
-        <h3>4.8.4 Matrix</h3>
+        <h3>4.8.3 Matrix</h3>
 
         <p>
             A CML Matrix element in CMLComp is used to hold a two-dimensional rectangular matrix data structure of <strong><em>only either</em></strong> integer or real values. Thus, the data type of this value container MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :

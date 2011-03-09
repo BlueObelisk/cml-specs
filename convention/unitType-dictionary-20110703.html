@@ -1,27 +1,27 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <title>Chemical Markup Language - Unit Dictionary Convention</title>
+    <title>Chemical Markup Language - UnitType Dictionary Convention</title>
     <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
     <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
 </head>
 
 <body>
 <div class="head">
-    <h1>Chemical Markup Language - Unit Dictionary Convention</h1>
+    <h1>Chemical Markup Language - UnitType Dictionary Convention</h1>
 
-    <h2>3 March 2011</h2>
+    <h2>07 March 2011</h2>
     <dl>
         <dt>
             <a id="thisVersion" name="thisVersion">This version</a>:
         </dt>
         <dd>
-            <a href="http://www.xml-cml.org/convention/unit-20110303">http://www.xml-cml.org/convention/unit-dictionary-20110303</a>
+            <a href="http://www.xml-cml.org/convention/unitType-20110307">http://www.xml-cml.org/convention/unitType-dictionary-20110307</a>
         </dd>
 
         <dt>Latest version:</dt>
         <dd>
-            <a href="http://www.xml-cml.org/convention/unit">http://www.xml-cml.org/convention/unit-dictionary</a>
+            <a href="http://www.xml-cml.org/convention/unit">http://www.xml-cml.org/convention/unitType-dictionary</a>
         </dd>
 
         <dt>Authors:</dt>
@@ -33,7 +33,7 @@
     </dl>
     <h2>
         <a name="abstract" id="abstract"/>Abstract</h2>
-    <p>This specification defines the requirements of the Chemical Markup Language unit-dictionary convention.</p>
+    <p>This specification defines the requirements of the Chemical Markup Language unitType-dictionary convention.</p>
     <hr/>
 </div>
 
@@ -46,37 +46,43 @@
     <br/>
     &nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a>
     <br/>
-    2. <a href="#applying">Applying the unit-dictionary convention</a>
+    2. <a href="#applying">Applying the unitType-dictionary convention</a>
     <br/>
-    3. <a href="#unitList-element">UnitList Element</a>
+    3. <a href="#unitTypeList-element">UnitTypeList Element</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;3.1 <a href="#unitList-namespace">Namespace</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.1 <a href="#unitTypeList-namespace">Namespace</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;3.2 <a href="#unitList-title">Title</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.2 <a href="#unitTypeList-title">Title</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;3.3 <a href="#unitList-description">Description</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.3 <a href="#unitTypeList-description">Description</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;3.4 <a href="#unitList-units">Units</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.4 <a href="#unitTypeList-unitTypes">UnitTypes</a>
     <br/>
-    4. <a href="#unit-elements">Unit Elements</a>
+    4. <a href="#unitType-elements">UnitType Elements</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#unit-id">ID</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#unitType-id">ID</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#unit-title">Title</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#unitType-name">Name</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.3 <a href="#unit-symbol">Symbol</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.3 <a href="#unitType-title">Title</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.4 <a href="#unit-parentSI">Parent SI</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.4 <a href="#unitType-preserve">Preserve</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.5 <a href="#unit-toSI">Multiplier and/or Constant to SI</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.5 <a href="#unitType-dimensions">Dimensions</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.6 <a href="#unit-unitType">Unit Type</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.6 <a href="#unitType-definition">Definition</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.7 <a href="#unit-definition">Definition</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.7 <a href="#unitType-description">Description</a>
     <br/>
-    &nbsp;&nbsp;&nbsp;&nbsp;4.8 <a href="#unit-description">Description</a>
+    5. <a href="#dimension-elements">Dimension Elements</a>
     <br/>
-    5. <a href="#example">Example Unit Dictionary</a>
+    &nbsp;&nbsp;&nbsp;&nbsp;5.1 <a href="#dimension-name">Name</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;5.2 <a href="#dimension-unitType">UnitType</a>
+    <br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;5.3 <a href="#dimension-power">Power</a>
+    <br/>
+    6. <a href="#example">Example UnitType Dictionary</a>
 </p>
 
 <h2>Appendices</h2>
@@ -90,22 +96,24 @@
     <a name="introduction">1.</a> Introduction</h1>
 
 <p>
-    Units are required throughout CML and are usually indicated using the <code>units</code> attribute.
-    Each unit needs to have a unique identifier and be defined in such a way that they can be understood
+    Units are required throughout CML but both humans and machines need to know how they can be 
+    combined. To support this CML includes the <code>unitType</code> concept. 
+    Each unitType needs to have a unique identifier and be defined in such a way that they can be understood
     by both humans and machines.
 </p>
 
 <p>
-    Lists of units are similar to <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
-    but require more information for each "entry" such as their relationship to a standard (SI) base unit
-    or what type of unit they are <i>i.e.</i> the units metre, angstrom and picometre are all of type
-    length whilst the unit Kelvin is of type temperature. The phrases "unit list" and "unit dictionary" 
+    Lists of unitTypes are similar to <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
+    but require more information for each "entry" such as their dimensionality <i>i.e.</i> the units 
+    metre, angstrom and picometre are all of dimension length whilst the unit square metre is of 
+    dimension length squared. The phrases "unitType list" and "unitType dictionary" 
     are used interchangably; the only reason for choosing one term over the other is for readability.
 </p>
 
 <p>
-    Where units are already defined in the standard unit dictionaries (see <a href="http://www.xml-cml.org/unit/">http://www.xml-cml.org/unit/</a>)
-    these units SHOULD be used, rather than redefining the concepts in another unit dictionary.
+    Where unitTypes are already defined in the standard unitType dictionaries 
+    (see <a href="http://www.xml-cml.org/unit/">http://www.xml-cml.org/unit/</a>) these unitTypes 
+    SHOULD be used, rather than redefining the concepts in another unitType dictionary.
 </p>
 
 <h2>
@@ -172,34 +180,34 @@
     </tr>
 </table>
 <h1>
-    <a name="applying">2.</a> Applying the unit-dictionary convention</h1>
+    <a name="applying">2.</a> Applying the unitType-dictionary convention</h1>
 
 <p>
-    The unit-dictionary convention MUST be specified using the <code>convention</code>
-    attribute on a <code>unitList</code> element.
+    The unitType-dictionary convention MUST be specified using the <code>convention</code>
+    attribute on a <code>unitTypeList</code> element.
 </p>
 
 <h1>
-    <a name="unitList-element">3.</a> UnitList Element</h1>
+    <a name="unitTypeList-element">3.</a> UnitTypeList Element</h1>
 
 <h2>
-    <a name="unitList-namespace">3.1</a> Namespace</h2>
+    <a name="unitTypeList-namespace">3.1</a> Namespace</h2>
 <p>
-    The <code>unitList</code> element MUST have a <code>namespace</code> attribute,
+    The <code>unitTypeList</code> element MUST have a <code>namespace</code> attribute,
     the value of which MUST be a valid URI defining the the scope within which the
-    entry terms are unique.
+    unitType ids are unique.
     </p>
     <p>
-    The unitList's namespace URI SHOULD resolve to a representation of the dictionary of units.
-    The unitList's namespace URI SHOULD end with either a '/' character or a '#' character
+    The unitTypeList's namespace URI SHOULD resolve to a representation of the dictionary of unitTypes.
+    The unitTypeList's namespace URI SHOULD end with either a '/' character or a '#' character
     so that terms may be referenced by appending them to the URI.
 </p>
 
 <h2>
-    <a name="unitList-title">3.2</a> Title</h2>
+    <a name="unitTypeList-title">3.2</a> Title</h2>
 
 <p>
-    The <code>unitList</code> element SHOULD have a <code>title</code>
+    The <code>unitTypeList</code> element SHOULD have a <code>title</code>
     attribute intended for human-readability.
 </p>
 <p>
@@ -213,9 +221,9 @@
 </p>
 
 <h2>
-    <a name="unitList-description">3.3</a> Description</h2>
+    <a name="unitTypeList-description">3.3</a> Description</h2>
 <p>
-    The <code>unitList</code> element SHOULD have a single <code>description</code>
+    The <code>unitTypeList</code> element SHOULD have a single <code>description</code>
     child element, the contents of which provide a human-readable description of the
     domain of the dictionary.
     The <code>description</code> element MUST contain one or more child elements in the
@@ -224,42 +232,43 @@
     the <code>http://www.w3.org/1999/xhtml</code> namespace.
 </p>
 
-
 <h2>
-    <a name="unitList-units">3.4</a> Units</h2>
+    <a name="unitTypeList-unitTypes">3.4</a> UnitTypes</h2>
 
 <p>
-    The <code>unitList</code> element MUST contain one more more child <code>unit</code>
+    The <code>unitList</code> element MUST contain one more more child <code>unitType</code>
     elements, and MUST not contain any other child elements from the
     <code>http://www.xml-cml.org/schema</code> namespace.
 </p>
 <div class="good">
 <pre>
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
-&lt;unitList xmlns="http://www.xml-cml.org/schema"
-     xmlns:convention="http://www.xml-cml.org/convention/"
-     xmlns:xhtml="http://www.w3.org/1999/xhtml"
-     convention="convention:unit-dictionary"
-     title="example unit list"
-     namespace="http://www.xml-cml.org/unit/"&gt;
+&lt;unitTypeList
+        xmlns="http://www.xml-cml.org/schema"
+        xmlns:unitTypes="http://www.xml-cml.org/units/unitTypes"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:convention="http://www.xml-cml.org/convention/"
+        namespace="http://www.xml-cml.org/unit/unitType/"
+        title="example unitType dictionary"
+        convention="convention:unitType-dictionary" &gt;
      &lt;description&gt;
          &lt;xhtml:p&gt;
-            This is an example unit list for demonstration purposes
+            This is an example unitType list for demonstration purposes
          &lt;/xhtml:p&gt;
      &lt;/description&gt;
-     &lt;unit&gt;
+     &lt;unitType&gt;
      &lt;!-- rest of document omitted --&gt;
-     &lt;/unit&gt;
-&lt;/unitList&gt;
+     &lt;/unitType&gt;
+&lt;/unitTypeList&gt;
 </pre>
 </div>
 <h1>
-    <a name="unit-elements">4.</a> Unit Elements</h1>
+    <a name="unitType-elements">4.</a> UnitType Elements</h1>
 
 <h2>
-    <a name="unit-id">4.1</a> ID</h2>
+    <a name="unitType-id">4.1</a> ID</h2>
 <p>
-    A <code>unit</code> element MUST have an <code>id</code> attribute, the
+    A <code>unitType</code> element MUST have an <code>id</code> attribute, the
     value of which MUST be unique within the scope of the unitList. 
 </p>
 
@@ -297,73 +306,70 @@
     </tr>
 </table>
 
-<h2><a name="unit-title">4.2</a> Title</h2>
+<h2><a name="unitType-name">4.2</a> Name</h2>
 <p>
-    A <code>unit</code> element MUST have a <code>title</code> attribute, the
-    value of which will typically be the full name of the unit whilst the id is typically an 
-    abbreviation. For example, the SI unit of mass is the kilogram; the id is 'kg' and the title is 
-    'kilogram'.
+    A <code>unitType</code> element MUST have a <code>name</code> attribute, the
+    value of which linguistically identifies the type of the unit. For example 
+    'length', 'volume', 'velocity', 'concentration' and 'wavenumber' would be suitable names for
+    unitTypes.
+</p>
+<p>
+    The <code>name</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>name</code> attribute MAY contain any valid unicode
+    character, however it is RECOMMENDED that any character from outside of
+    the ASCII subset (codepoints 32-127) is represented using an entity reference.
+</p>
+
+<h2><a name="unitType-title">4.3</a> Title</h2>
+<p>
+    A <code>unitType</code> element MUST have a <code>title</code> attribute, the
+    value of which will typically be more descriptive than the name <i>i.e.</i> 'concentration 
+    (moles of substance per volume of solution)'. 
 </p>
 <p>
     The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
     non-whitespace character.
 </p>
 
-<h2><a name="unit-symbol">4.3</a> Symbol</h2>
+<h2><a name="unitType-preserve">4.4</a> Preserve</h2>
 <p>
-    A <code>unit</code> element MUST have a <code>symbol</code> attribute, the
-    value of which is the full symbol used to represent this unit. For example the units 'Kelvin', 
-    'Hertz', 'Joule' and 'Becquerel' have symbols 'K', 'Hz', 'J' and 'Bq' respectively.
+    A <code>unitType</code> element MAY have a <code>preserve</code> attribute. It is RECOMMENDED 
+    that the value is "true" or "false" although "1" (for true) and "0" (for false) are 
+    also allowed. There is no default value for the attribute but in effect if the 
+    <code>preserve</code> attribute is not present it will generally be assumed that the dimensions 
+    will not be preserved.
 </p>
 <p>
-    The <code>symbol</code> attribute MUST NOT be empty and MUST contain at least one
-    non-whitespace character.
-</p>
-<p>
-    The value of the <code>symbol</code> attribute MAY contain any valid unicode
-    character, however it is RECOMMENDED that any character from outside of
-    the ASCII subset (codepoints 32-127) is represented using an entity reference.
-</p>
-
-<h2><a name="unit-parentSI">4.4</a> Parent SI</h2>
-<p>
-A <code>unit</code> element MUST have a <code>parentSI</code> attribute, the value of which is a 
-QName referencing the parent SI unit <i>e.g.</i> 'calorie' has the SI parent 'joule'. 
-</p>
-
-<h2><a name="unit-toSI">4.5</a> Multiplier and/or Constant to SI</h2>
-<p>
-A <code>unit</code> element MUST have at least one of a <code>multiplierToSI</code> attribute and a 
-<code>constantToSI</code> attribute, the value of which must be a double. 
-</p>
-<p>
-<code>multiplerToSI</code> specifies the factor by which the non-SI unit should be multiplied to 
-convert a quantity to its representation in SI Units. This is applied <em>before</em> 
-<code>constantToSI</code>. The value is unity for an SI unit by definition.
-</p>
-<p>
-<code>constantToSI</code> specifies the amount to add to a quantity in non-SI units to convert its
-representation to SI Units. This is applied <em>after</em> <code>multiplierToSI</code>. The value is 
-zero for SI units by definition.
-</p>
-<p>
-A unit that is related to an SI unit only by a constant offset <i>e.g.</i> Celsius, which has a constant to the 
-SI unit of temperature (Kelvin) of '273' need not specify a multiplier (although it MAY specify a 
-multiplier to SI of '1'). 
-</p>
-<p>
-A unit that is related to an SI unit only by a constant multiplier <i>e.g.</i> gram, which has a 
-multiplier to the SI unit kilogram of '0.001' need not specify a constant (although it MAY specify a
-constant to SI of '0').  
-</p>
-<h2><a name="unit-unitType">4.6</a> Unit Type</h2>
-<p>
-    Every <code>unit</code> element MUST have a <code>unitType</code> attribute, the value of which 
-    is a QName referencing the unit type (<i>e.g.</i> time, temperature, length, force) of the unit.
+    Dimensions of the same type can be algebraically combined using the 'power' attributes.
+    Normally dimensions will be aggregated and cancelled algebraically, but the 'preserve'
+    attribute can be used to prevent this. Thus a velocity gradient over length can be
+    defined as:
+    <pre>
+        &lt;unitType id="a1" preserve="true"&gt;
+            &lt;dimension name="length" power="1" /&gt;
+            &lt;dimension name="time" power="-1" /&gt;
+            &lt;dimension name="length" power="-1" /&gt;
+        &lt;/unitType&gt;
+    </pre>
+    whereas cancelling the dimensions would give:
+    <pre>
+        &lt;unitType id="a1" preserve="true"&gt;
+            &lt;dimension name="time" power="-1" /&gt;
+        &lt;/unitType&gt;
+    </pre>
 </p>
 
-<h2><a name="unit-definition">4.7</a> Definition</h2>
-    A <code>unit</code> element MUST contain a single <code>definition</code>
+<h2><a name="unitType-dimensions">4.5</a> Dimensions</h2>
+<p>
+A <code>unitType</code> element MUST contain at least one <code>dimension</code> child. These 
+elements define the unitType in terms of other unitTypes to particular powers. 
+</p>
+
+<h2><a name="unitType-definition">4.6</a> Definition</h2>
+    A <code>unitType</code> element MUST contain a single <code>definition</code>
     child element, the content of which provides a concise human-readable definition of the unit. 
     For example, the definition of the SI unit of time (a second) would be;
     <br />
@@ -380,9 +386,9 @@ constant to SI of '0').
     <code>http://www.w3.org/1999/xhtml</code> element.
 </p>
 
-<h2><a name="unit-description">4.8</a> Description</h2>
+<h2><a name="unitType-description">4.7</a> Description</h2>
 <p>
-    A <code>unit</code> element MAY have a single <code>description</code>
+    A <code>unitType</code> element MAY have a single <code>description</code>
     child element, the content of which provides further information regarding
     the unit, including, but not limited to: examples, human-readable semantics
     and hyperlinks to other useful resources.
@@ -397,7 +403,44 @@ constant to SI of '0').
 </p>
 
 <h1>
-    <a name="example">5.</a> Example Dictionary</h1>
+    <a name="dimension-elements">5.</a> Dimension Elements</h1>  
+<h2>
+    <a name="dimension-name">5.1</a> Name</h2><p>
+    A <code>dimension</code> element MUST have a <code>name</code> attribute, the
+    value of which linguistically identifies the type of the unit. For example 
+    'mass', 'length' and 'time' would be suitable names for dimensions.
+</p>
+<p>
+    The <code>name</code> attribute MUST NOT be empty and MUST contain at least one
+    non-whitespace character.
+</p>
+<p>
+    The value of the <code>name</code> attribute MAY contain any valid unicode
+    character, however it is RECOMMENDED that any character from outside of
+    the ASCII subset (codepoints 32-127) is represented using an entity reference.
+</p>
+
+<h2><a name="dimension-unitType">5.2</a> UnitType</h2>
+<p>
+    Every <code>dimension</code> element MUST have a <code>unitType</code> attribute, the value of which 
+    is a QName referencing the unit type (<i>e.g.</i> time, temperature, length, force) of the unit.
+    The prefix of the QName MUST be bound to a declared namespace which MUST be a valid URI and 
+    SHOULD be a valid URL. There SHOULD be an element with the same id as the local-name of the QName 
+    available at this URL giving further information.
+</p>
+<p>
+    For base units <i>i.e.</i> mass, length and time the unitType will be self referential.
+</p>
+
+
+<h2><a name="dimension-power">5.3</a> Power</h2>
+<p>
+    A <code>dimension</code> element MUST have a <code>power</code> attribute, the value of which 
+    MUST be a double and defines the power to which a dimension should be raised.    
+</p>
+
+<h1>
+    <a name="example">6.</a> Example Dictionary</h1>
 
 <div class="good">
             <pre>
@@ -408,7 +451,7 @@ constant to SI of '0').
                         xmlns="http://www.xml-cml.org/schema"
                         xmlns:h="http://www.w3.org/1999/xhtml"
                         xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
-                        convention="convention:unit-dictionary"
+                        convention="convention:unitType-dictionary"
                         title="example units dictionary"
                         namespace="http://www.xml-cml.org/unit/example/"
                         &gt;

@@ -1,0 +1,817 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Chemical Markup Language - UnitType Dictionary Convention</title>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+        <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
+    </head>
+
+    <body>
+        <div class="head">
+            <h1>Chemical Markup Language - UnitType Dictionary Convention</h1>
+
+            <h2>10 March 2011</h2>
+            <dl>
+                <dt>
+                    <a id="thisVersion" name="thisVersion">This version</a>:
+                </dt>
+                <dd>
+                    <a href="http://www.xml-cml.org/convention/unitType-20110310">
+                        http://www.xml-cml.org/convention/unitType-dictionary-20110310
+                    </a>
+                </dd>
+
+                <dt>Latest version:</dt>
+                <dd>
+                    <a href="http://www.xml-cml.org/convention/unit">
+                        http://www.xml-cml.org/convention/unitType-dictionary
+                    </a>
+                </dd>
+
+                <dt>Authors:</dt>
+                <dd>See <a href="#acks">acknowledgments</a>.
+                </dd>
+
+                <dt>Editors:</dt>
+                <dd>Sam Adams, University of Cambridge</dd>
+                <dd>Joe Townsend, University of Cambridge</dd>
+            </dl>
+            <h2>
+                <a name="abstract" id="abstract"/>Abstract
+            </h2>
+            <p>This specification defines the requirements of the Chemical Markup Language unitType-dictionary
+                convention.
+            </p>
+            <hr/>
+        </div>
+
+        <h1>
+            <a name="contents" id="contents"/>Table of Contents
+        </h1>
+
+        <p class="toc">1.
+            <a href="#introduction">Introduction</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;1.1
+            <a href="#notational-conventions">Notational Conventions</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;1.2
+            <a href="#namespaces">Namespaces</a>
+            <br/>
+            2.
+            <a href="#applying">Applying the unitType-dictionary convention</a>
+            <br/>
+            3.
+            <a href="#unitTypeList-element">UnitTypeList Element</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;3.1
+            <a href="#unitTypeList-namespace">Namespace</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;3.2
+            <a href="#unitTypeList-title">Title</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;3.3
+            <a href="#unitTypeList-description">Description</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;3.4
+            <a href="#unitTypeList-unitTypes">UnitTypes</a>
+            <br/>
+            4.
+            <a href="#unitType-elements">UnitType Elements</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.1
+            <a href="#unitType-id">ID</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.2
+            <a href="#unitType-name">Name</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.3
+            <a href="#unitType-title">Title</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.4
+            <a href="#unitType-preserve">Preserve</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.5
+            <a href="#unitType-dimensions">Dimensions</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.6
+            <a href="#unitType-definition">Definition</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;4.7
+            <a href="#unitType-description">Description</a>
+            <br/>
+            5.
+            <a href="#dimension-elements">Dimension Elements</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;5.1
+            <a href="#dimension-name">Name</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;5.2
+            <a href="#dimension-unitType">UnitType</a>
+            <br/>
+            &nbsp;&nbsp;&nbsp;&nbsp;5.3
+            <a href="#dimension-power">Power</a>
+            <br/>
+            6.
+            <a href="#example">Example UnitType Dictionary</a>
+        </p>
+
+        <h2>Appendices</h2>
+
+        <p>A.
+            <a href="#refs">References</a>
+            <br/>
+            B.
+            <a href="#acks">Acknowledgements</a>
+        </p>
+        <hr/>
+        <h1>
+            <a name="introduction">1.</a>
+            Introduction
+        </h1>
+
+        <p>
+            Units are required throughout CML but both humans and machines need to know how they can be
+            combined. To support this CML includes the
+            <code>unitType</code>
+            concept.
+            Each unitType needs to have a unique identifier and be defined in such a way that they can be understood
+            by both humans and machines.
+        </p>
+
+        <p>
+            Lists of unitTypes are similar to
+            <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
+            but require more information for each "entry" such as their dimensionality
+            <i>i.e.</i>
+            the units
+            metre, angstrom and picometre are all of dimension length whilst the unit square metre is of
+            dimension length squared. The phrases "unitType list" and "unitType dictionary"
+            are used interchangably; the only reason for choosing one term over the other is for readability.
+        </p>
+
+        <p>
+            Where unitTypes are already defined in the standard unitType dictionaries
+            (see <a href="http://www.xml-cml.org/unit/">http://www.xml-cml.org/unit/</a>) these unitTypes
+            SHOULD be used, rather than redefining the concepts in another unitType dictionary.
+        </p>
+
+        <h2>
+            <a name="notational-conventions">1.1</a>
+            Notational Conventions
+        </h2>
+
+        <p>
+            The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL
+            NOT&quot;,
+            &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
+            in this document are to be interpreted as described in RFC 2119 [
+            <cite>
+                <a href="#ref-RFC2119">IETF RFC 2119</a>
+            </cite>
+            ].
+        </p>
+
+        <p>
+            The terms &quot;element&quot;, &quot;attribute&quot;, &quot;child&quot; and &quot;parent&quot;
+            in this document are to be interpreted as described in the W3C Recommendation for Extensible Markup
+            Language (XML) [
+            <cite>
+                <a href="#ref-XML">W3C XML</a>
+            </cite>
+            ].
+        </p>
+
+        <p>The use of fonts is as follows:</p>
+        <ul>
+            <li>Schema terms, including elements and attributes, are written in<code>this font</code>.
+            </li>
+        </ul>
+
+        <h2>
+            <a name="namespaces">1.2</a>
+            Namespaces
+        </h2>
+
+        <p>This specification uses the following namespaces and prefixes to indicate those namespaces:</p>
+
+        <table class="namespace-table" summary="Namespaces table">
+            <tr>
+                <th>Prefix</th>
+                <th>Namespace URI</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td>
+                    <code>cml</code>
+                </td>
+                <td>
+                    <code>http://www.xml-cml.org/schema</code>
+                </td>
+                <td>Chemical Markup Language elements</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>convention</code>
+                </td>
+                <td>
+                    <code>http://www.xml-cml.org/convention/</code>
+                </td>
+                <td>Standard Chemical Markup Language convention namespace</td>
+            </tr>
+            <tr>
+                <td>
+                    <code>xhtml</code>
+                </td>
+                <td>
+                    <code>http://www.w3.org/1999/xhtml</code>
+                </td>
+                <td>XHTML</td>
+            </tr>
+        </table>
+        <h1>
+            <a name="applying">2.</a>
+            Applying the unitType-dictionary convention
+        </h1>
+
+        <p>
+            The unitType-dictionary convention MUST be specified using the
+            <code>convention</code>
+            attribute on a
+            <code>unitTypeList</code>
+            element.
+        </p>
+
+        <h1>
+            <a name="unitTypeList-element">3.</a>
+            UnitTypeList Element
+        </h1>
+
+        <h2>
+            <a name="unitTypeList-namespace">3.1</a>
+            Namespace
+        </h2>
+        <p>
+            The
+            <code>unitTypeList</code>
+            element MUST have a
+            <code>namespace</code>
+            attribute,
+            the value of which MUST be a valid URI defining the the scope within which the
+            unitType ids are unique.
+        </p>
+        <p>
+            The unitTypeList's namespace URI SHOULD resolve to a representation of the dictionary of unitTypes.
+            The unitTypeList's namespace URI SHOULD end with either a '/' character or a '#' character
+            so that terms may be referenced by appending them to the URI.
+        </p>
+
+        <h2>
+            <a name="unitTypeList-title">3.2</a>
+            Title
+        </h2>
+
+        <p>
+            The
+            <code>unitTypeList</code>
+            element SHOULD have a
+            <code>title</code>
+            attribute intended for human-readability.
+        </p>
+        <p>
+            The
+            <code>title</code>
+            attribute MUST NOT be empty and MUST contain at least one
+            non-whitespace character.
+        </p>
+        <p>
+            The value of the
+            <code>title</code>
+            attribute MAY contain any valid unicode
+            character, however it is RECOMMENDED that any character from outside of
+            the ASCII subset (codepoints 32-127) is represented using an entity reference.
+        </p>
+
+        <h2>
+            <a name="unitTypeList-description">3.3</a>
+            Description
+        </h2>
+        <p>
+            The
+            <code>unitTypeList</code>
+            element SHOULD have a single
+            <code>description</code>
+            child element, the contents of which provide a human-readable description of the
+            domain of the dictionary.
+            The
+            <code>description</code>
+            element MUST contain one or more child elements in the
+            <code>http://www.w3.org/1999/xhtml</code>
+            namespace.
+            The
+            <code>description</code>
+            element MUST NOT contain any child elements not in
+            the
+            <code>http://www.w3.org/1999/xhtml</code>
+            namespace.
+        </p>
+
+        <h2>
+            <a name="unitTypeList-unitTypes">3.4</a>
+            UnitTypes
+        </h2>
+
+        <p>
+            The
+            <code>unitList</code>
+            element MUST contain one more more child
+            <code>unitType</code>
+            elements, and MUST not contain any other child elements from the
+            <code>http://www.xml-cml.org/schema</code>
+            namespace.
+        </p>
+        <div class="good">
+            <pre>
+            &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+            &lt;unitTypeList
+                    xmlns="http://www.xml-cml.org/schema"
+                    xmlns:unitType="http://www.xml-cml.org/units/unitType"
+                    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                    xmlns:convention="http://www.xml-cml.org/convention/"
+                    namespace="http://www.xml-cml.org/unit/unitType/"
+                    title="example unitType dictionary"
+                    convention="convention:unitType-dictionary" &gt;
+                 &lt;description&gt;
+                     &lt;xhtml:p&gt;
+                        This is an example unitType list for demonstration purposes
+                     &lt;/xhtml:p&gt;
+                 &lt;/description&gt;
+                 &lt;unitType&gt;
+                 &lt;!-- rest of document omitted --&gt;
+                 &lt;/unitType&gt;
+            &lt;/unitTypeList&gt;
+            </pre>
+        </div>
+        <h1>
+            <a name="unitType-elements">4.</a>
+            UnitType Elements
+        </h1>
+
+        <h2>
+            <a name="unitType-id">4.1</a>
+            ID
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MUST have an
+            <code>id</code>
+            attribute, the
+            value of which MUST be unique within the scope of the unitList.
+        </p>
+
+        <p>
+            The value of the
+            <code>id</code>
+            attribute MUST start with a letter, and
+            MUST only contain letters, numbers, dot, hyphen or underscore.
+        </p>
+        <table>
+            <tr>
+                <td>
+                    <code>IdStartChar</code>
+                </td>
+                <td>::=</td>
+                <td>
+                    <code>[A-Z] | [a-z]</code>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>IdChar</code>
+                </td>
+                <td>::=</td>
+                <td>
+                    <code>IdStartChar | [0-9] | "." | "-" | "_"</code>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <code>Id</code>
+                </td>
+                <td>::=</td>
+                <td>
+                    <code>IdStartChar (IdChar)*</code>
+                </td>
+            </tr>
+        </table>
+
+        <h2>
+            <a name="unitType-name">4.2</a>
+            Name
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MUST have a
+            <code>name</code>
+            attribute, the
+            value of which linguistically identifies the type of the unit. For example
+            'length', 'volume', 'velocity', 'concentration' and 'wavenumber' would be suitable names for
+            unitTypes.
+        </p>
+        <p>
+            The
+            <code>name</code>
+            attribute MUST NOT be empty and MUST contain at least one
+            non-whitespace character.
+        </p>
+        <p>
+            The value of the
+            <code>name</code>
+            attribute MAY contain any valid unicode
+            character, however it is RECOMMENDED that any character from outside of
+            the ASCII subset (codepoints 32-127) is represented using an entity reference.
+        </p>
+
+        <h2>
+            <a name="unitType-title">4.3</a>
+            Title
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MUST have a
+            <code>title</code>
+            attribute, the
+            value of which will typically be more descriptive than the name
+            <i>i.e.</i>
+            'concentration
+            (moles of substance per volume of solution)'.
+        </p>
+        <p>
+            The
+            <code>title</code>
+            attribute MUST NOT be empty and MUST contain at least one
+            non-whitespace character.
+        </p>
+
+        <h2>
+            <a name="unitType-preserve">4.4</a>
+            Preserve
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MAY have a
+            <code>preserve</code>
+            attribute. It is RECOMMENDED
+            that the value is "true" or "false" although "1" (for true) and "0" (for false) are
+            also allowed. There is no default value for the attribute but in effect if the
+            <code>preserve</code>
+            attribute is not present it will generally be assumed that the dimensions
+            will not be preserved.
+        </p>
+        <p>
+            Dimensions of the same type can be algebraically combined using the 'power' attributes.
+            Normally dimensions will be aggregated and cancelled algebraically, but the 'preserve'
+            attribute can be used to prevent this. Thus a velocity gradient over length can be
+            defined as:
+        </p>
+        <pre>
+            &lt;unitType id="a1" preserve="true"&gt;
+            &lt;dimension name="length" power="1" /&gt;
+            &lt;dimension name="time" power="-1" /&gt;
+            &lt;dimension name="length" power="-1" /&gt;
+            &lt;/unitType&gt;
+        </pre>
+        <p>
+            whereas cancelling the dimensions would give:
+        </p>
+        <pre>
+            &lt;unitType id="a1" preserve="true"&gt;
+            &lt;dimension name="time" power="-1" /&gt;
+            &lt;/unitType&gt;
+        </pre>
+
+        <h2>
+            <a name="unitType-dimensions">4.5</a>
+            Dimensions
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MUST contain at least one
+            <code>dimension</code>
+            child. These
+            elements define the unitType in terms of other unitTypes to particular powers.
+        </p>
+
+        <h2>
+            <a name="unitType-definition">4.6</a>
+            Definition
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MUST contain a single
+            <code>definition</code>
+            child element, the content of which provides a concise human-readable definition of the unit.
+            For example, the definition of the SI unit of time (a second) would be;
+            <br/>
+            "The SI base unit of time, equal to the duration of 9192631770 periods of the radiation
+            corresponding to the transition between the two hyperfine levels of the ground state of the
+            caesium-133 atom."
+        </p>
+        <p>
+            The
+            <code>definition</code>
+            element MUST contain one or more child elements in the
+            <code>http://www.w3.org/1999/xhtml</code>
+            namespace.
+        </p>
+        <p>
+            There MUST be at least one non-whitespace character as a child of the
+            <code>http://www.w3.org/1999/xhtml</code>
+            element.
+        </p>
+
+        <h2>
+            <a name="unitType-description">4.7</a>
+            Description
+        </h2>
+        <p>
+            A
+            <code>unitType</code>
+            element MAY have a single
+            <code>description</code>
+            child element, the content of which provides further information regarding
+            the unit, including, but not limited to: examples, human-readable semantics
+            and hyperlinks to other useful resources.
+        </p>
+        <p>
+            The
+            <code>description</code>
+            element MUST contain one or more child elements in the
+            <code>http://www.w3.org/1999/xhtml</code>
+            namespace.
+        </p>
+        <p>
+            There MUST be at least one non-whitespace character as a child of the
+            <code>http://www.w3.org/1999/xhtml</code>
+            element.
+        </p>
+
+        <h1>
+            <a name="dimension-elements">5.</a>
+            Dimension Elements
+        </h1>
+        <h2>
+            <a name="dimension-name">5.1</a>
+            Name
+        </h2>
+        <p>
+            A
+            <code>dimension</code>
+            element MUST have a
+            <code>name</code>
+            attribute, the
+            value of which linguistically identifies the type of the unit. For example
+            'mass', 'length' and 'time' would be suitable names for dimensions.
+        </p>
+        <p>
+            The
+            <code>name</code>
+            attribute MUST NOT be empty and MUST contain at least one
+            non-whitespace character.
+        </p>
+        <p>
+            The value of the
+            <code>name</code>
+            attribute MAY contain any valid unicode
+            character, however it is RECOMMENDED that any character from outside of
+            the ASCII subset (codepoints 32-127) is represented using an entity reference.
+        </p>
+
+        <h2>
+            <a name="dimension-unitType">5.2</a>
+            UnitType
+        </h2>
+        <p>
+            Every
+            <code>dimension</code>
+            element MUST have a
+            <code>unitType</code>
+            attribute, the value of which
+            is a QName referencing the unit type (
+            <i>e.g.</i>
+            time, temperature, length, force) of the unit.
+            The prefix of the QName MUST be bound to a declared namespace which MUST be a valid URI and
+            SHOULD be a valid URL. There SHOULD be an element with the same id as the local-name of the QName
+            available at this URL giving further information.
+        </p>
+        <p>
+            For base units
+            <i>i.e.</i>
+            mass, length and time the unitType will be self referential.
+        </p>
+
+
+        <h2>
+            <a name="dimension-power">5.3</a>
+            Power
+        </h2>
+        <p>
+            A
+            <code>dimension</code>
+            element MUST have a
+            <code>power</code>
+            attribute, the value of which
+            MUST be a double and defines the power to which a dimension should be raised.
+        </p>
+
+        <h1>
+            <a name="example">6.</a>
+            Example Dictionary
+        </h1>
+
+        <div class="good">
+            <pre>
+            &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+            &lt;unitTypeList
+                    xmlns="http://www.xml-cml.org/schema"
+                    xmlns:dc="http://purl.org/dc/elements/1.1/"
+                    xmlns:dummyDictionary="http://www.xml-cml.org/dictionary/"
+                    xmlns:convention="http://www.xml-cml.org/convention/"
+                    xmlns:xhtml="http://www.w3.org/1999/xhtml"
+                    xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
+                    convention="convention:unitType-dictionary"
+                    namespace="http://www.xml-cml.org/unit/unitType/"
+                    title="example unitType dictionary" &gt;
+                &lt;description&gt;
+                     &lt;xhtml:p&gt;
+                        This is an example unitType list for demonstration purposes
+                     &lt;/xhtml:p&gt;
+                &lt;/description&gt;
+
+                &lt;unitType id="dimensionless" name="Dimensionless" title="Dimensionless"&gt;
+                    &lt;dimension name="dimensionless" unitType="unitType:dimensionless" power="1"/&gt;
+                    &lt;definition&gt;
+                        &lt;xhtml:p&gt;A quantity without an associated physical dimension&lt;/xhtml:p&gt;
+                    &lt;/definition&gt;
+                    &lt;description&gt;
+                        &lt;xhtml:p&gt;This is a difficult concept and users should read the Wikipedia article and further references.
+                            &lt;xhtml:code&gt;dimensionless&lt;/xhtml:code&gt;
+                            can be used for numeric quantities which formally have no units such as
+                            dimensionless constants. It can also be used for ratios of quantities with units (e.g. mg/kg).
+                            Cancelling
+                            units loses semantic information and we shall try in CML to avoid this if possible.
+                        &lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;
+                            &lt;xhtml:code&gt;dimensionless&lt;/xhtml:code&gt;
+                            MUST not be used for concepts which are not numeric (e.g. algorithms) or pure numbers
+                            and
+                            &lt;xhtml:a href="#none"&gt;none&lt;/xhtml:a&gt;
+                            SHOULD be used.
+                        &lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;
+                            &lt;xhtml:a href="http://en.wikipedia.org/wiki/Dimensionless_quantity"&gt;Dimensionless&lt;/xhtml:a&gt;
+                            in Wikipedia
+                        &lt;/xhtml:p&gt;
+                    &lt;/description&gt;
+                    &lt;dc:source&gt;Peter Murray-Rust&lt;/dc:source&gt;
+                &lt;/unitType&gt;
+
+                  &lt;unitType id="mass"
+                          name="Mass"
+                          title="Mass"&gt;
+                    &lt;dimension name="mass" unitType="unitType:mass" power="1"/&gt;
+                    &lt;definition&gt;
+                        &lt;xhtml:p&gt;Mass used as a type of unit corresponding to dimension
+                            &lt;xhtml:code&gt;
+                                &lt;xhtml:b&gt;M&lt;/xhtml:b&gt;
+                            &lt;/xhtml:code&gt;
+                            .
+                        &lt;/xhtml:p&gt;
+                    &lt;/definition&gt;
+                    &lt;description&gt;
+                        &lt;xhtml:p&gt;Mass is a difficult concept. In Chemistry the three types of mass (inertial mass, active gravitational
+                            mass,
+                            and passive gravitational mass) are generally used interchangeably. Here
+                            &lt;xhtml:code&gt;mass&lt;/xhtml:code&gt;
+                            is used as the type of the
+                            unit and can be linked to the fundamental
+                            &lt;xhtml:b&gt;M&lt;/xhtml:b&gt;
+                            dimension.
+                        &lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;Mass should never be used as a synonym for weight.&lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;see
+                            &lt;xhtml:a href="http://en.wikipedia.org/wiki/Mass"&gt;Mass&lt;/xhtml:a&gt;
+                            in Wikipedia
+                        &lt;/xhtml:p&gt;
+                        &lt;dc:source&gt;Wikipedia&lt;/dc:source&gt;
+                    &lt;/description&gt;
+                &lt;/unitType&gt;
+    
+                &lt;unitType id="length" name="Length" title="Length"&gt;
+                    &lt;dimension name="length" unitType="unitType:length" power="1"/&gt;
+                    &lt;dc:source&gt;Wikipedia&lt;/dc:source&gt;
+                    &lt;definition&gt;
+                        &lt;xhtml:p&gt;Length is a measure of one dimension&lt;/xhtml:p&gt;
+                    &lt;/definition&gt;
+                    &lt;description&gt;
+                        &lt;xhtml:p&gt;Length is a measure of one dimension, whereas area is a measure of two dimensions (length squared) and volume is a measure of three dimensions (length cubed). In most systems of measurement, the unit of length is a fundamental unit, from which other units are defined.&lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;In the physical sciences and engineering, when one speaks of "units of length", the word "length" is synonymous with "distance".&lt;/xhtml:p&gt;
+                        &lt;xhtml:p&gt;The metre (or meter), symbol m, is the base unit of length in the International System of Units (SI). Originally intended to be one ten-millionth of the distance from the Earth's equator to the North Pole (at sea level), its definition has been periodically refined to reflect growing knowledge of metrology. Since 1983, it is defined as the length of the path travelled by light in vacuum in 1⁄299,792,458 of a second.&lt;/xhtml:p&gt;
+                    &lt;/description&gt;
+                &lt;/unitType&gt;
+    
+                &lt;unitType id="reciprocal_length" name="reciprocal length" title="reciprocal length"&gt;
+                    &lt;dimension name="length" unitType="unitType:length" power="-1"/&gt;
+                    &lt;definition&gt;
+                        &lt;xhtml:p&gt;Reciprocal length or inverse length is often used in spectroscopy as a measure of energy but in other
+                            areas it could be the absorption coefficient or attenuation coefficient in materials science or
+                            the curvature of a line in mathematics.
+                        &lt;/xhtml:p&gt;
+                    &lt;/definition&gt;
+                    &lt;description&gt;
+                        &lt;xhtml:p&gt;Reciprocal length or inverse length is a measurement used in several branches of
+                            science and mathematics. As the reciprocal of length, common units used for this
+                            measurement include the reciprocal metre or inverse metre (m−1), the reciprocal centimetre or inverse
+                            centimetre (cm−1), and, in optics, the dioptre.
+                        &lt;/xhtml:p&gt;
+                    &lt;/description&gt;
+                &lt;/unitType&gt;
+    
+            &lt;/unitTypeList&gt;   
+            </pre>
+        </div>
+
+
+        <h1>
+            <a name="refs">A.</a>
+            References
+        </h1>
+
+        <dl>
+
+            <dt>
+                <a name="ref-RFC2119">[RFC2119]</a>
+            </dt>
+            <dd>
+                IETF
+                <cite>
+                    <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate
+                        Requirement
+                        Levels
+                    </a>
+                </cite>
+                ,
+                S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
+            </dd>
+
+            <dt>
+                <a name="ref-XML">[XML]</a>
+            </dt>
+            <dd>
+                <cite>
+                    <a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth
+                        Edition)
+                    </a>
+                </cite>
+                ,
+                T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors. World Wide Web Consortium.
+                26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126.
+                <a
+                        href="http://www.w3.org/TR/REC-xml">latest version of XML
+                </a>
+                is available at http://www.w3.org/TR/REC-xml.
+            </dd>
+
+        </dl>
+
+
+        <h1>
+            <a name="acks">B.</a>
+            Acknowledgements
+        </h1>
+
+        <ul>
+            <li>Peter Murray-Rust</li>
+            <li>Joe Townsend</li>
+            <li>Sam Adams</li>
+            <li>Egon Willighagen</li>
+        </ul>
+
+        <hr/>
+        <div>
+        <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+            <img alt="Creative Commons Licence" style="border-widtxhtml:0"
+                 src="http://i.creativecommons.org/l/by/3.0/88x31.png"/>
+        </a>
+        <br/>This work is licensed under a<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative
+        Commons
+        Attribution 3.0 Unported License</a>.
+        </div>
+    </body>
+</html>

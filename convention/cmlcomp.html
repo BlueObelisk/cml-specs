@@ -179,7 +179,7 @@
         </p>
 
         <p>
-            The job list module is a required element and there MUST be at least one element of job list module present in the <code>cml</code> container, see <a href="#example3">Example 3</a>.
+            The job list module is a REQUIRED element and there MUST be at least one element of job list module present in the <code>cml</code> container, see <a href="#example3">Example 3</a>.
         </p>
 
         <p id="example3">
@@ -384,7 +384,7 @@
 
         <h2>4.2 z-Matrix</h2>
 
-        <p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CMLComp adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. Howevery this is an important element and must be part of the CMLComp)</em></p>
+        <p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CMLComp adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. However, this is an important element and must be part of the CMLComp)</em></p>
 
 
         <h2>4.3 ParameterList</h2>
@@ -411,14 +411,13 @@
 
         <p>A <code>property</code> MUST contain only <strong><em>one of</em></strong> the value containers given in section 4.8.</p>
 
-        <h2>4.7 Unit and UnitType</h2>
+        <h2>4.7 Units</h2>
 
-        <p>Units and unit types are one of the most important information in scientific data. All value containers, see section 4.8, MUST have unit and unit type associated with them <strong><em>except</em></strong> that they are string or text values.</p>
+        <p>Units are one of the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong><em>except</em></strong> that they are string or text values.</p>
 
         <ul>
             <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CMLComp document if the unit entry used in the CMLComp document does not exist on xml-cml.org.</li>
-            <li>The unit type on a value container MUST be specified using <code>unitType</code> attribute and the value MUST be <code>QName</code> of an entry in a unit type dictionary. The unit type dictionary MUST be provided along with the CMLComp document if the unit type entry used in the CMLComp document does not exist on xml-cml.org.</li>
-            <li><em class="bad">TODO: If The unit type is either <code>unitType:none</code> or <code>unitType:unknown</code>, the <code>unit</code> attribute is OPTIONAL.</em></li>
+            <li><em class="bad">TODO: Define units for dimensionles quantity.</em></li>
         </ul>
 
         <h2>4.8 Value container</h2>
@@ -437,8 +436,8 @@
 
         <ul>
             <li>CML Scalar is defined by a <code>cml:scalar</code> element and MUST conform with CML schema version 3.</li>
-            <li>The data type of <code>scalar</code> is required and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</em></li>
-            <li><code>scalar</code> MUST have unit and unit type if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if they are dimensionless.</li>
+            <li>The data type of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</em></li>
+            <li><code>scalar</code> MUST have unit if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if they are dimensionless.</li>
             <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
         </ul>
 
@@ -452,8 +451,8 @@
             <li>CML Array is defined by a <code>cml:array</code> element and MUST conform with CML schema version 3.</li>
             <li>The size of <code>array</code> is requried and MUST be specified using <code>size</code> attribute with the minimum value of 1.</li>
             <li><em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em></li>
-            <li>The data type of <code>array</code> is required and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
-            <li><code>array</code> MUST have unit and unit type even if they are dimensionless.</li>
+            <li>The data type of <code>array</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
+            <li><code>array</code> MUST have unit even if they are dimensionless.</li>
         </ul>
 
         <h3>4.8.3 Matrix</h3>
@@ -466,8 +465,8 @@
             <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform with CML schema version 3.</li>
             <li>The dimension of <code>matrix</code> is requried and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code>)</em></li>
             <li><em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em></li>
-            <li>The data type of <code>matrix</code> is required and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
-            <li><code>matrix</code> MUST have unit and unit type even if they are dimensionless.</li>
+            <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
+            <li><code>matrix</code> MUST have unit even if they are dimensionless.</li>
         </ul>
 
         <p id="example10">

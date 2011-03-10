@@ -1,0 +1,746 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+    <head>
+        <title>Chemical Markup Language - CMLComp Convention</title>
+        <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
+        <meta http-equiv="refresh" content="5" /> 
+        <link rel="stylesheet" href="../style/W3C-PR.css" type="text/css" />
+        <link rel="stylesheet" href="../style/cml-spec.css" type="text/css" />
+    </head>
+
+    <body>
+        <div class="head">
+            <h1>Chemical Markup Language - CMLComp Convention</h1>
+            <h2>08 March 2011</h2>
+
+            <dl>
+                <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
+                <dd><a href="http://www.xml-cml.org/convention/cmlcomp-20110308">http://www.xml-cml.org/convention/cmlcomp-20110308</a></dd>
+
+                <dt>Latest version:</dt>
+                <dd><a href="http://www.xml-cml.org/convention/cmlcomp">http://www.xml-cml.org/convention/cmlcomp</a></dd>
+
+                <dt>Authors:</dt>
+                <dd>See <a href="#acks">acknowledgments</a>.</dd>
+
+                <dt>Editors:</dt>
+                <dd>Weerapong Phadungsukanan, University of Cambridge</dd>
+            </dl>
+
+            <h2><a name="abstract" id="abstract"></a> Abstract</h2>
+
+            <p>This specification defines the requirements of the Chemical Markup Language CMLComp convention.</p>
+
+            <hr />
+        </div>
+
+        <h1><a name="contents" id="contents"></a>Table of Contents</h1>
+
+        <p>TODO</p>
+
+        <hr />
+
+
+        <h1><a name="introduction">1.</a> Introduction</h1>
+
+        <p>The CMLComp convention is used to specify computational chemistry documents. It is invented to capture the typical underlying processes of quantum calculations and relates them in a well defined implicit semantic structure using Chemical Markup Language (CML). </p>
+
+        <p>This document describes the concepts which are introduced in CMLComp, explains how to compose a CMLComp document and illustrates it with examples. The complete core concepts of CMLComp consists of:
+
+        </p>
+        <ul>
+            <li>Job list concept</li>
+            <li>Job concept</li>
+            <li>Initialisation concept</li>
+            <li>Iteration or calculation concept</li>
+            <li>Finalisation concept</li>
+            <li>User defined concept</li>
+        </ul>
+
+        <p>The CMLComp convention also includes a molecular converntion which specifies the molecular representation in CMLComp, e.g. input molecular geometry, optimised geometry result, etc. The molecular convention is not explained here and the reader should consult the molecular convention specification for more information.</p>
+
+
+        <h2><a name="notational_conventions">1.1</a> Notational Conventions</h2>
+
+        <p>
+            The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
+            &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
+            in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC 2119</a></cite>].
+        </p>
+
+        <p>
+            The terms &quot;element&quot;, &quot;attribute&quot;, &quot;child&quot; and &quot;parent&quot;
+            in this document are to be interpreted as described in the W3C Recommendation for Extensible Markup
+            Language (XML) [<cite><a href="#ref-XML">W3C XML</a></cite>].
+        </p>
+
+        <p>The use of fonts is as follows:</p>
+        <ul>
+            <li>Schema terms, including elements and attributes, are written in <code>this font</code>.</li>
+        </ul>
+
+        <h2><a name="namespaces">1.2</a> Namespaces</h2>
+
+        <p>This specification uses the following namespaces and prefixes to indicate those namespaces:</p>
+
+        <table class="namespace-table" summary="Namespaces table">
+            <tr>
+                <th>Prefix</th>
+                <th>Namespace URI</th>
+                <th>Description</th>
+            </tr>
+            <tr>
+                <td><code>cml</code></td>
+                <td><code>http://www.xml-cml.org/schema</code></td>
+                <td>Chemical Markup Language elements</td>
+            </tr>
+            <tr>
+                <td><code>convention</code></td>
+                <td><code>http://www.xml-cml.org/convention/</code></td>
+                <td>Standard Chemical Markup Language convention namespace</td>
+            </tr>
+            <tr>
+                <td><code>xhtml</code></td>
+                <td><code>http://www.w3.org/1999/xhtml</code></td>
+                <td>XHTML</td>
+            </tr>
+        </table>
+
+
+        <h1><a name="applying">2.</a> Applying the CMLComp convention on CML element</h1>
+
+        <p>
+            The CMLComp document MUST contain a root <code>cml</code> element and the CMLComp
+            convention, i.e. <code>convention:cmlcomp</code>, MUST be specified using the 
+            <code>convention</code> attribute on the <code>cml</code> element.
+        </p>
+
+        <div class="good">
+            <pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;cml xmlns="http://www.xml-cml.org/schema"
+     xmlns:convention="http://www.xml-cml.org/convention/"
+     convention="convention:cmlcomp"&gt;
+
+     &lt;!-- document body is omitted. --&gt;
+&lt;/cml&gt;
+            </pre>
+        </div>
+
+        <p>
+            If the convention is specified on a <code>cml</code> element then that element
+            MUST contain one or more child job list <code>module</code> elements, and MUST NOT
+            contain any other child elements in any namespace, see <a href="#example1">Example 1</a>.
+        </p>
+
+        <p id="example1"><strong>Example 1: Minimal requirements for CML element in CMLComp convention</strong></p>
+        <div class="good">
+            <pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;cml xmlns="http://www.xml-cml.org/schema"
+     xmlns:convention="http://www.xml-cml.org/convention/"
+     convention="convention:cmlcomp"&gt;
+
+     &lt;module role="joblist"&gt;
+         &lt;!-- 1st job list body is omitted. --&gt;
+     &lt;/module&gt;
+
+     &lt;module role="joblist"&gt;
+         &lt;!-- 2nd job list body is omitted. --&gt;
+     &lt;/module&gt;
+
+&lt;/cml&gt;
+            </pre>
+        </div>
+
+        <p id="example2">
+            <strong>Example 2: CMLComp document MUST contain at least one <code>module[@role="joblist"]</code></strong>
+        </p>
+        <div class="bad">
+            <pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;cml xmlns="http://www.xml-cml.org/schema"
+     xmlns:convention="http://www.xml-cml.org/convention/"
+     convention="convention:cmlcomp"&gt;
+
+     &lt;!-- Empty body is invalid CMLComp document. --&gt;
+&lt;/cml&gt;
+            </pre>
+        </div>
+
+        <h1>3. CMLComp Concepts and Elements</h1>
+
+        <h2>3.1 Joblist</h2>
+        <p>
+            In computing a quantum chemistry task, it often requries to perform a series of subtasks, e.g. coarse optimisation > fine optimisation > NMR Spectrum Analysis, in order to achieve a final desired results. This is because most quantum chemistry software are designed to be modularised and only perform a single task at a time. The job list concept is introduced to capture these series of successive subtasks and links the information from one subtask to the next subtask.
+        </p>
+
+        <p>
+            The job list can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>joblist</code>, i.e. <code>cml:module[@role="joblist"]</code>. This is shown in <a href="#example1">Example 1</a>.
+        </p>
+
+        <p>
+            The job list module is a REQUIRED element and there MUST be at least one element of job list module present in the <code>cml</code> container, see <a href="#example3">Example 3</a>.
+        </p>
+
+        <p id="example3">
+            <strong>Example 3: Minimal requirements for CMLComp Joblist</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="joblist"&gt;
+    &lt;module role="job" title="geometry optimisation"&gt;
+        &lt;!-- job body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h2>3.2 Job</h2>
+        <p>
+            A job concept represents the computational job performed by quantum chemistry software, e.g. geometry optimisation job, frequency analysis job, etc. The job concept is the smallest unit which can fully describe a general picture of computational modelling. It consists of model parameters, model optimisations or calculations and model results. These three components are fundamental to every modelling in every field. However, a job in CMLComp does not requires all three components. Only model parameters are mandatory.
+        </p>
+
+        <p>
+            The job can be defined by a <code>cml:module</code> where the <code>role</code> attribute MUST be set to <code>job</code> and it MUST conform with the following rules:
+        </p>
+        <ul>
+            <li>The CMLComp Job is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>job</code>.</li>
+            <li>The CMLComp Job MUST be titled using <code>title</code> attribute with <strong><em>unique string identifier</em></strong> within its job list module, i.e. <code>cml:module[@role="joblist" and @title="unique ID"]</code>. The job title only serves as human readable text and machine distinguishable identifier.</li>
+            <li>There MUST be at <strong><em>least one</em></strong> CMLComp Job in any CMLComp Joblist.</li>
+            <li>There MUST contains <strong><em>exactly one</em></strong> module of initialisation.</li>
+            <li>The CMLComp Job MAY contains at <strong><em>least one</em></strong> of calculation or optimsation module <strong><em>after</em></strong> the initialisation module stated in previous bullet point.</li>
+            <li>The CMLComp Job MAY contains <strong><em>exactly one</em></strong> finalisation module <strong><em>after</em></strong> the calculation or optimsation modules (if present) stated in previous bullet point <strong><em>or</em></strong> <strong><em>after</em></strong> the initialisation module (if calculation or optimsation modules are not present).</li>
+            <li>If the calculation or optimsation modules is present, CMLComp Job MUST contain a finalisation module.</li>
+            <li>The finalisation module MUST be the <strong><em>last</em></strong> element in CMLComp Job.</li>
+            <li>TODO: other elements allowed are <code>identifier</code>.</li>
+        </ul>
+
+
+        <p>
+            A CMLComp Job which contains only the initialisation module can be used for storing program or model inputs. It can be considered as an XML version of program input file.
+        </p>
+
+        <p id="example4">
+            <strong>Example 4: Minimal requirements for CMLComp Job module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <p id="example5">
+            <strong>Example 5: CMLComp Job module with multiple calculation steps</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="final"&gt;
+        &lt;!-- requried final body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <p id="example6">
+            <strong>Example 6: CMLComp Job module without calculation steps</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="job" title="coarse geometry optimisation"&gt;
+    &lt;module role="init"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module role="final"&gt;
+        &lt;!-- requried final body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h2>3.3 Init</h2>
+
+        <p>
+            An initialisation module represents the concept of the model parameters and inputs for computational job. The initialisation module is mandatory in CMLComp. Here is a list of requirements:
+        </p>
+
+        <ul>
+            <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
+            <li>The CMLComp Init MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Init MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>The CMLComp Init MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or user defined <code>module</code> element.</li>
+            <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Init in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Init <strong><em>except for one or more</em></strong> of user defined <code>module</code>.</li>
+        </ul>
+
+        <p id="example7">
+            <strong>Example 7: CMLComp Init module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="init"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;parameterList&gt;
+        &lt;!-- parameterList body is omitted. --&gt;
+    &lt;/parameterList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h2>3.4 Calculation</h2>
+
+        <p>
+            A calculation module represents the concept of the model calculation or optimisation or iteration processes for computational job. The calculation module is optional in CMLComp. Here is a list of requirements:
+        </p>
+
+        <ul>
+            <li>The CMLComp Calculation is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>calculation</code>.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:parameterList</code> element.</li>
+            <li>The CMLComp Calculation MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Calculation MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:parameterList</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
+            <li>There MAY be <strong><em>zero or more than one</em></strong> of CMLComp Calculation in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
+        </ul>
+
+        <p id="example8">
+            <strong>Example 8: CMLComp Calculation module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="calculation"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;parameterList&gt;
+        &lt;!-- parameterList body is omitted. --&gt;
+    &lt;/parameterList&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+        <h2>3.5 Final</h2>
+
+        <p>
+            A finalisation module represents the concept of the model results for computational job. The finalisation module is optional in CMLComp. Here is a list of requirements:
+        </p>
+
+        <ul>
+            <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
+            <li>The CMLComp Final MAY contains <strong><em>exactly one</em></strong> <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Final MAY contains <strong><em>exactly one</em></strong> <code>cml:propertyList</code> element.</li>
+            <li>The CMLComp Final MUST contains at <strong><em>least one</em></strong> of <code>cml:molecule</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
+            <li>There MUST be <strong><em>exactly one</em></strong> of CMLComp Final in a given CMLComp Job.</li>
+            <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
+        </ul>
+
+        <p id="example9">
+            <strong>Example 8: CMLComp Final module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module role="final"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h2>3.6 User Defined Module</h2>
+        CMLComp allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CMLComp validator.<em class="bad">Not finished</em>
+
+        <p id="exampleX">
+            <strong>Example X: CMLComp User Defined module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module dictRef="prefix:def"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h1>4. Data Structure with CML Elements</h1>
+        <p>
+            CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+        </p>
+
+        <h2>4.1 Molecule</h2>
+
+        <p>CMLComp uses CML Molecule to store molecular geometry and coordinates. CML Molecule specifications are defined in molecular convention so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of molecular convention for more details.</p>
+
+        <h2>4.2 z-Matrix</h2>
+
+        <p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CMLComp adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. However, this is an important element and must be part of the CMLComp)</em></p>
+
+
+        <h2>4.3 ParameterList</h2>
+
+        <p>CMLComp uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST have only the CML Parameter(s) as child(s).</p>
+
+        <h2>4.4 PropertyList</h2>
+
+        <p>CMLComp uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST have only the CML Property(s) as child(s).</p>
+
+        <h2>4.5 Parameter</h2>
+        
+        <p>CMLComp uses CML Parameter to represent the concept of the inputs of the quantum chemistry calculations.</p>
+
+        <p>A CML Parameter is defined by <code>cml:parameter</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the parameter.</p>
+
+        <p>A <code>parameter</code> MUST contain only <strong><em>one of</em></strong> the value containers given in section 4.8.</p>
+
+        <h2>4.6 Property</h2>
+
+        <p>CMLComp uses CML Property to represent the concept of the outputs of the quantum chemistry calculations.</p>
+        
+        <p>A CML Property is defined by <code>cml:property</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the property.</p>
+
+        <p>A <code>property</code> MUST contain only <strong><em>one of</em></strong> the value containers given in section 4.8.</p>
+
+        <h2>4.7 Units</h2>
+
+        <p>Units are one of the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong><em>except</em></strong> that they are string or text values.</p>
+
+        <ul>
+            <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CMLComp document if the unit entry used in the CMLComp document does not exist on xml-cml.org.</li>
+            <li><em class="bad">TODO: Define units for dimensionles quantity.</em></li>
+        </ul>
+
+        <h2>4.8 Value container</h2>
+        <p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CMLComp, we current <strong><em>only</em></strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
+        
+
+        <h3>4.8.1 Scalar</h3>
+
+        <p>
+            A CML Scalar element in CMLComp is used to hold a scalar data, which can be a single value of integer or real. The CML Scalar is also extended to include string or text value.
+        </p>
+
+        <p>
+            In CMLComp, the CML Scalar MUST conform with the following rules :
+        </p>
+
+        <ul>
+            <li>CML Scalar is defined by a <code>cml:scalar</code> element and MUST conform with CML schema version 3.</li>
+            <li>The data type of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</em></li>
+            <li><code>scalar</code> MUST have unit if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if they are dimensionless.</li>
+            <li><code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
+        </ul>
+
+        <h3>4.8.2 Array</h3>
+
+        <p>
+            A CML Array element in CMLComp is used to hold a one dimentioanl array data structure of <strong><em>only either</em></strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :
+        </p>
+
+        <ul>
+            <li>CML Array is defined by a <code>cml:array</code> element and MUST conform with CML schema version 3.</li>
+            <li>The size of <code>array</code> is requried and MUST be specified using <code>size</code> attribute with the minimum value of 1.</li>
+            <li><em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em></li>
+            <li>The data type of <code>array</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
+            <li><code>array</code> MUST have unit even if they are dimensionless.</li>
+        </ul>
+
+        <h3>4.8.3 Matrix</h3>
+
+        <p>
+            A CML Matrix element in CMLComp is used to hold a two-dimensional rectangular matrix data structure of <strong><em>only either</em></strong> integer or real values. Thus, the data type of this value container MUST <strong><em>only</em></strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :
+        </p>
+
+        <ul>
+            <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform with CML schema version 3.</li>
+            <li>The dimension of <code>matrix</code> is requried and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code>)</em></li>
+            <li><em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em></li>
+            <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong><em>one of</em></strong> <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em></li>
+            <li><code>matrix</code> MUST have unit even if they are dimensionless.</li>
+        </ul>
+
+        <p id="example10">
+            <strong>Example : Fully qualified CMLComp document (Isn't qualified at the moment due to change in the rules)</strong>
+        </p>
+
+        <div class="good">
+            <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;cml 
+    cmlx:note="A valid cmlcomp containg two jobs is valid."
+    convention="conventions:cmlcomp"
+    xmlns="http://www.xml-cml.org/schema"
+    xmlns:conventions="http://www.xml-cml.org/convention/"
+    xmlns:units="http://www.xml-cml.org/units/units"
+    xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+    xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"&gt;
+    &lt;module role="joblist"&gt;
+        &lt;identifier convention="chemid:EmpiricalFormula" value="CCl2O2"/&gt;
+        &lt;identifier convention="chemid:InChI" value="InChI=1/CCl2O2/c2-1(4)5-3"/&gt;
+        &lt;identifier convention="chemid:CanonicalSmiles" value="ClOC(=O)Cl"/&gt;
+        &lt;identifier convention="chemid:IsomericSmiles" value="C(=O)(Cl)OCl"/&gt;
+        &lt;module role="job" title="job1"&gt;
+            &lt;module role="init"&gt;
+                &lt;parameterList&gt;
+                    &lt;parameter dictRef="cmlqm:qm.method"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;B97-1&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.basis"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;6-311+G(d,p)&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.integral"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;UltraFine&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.symm"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;None&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.pop"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Regular&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.freq"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Frequency analysis&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.geo"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Geometry optimization&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.scf"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Tight, SCF Convergence Criteria of 10^-8&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                &lt;/parameterList&gt;
+                &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.6629" y3="-1.148" z3="-0.0578"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.0407" y3="-0.0568" z3="-0.2355"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.5528" y3="-0.8196" z3="0.1622"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.1799" y3="-2.3872" z3="-0.2293"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.0066" y3="-3.6732" z3="-0.1014"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+            &lt;/module&gt;
+            &lt;module role="final"&gt;
+                &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.661722" y3="-1.150648" z3="-0.057744"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.041068" y3="-0.059007" z3="-0.235698"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.55104" y3="-0.821319" z3="0.162394"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.180501" y3="-2.387568" z3="-0.229457"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.00857" y3="-3.666258" z3="-0.101295"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+                &lt;propertyList&gt;
+                    &lt;property dictRef="cmlqm:property.nsymrot"&gt;
+                        &lt;scalar dataType="xsd:integer"&gt;1&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.rotconstants"&gt;
+                        &lt;array dataType="xsd:double" units="units:GHz" delimiter="" size="3"&gt;
+                            9.610774107948902 1.6540686120943338 1.4111941740951228
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoi"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu.rbohr2" delimiter="" size="3"&gt;
+                            187.7832739452039 1091.092965516907 1278.876188881425
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoiaxis"&gt;
+                        &lt;matrix rows="3" columns="3" dataType="xsd:double"&gt;
+                            0.4547378900162555 0.8730253212283468 -0.17618240513089256
+                            -0.8902808990268888 0.45108016953679547 -0.06266260031733822
+                            0.02476635240479569 0.18534688868388882 0.9823610123797482
+                        &lt;/matrix&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.scfenergy"&gt;
+                        &lt;scalar dataType="xsd:double" units="units:hartree"&gt;-1108.82623721&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.hf298"&gt;
+                        &lt;scalar units="units:kcal.mol-1" dataType="xsd:double"&gt;-61.5885860322&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.freqmode"&gt;
+                        &lt;array dataType="xsd:double" units="units:cm-1" delimiter="" size="9"&gt;
+                            142.6122 218.2282 326.208 471.9528 665.9777 708.8044 841.3894 1047.4277 1905.0634
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.forceconstant"&gt;
+                        &lt;array dataType="xsd:double" units="units:mDyne.A-1" delimiter="" size="9"&gt;
+                            0.2216 0.5379 1.7308 2.7391 3.3245 5.34 6.1336 8.6831 28.3818
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.irintensity"&gt;
+                        &lt;array dataType="xsd:double" units="units:KM.mol-1" delimiter="" size="9"&gt;
+                            0.4756 1.7945 5.3957 3.2514 12.5217 26.7365 85.8421 376.7849 400.4058
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.reducedmass"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu" delimiter="" size="9"&gt;
+                            18.4952 19.1715 27.6069 20.8721 12.7222 18.04 14.7051 13.4331 13.273
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                &lt;/propertyList&gt;
+            &lt;/module&gt;
+        &lt;/module&gt;
+    &lt;/module&gt;
+&lt;/cml&gt;
+            </pre>
+        </div>
+        <!--h2>4.x Connection tables</h2>
+        
+        <h3>4.1 Atom Elements</h3>
+        
+        <p>
+            A <code>molecule</code> MAY contain a single <code>atomArray</code> child.
+            An <code>atomArray</code> MUST be a child of a <code>molecule</code>.
+            An <code>atomArray</code> MUST contain at least one <code>atom</code>.
+            <code>atom</code> elements MUST be children of an <code>atomArray</code>.
+        </p>
+        
+        <h4>4.1.x ID</h4>
+        
+        <p>
+            Unless it is part of a <code>formula</code>, an <code>atom</code> MUST have an <code>id</code> attribute, which
+            MUST be unique within the scope of the eldest containing <code>molecule</code>.
+        </p>
+        
+        <h4>4.2.x Element Type</h4>
+        
+        <p>
+            An <code>atom</code> MUST have an <code>elementType</code> attribute.
+        </p>
+        
+        <h4>4.3.x 2D Coordinates</h4>
+        
+        <p>
+            An <code>atom</code> MAY have <code>x2</code> and <code>y2</code> attributes.
+            If an <code>atom</code> has either an <code>x2</code> or a <code>y2</code> attribute then
+            it MUST have both an <code>x2</code> and a <code>y2</code> attribute.
+        </p>
+        
+        <h4>4.4.x 3D Coordinates</h4>
+        
+        <p>
+            An <code>atom</code> MAY have <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
+            If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
+            it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
+        </p>
+        
+        <h4>4.5.x Atom Parity Elements</h4>
+        
+        
+        <h3>4.2 Bond Elements</h3>
+        
+        <p>
+            A <code>molecule</code> MAY contain a single <code>bondArray</code> child.
+            A <code>bondArray</code> MUST be a child of a <code>molecule</code>.
+            A <code>bondArray</code> MUST contain at least one <code>bond</code>.
+        </p>
+        
+        <h4>4.2.1 ID</h4>
+        
+        <p>
+            A <code>bond</code> SHOULD have an <code>id</code> attribute, the value of which MUST be unique within the scope
+            of the eldest containing molecule.
+        </p>
+        
+        
+        <h4>4.2.2 AtomRefs</h4>
+        
+        <p>
+            A <code>bond</code> MUST have a <code>atomRefs2</code> attribute.
+            The atoms in the <code>atomRefs2</code> attribute MUST be within the socpe of the eldest containing molecule.
+            A <code>bond</code> MUST be between two different atoms.
+        </p>
+        
+        
+        <h4>4.2.3 Order</h4>
+        
+        <p>
+            A <code>bond</code> MUST have an <code>order</code> attribute.
+            If the value of the <code>order</code> attribute is <code>other</code>, then the <code>bond</code> SHOULD
+            have further semantics given using the <code>dictRef</code> attribute.
+        </p-->
+
+
+
+
+
+        <h1><a name="refs">A.</a> References</h1>
+
+        <dl>
+
+            <dt>
+                <a name="ref-RFC2119">[RFC2119]</a>
+            </dt>
+            <dd>
+                IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
+                S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
+            </dd>
+
+            <dt>
+                <a name="ref-XML">[XML]</a>
+            </dt>
+            <dd>
+                <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a></cite>,
+                T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
+                26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+            </dd>
+
+        </dl>
+
+
+        <h1><a name="acks">B.</a> Acknowledgements</h1>
+
+        <ul>
+            <li>Peter Murray-Rust</li>
+            <li>Joe Townsend</li>
+            <li>Sam Adams</li>
+        </ul>
+
+        <hr />
+
+        <p>
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+                <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
+            </a>
+            <br/>
+            This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+        </p>
+
+    </body>
+</html>

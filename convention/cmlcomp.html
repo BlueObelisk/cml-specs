@@ -66,6 +66,7 @@
             <li>Initialisation </li>
             <li>Iteration or calculation </li>
             <li>Finalisation </li>
+            <li>User defined concept</li>
         </ul>
 
         <p>The CMLComp convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
@@ -489,6 +490,26 @@
 <h2>3.6 User Defined Module</h2>
 CMLComp allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CMLComp validator.<em class="bad">Not finished</em>
 
+        <p id="exampleX">
+            <strong>Example X: CMLComp User Defined module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module dictRef="prefix:def"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h1>4. Data Structure with CML Elements</h1>
+        <p>
+            CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+        </p>
 <h1>4. Data Structure with CML Elements</h1>
 <p>
     CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.

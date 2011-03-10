@@ -10,13 +10,13 @@
 <div class="head">
     <h1>Chemical Markup Language - UnitType Dictionary Convention</h1>
 
-    <h2>07 March 2011</h2>
+    <h2>10 March 2011</h2>
     <dl>
         <dt>
             <a id="thisVersion" name="thisVersion">This version</a>:
         </dt>
         <dd>
-            <a href="http://www.xml-cml.org/convention/unitType-20110307">http://www.xml-cml.org/convention/unitType-dictionary-20110307</a>
+            <a href="http://www.xml-cml.org/convention/unitType-20110310">http://www.xml-cml.org/convention/unitType-dictionary-20110310</a>
         </dd>
 
         <dt>Latest version:</dt>
@@ -245,7 +245,7 @@
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;unitTypeList
         xmlns="http://www.xml-cml.org/schema"
-        xmlns:unitTypes="http://www.xml-cml.org/units/unitTypes"
+        xmlns:unitType="http://www.xml-cml.org/units/unitType"
         xmlns:xhtml="http://www.w3.org/1999/xhtml"
         xmlns:convention="http://www.xml-cml.org/convention/"
         namespace="http://www.xml-cml.org/unit/unitType/"
@@ -443,99 +443,115 @@ elements define the unitType in terms of other unitTypes to particular powers.
     <a name="example">6.</a> Example Dictionary</h1>
 
 <div class="good">
-            <pre>
-                &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
-                &lt;unitList
-                        xmlns:convention="http://www.xml-cml.org/convention/"
-                        xmlns:siUnits="http://www.xml-cml.org/unit/si/"
-                        xmlns="http://www.xml-cml.org/schema"
-                        xmlns:h="http://www.w3.org/1999/xhtml"
-                        xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
-                        convention="convention:unitType-dictionary"
-                        title="example units dictionary"
-                        namespace="http://www.xml-cml.org/unit/example/"
-                        &gt;
-                    &lt;description&gt;
-                        &lt;h:p&gt;
-                            An example units dictionary.
-                        &lt;/h:p&gt;
-                    &lt;/description&gt;
-                    &lt;unit
-                            title="second"
-                            id="s"
-                            symbol="s"
-                            parentSI="siUnits:s"
-                            multiplierToSI="1" 
-                            constantToSI="0"
-                            unitType="unitType:time"&gt;
-                        &lt;definition&gt;
-                            &lt;h:p&gt;
-                                The SI base unit of time, equal to the duration of 9192631770 periods of the radiation corresponding 
-                                to the transition between the two hyperfine levels of the ground state of the 
-                                caesium-133 atom.
-                            &lt;/h:p&gt;
-                        &lt;/definition&gt;
-                        &lt;description&gt;
-                            &lt;h:p&gt;
-                                The second has had many definitions throughout history; originally, it was one sixtieth
-                                of one twenty-fourth of a solar day (the factor of sixty coming from Babylonian counting
-                                and the factor of 24 from Ancient Egypt).
-                            &lt;/h:p&gt;
-                            &lt;h:p&gt;
-                                The present definition dates from the Thirteenth General Conference on Weights and Measures,
-                                which took place in 1967.
-                            &lt;/h:p&gt;
-                        &lt;/description&gt;
-                    &lt;/unit&gt;
-                    &lt;unit
-                            title="metre"
-                            id="m"
-                            symbol="m"
-                            parentSI="siUnits:m"
-                            multiplierToSI="1.0" 
-                            unitType="unitType:length"&gt;
-                        &lt;definition&gt;
-                            &lt;h:p&gt;
-                                The SI base unit of length, defined as the length of the path travelled by 
-                                light in absolute vacuum during 1/299792458 of a second.
-                            &lt;/h:p&gt;
-                        &lt;/definition&gt;	
-                        &lt;description&gt;
-                            &lt;h:p&gt;
-                                The modern metre dates from 1791, when it was defined one ten-millionth of
-                                the length of the earth's meridian along a quadrant; it became France's
-                                official unit of length in 1793. Until 1960, the metre (like the kilogram)
-                                was defined by a prototype - in this case, a platinum-iridium bar; in 1960,
-                                the SI defined the metre as 1650763.73 wavelengths of the orange-red 
-                                emission line (the 2p10 - 5d5 transition) in the EM spectrum of Krypton-86 
-                                in vacuum. Since 1983, the present definition has been used.
-                            &lt;/h:p&gt;
-                        &lt;/description&gt;
-                    &lt;/unit&gt;
-                    &lt;unit 
-                            title="Angstrom" 
-                            id="angstrom" 
-                            symbol="&amp;#197;" 
-                            parentSI="siUnits:m"
-                            multiplierToSI="1E-10" 
-                            unitType="unitType:length"&gt;
-                    &lt;definition&gt;
-                      &lt;h:p&gt;
-                        1E-10 metres.
-                    &lt;/h:p&gt;
-                    &lt;/definition&gt;
-                    &lt;description&gt;
-                      &lt;h:p&gt;
-                        The angstrom is named after the Swedish physicist Anders Jonas Angstrom
-                        (1814-1874), one of the founders of spectroscopy, after his
-                        spectrum chart
-                        of solar radiation in the electromagnetic spectrum on the order
-                        of multiples of one ten-millionth of a millimetre, or 1E-10 metres.
-                      &lt;/h:p&gt;
-                    &lt;/description&gt;
-                  &lt;/unit&gt;
-                &lt;/unitList&gt;
-            </pre>
+<pre>
+&lt;?xml version="1.0" encoding="UTF-8" ?&gt;
+&lt;unitTypeList
+        xmlns="http://www.xml-cml.org/schema"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
+        xmlns:dummyDictionary="http://www.xml-cml.org/dictionary/"
+        xmlns:convention="http://www.xml-cml.org/convention/"
+        xmlns:xhtml="http://www.w3.org/1999/xhtml"
+        xmlns:unitType="http://www.xml-cml.org/unit/unitType/"
+        convention="convention:unitType-dictionary"
+        namespace="http://www.xml-cml.org/unit/unitType/"
+        title="example unitType dictionary" &gt;
+    &lt;description&gt;
+         &lt;xhtml:p&gt;
+            This is an example unitType list for demonstration purposes
+         &lt;/xhtml:p&gt;
+    &lt;/description&gt;
+
+    &lt;unitType id="dimensionless" name="Dimensionless" title="Dimensionless"&gt;
+        &lt;dimension name="dimensionless" unitType="unitType:dimensionless" power="1"/&gt;
+        &lt;definition&gt;
+            &lt;xhtml:p&gt;A quantity without an associated physical dimension&lt;/xhtml:p&gt;
+        &lt;/definition&gt;
+        &lt;description&gt;
+            &lt;xhtml:p&gt;This is a difficult concept and users should read the Wikipedia article and further references.
+                &lt;xhtml:code&gt;dimensionless&lt;/xhtml:code&gt;
+                can be used for numeric quantities which formally have no units such as
+                dimensionless constants. It can also be used for ratios of quantities with units (e.g. mg/kg).
+                Cancelling
+                units loses semantic information and we shall try in CML to avoid this if possible.
+            &lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;
+                &lt;xhtml:code&gt;dimensionless&lt;/xhtml:code&gt;
+                MUST not be used for concepts which are not numeric (e.g. algorithms) or pure numbers
+                and
+                &lt;xhtml:a href="#none"&gt;none&lt;/xhtml:a&gt;
+                SHOULD be used.
+            &lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;
+                &lt;xhtml:a href="http://en.wikipedia.org/wiki/Dimensionless_quantity"&gt;Dimensionless&lt;/xhtml:a&gt;
+                in Wikipedia
+            &lt;/xhtml:p&gt;
+        &lt;/description&gt;
+        &lt;dc:source&gt;Peter Murray-Rust&lt;/dc:source&gt;
+    &lt;/unitType&gt;
+
+      &lt;unitType id="mass"
+              name="Mass"
+              title="Mass"&gt;
+        &lt;dimension name="mass" unitType="unitType:mass" power="1"/&gt;
+        &lt;definition&gt;
+            &lt;xhtml:p&gt;Mass used as a type of unit corresponding to dimension
+                &lt;xhtml:code&gt;
+                    &lt;xhtml:b&gt;M&lt;/xhtml:b&gt;
+                &lt;/xhtml:code&gt;
+                .
+            &lt;/xhtml:p&gt;
+        &lt;/definition&gt;
+        &lt;description&gt;
+            &lt;xhtml:p&gt;Mass is a difficult concept. In Chemistry the three types of mass (inertial mass, active gravitational
+                mass,
+                and passive gravitational mass) are generally used interchangeably. Here
+                &lt;xhtml:code&gt;mass&lt;/xhtml:code&gt;
+                is used as the type of the
+                unit and can be linked to the fundamental
+                &lt;xhtml:b&gt;M&lt;/xhtml:b&gt;
+                dimension.
+            &lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;Mass should never be used as a synonym for weight.&lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;see
+                &lt;xhtml:a href="http://en.wikipedia.org/wiki/Mass"&gt;Mass&lt;/xhtml:a&gt;
+                in Wikipedia
+            &lt;/xhtml:p&gt;
+            &lt;dc:source&gt;Wikipedia&lt;/dc:source&gt;
+        &lt;/description&gt;
+    &lt;/unitType&gt;
+    
+    &lt;unitType id="length" name="Length" title="Length"&gt;
+        &lt;dimension name="length" unitType="unitType:length" power="1"/&gt;
+        &lt;dc:source&gt;Wikipedia&lt;/dc:source&gt;
+        &lt;definition&gt;
+            &lt;xhtml:p&gt;Length is a measure of one dimension&lt;/xhtml:p&gt;
+        &lt;/definition&gt;
+        &lt;description&gt;
+            &lt;xhtml:p&gt;Length is a measure of one dimension, whereas area is a measure of two dimensions (length squared) and volume is a measure of three dimensions (length cubed). In most systems of measurement, the unit of length is a fundamental unit, from which other units are defined.&lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;In the physical sciences and engineering, when one speaks of "units of length", the word "length" is synonymous with "distance".&lt;/xhtml:p&gt;
+            &lt;xhtml:p&gt;The metre (or meter), symbol m, is the base unit of length in the International System of Units (SI). Originally intended to be one ten-millionth of the distance from the Earth's equator to the North Pole (at sea level), its definition has been periodically refined to reflect growing knowledge of metrology. Since 1983, it is defined as the length of the path travelled by light in vacuum in 1⁄299,792,458 of a second.&lt;/xhtml:p&gt;
+        &lt;/description&gt;
+    &lt;/unitType&gt;
+    
+    &lt;unitType id="reciprocal_length" name="reciprocal length" title="reciprocal length"&gt;
+        &lt;dimension name="length" unitType="unitType:length" power="-1"/&gt;
+        &lt;definition&gt;
+            &lt;xhtml:p&gt;Reciprocal length or inverse length is often used in spectroscopy as a measure of energy but in other
+                areas it could be the absorption coefficient or attenuation coefficient in materials science or
+                the curvature of a line in mathematics.
+            &lt;/xhtml:p&gt;
+        &lt;/definition&gt;
+        &lt;description&gt;
+            &lt;xhtml:p&gt;Reciprocal length or inverse length is a measurement used in several branches of
+                science and mathematics. As the reciprocal of length, common units used for this
+                measurement include the reciprocal metre or inverse metre (m−1), the reciprocal centimetre or inverse
+                centimetre (cm−1), and, in optics, the dioptre.
+            &lt;/xhtml:p&gt;
+        &lt;/description&gt;
+    &lt;/unitType&gt;
+    
+&lt;/unitTypeList&gt;   
+</pre>
 </div>
 
 
@@ -584,7 +600,7 @@ elements define the unitType in terms of other unitTypes to particular powers.
 <hr/>
 
 <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-    <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png"/>
+    <img alt="Creative Commons Licence" style="border-widtxhtml:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png"/>
 </a>
 <br/>This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
     Attribution 3.0 Unported License</a>.

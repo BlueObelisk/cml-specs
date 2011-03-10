@@ -54,6 +54,7 @@
             <li>Initialisation concept</li>
             <li>Iteration or calculation concept</li>
             <li>Finalisation concept</li>
+            <li>User defined concept</li>
         </ul>
 
         <p>The CMLComp convention also includes a molecular converntion which specifies the molecular representation in CMLComp, e.g. input molecular geometry, optimised geometry result, etc. The molecular convention is not explained here and the reader should consult the molecular convention specification for more information.</p>
@@ -372,6 +373,22 @@
 
         <h2>3.6 User Defined Module</h2>
         CMLComp allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CMLComp validator.<em class="bad">Not finished</em>
+
+        <p id="exampleX">
+            <strong>Example X: CMLComp User Defined module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module dictRef="prefix:def"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
+        &lt;!-- consult molecular convention and molecule section below. --&gt;
+    &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
 
         <h1>4. Data Structure with CML Elements</h1>
         <p>

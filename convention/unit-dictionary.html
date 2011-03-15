@@ -32,13 +32,14 @@
         <dd>Joe Townsend, University of Cambridge</dd>
     </dl>
     <h2>
-        <a name="abstract" id="abstract"/>Abstract</h2>
+        <a name="abstract" id="abstract">Abstract</a></h2>
+
     <p>This specification defines the requirements of the Chemical Markup Language unit convention.</p>
     <hr/>
 </div>
 
 <h1>
-    <a name="contents" id="contents"/>Table of Contents</h1>
+    <a name="contents" id="contents">Table of Contents</a></h1>
 
 <p class="toc">1. <a href="#introduction">Introduction</a>
     <br/>
@@ -99,7 +100,7 @@
     Lists of units are similar to <a href="http://www.xml-cml.org/convention/dictionary">dictionaries</a>
     but require more information for each "entry" such as their relationship to a standard (SI) base unit
     or what type of unit they are <i>i.e.</i> the units metre, angstrom and picometre are all of type
-    length whilst the unit Kelvin is of type temperature. The phrases "unit list" and "unit dictionary" 
+    length whilst the unit Kelvin is of type temperature. The phrases "unit list" and "unit dictionary"
     are used interchangably; the only reason for choosing one term over the other is for readability.
 </p>
 
@@ -184,12 +185,14 @@
 
 <h2>
     <a name="unitList-namespace">3.1</a> Namespace</h2>
+
 <p>
     The <code>unitList</code> element MUST have a <code>namespace</code> attribute,
     the value of which MUST be a valid URI defining the the scope within which the
     entry terms are unique.
-    </p>
-    <p>
+</p>
+
+<p>
     The unitList's namespace URI SHOULD resolve to a representation of the dictionary of units.
     The unitList's namespace URI SHOULD end with either a '/' character or a '#' character
     so that terms may be referenced by appending them to the URI.
@@ -202,10 +205,12 @@
     The <code>unitList</code> element SHOULD have a <code>title</code>
     attribute intended for human-readability.
 </p>
+
 <p>
     The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
     non-whitespace character.
 </p>
+
 <p>
     The value of the <code>title</code> attribute MAY contain any valid unicode
     character, however it is RECOMMENDED that any character from outside of
@@ -214,6 +219,7 @@
 
 <h2>
     <a name="unitList-description">3.3</a> Description</h2>
+
 <p>
     The <code>unitList</code> element SHOULD have a single <code>description</code>
     child element, the contents of which provide a human-readable description of the
@@ -233,6 +239,7 @@
     elements, and MUST not contain any other child elements from the
     <code>http://www.xml-cml.org/schema</code> namespace.
 </p>
+
 <div class="good">
 <pre>
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
@@ -258,9 +265,10 @@
 
 <h2>
     <a name="unit-id">4.1</a> ID</h2>
+
 <p>
     A <code>unit</code> element MUST have an <code>id</code> attribute, the
-    value of which MUST be unique within the scope of the unitList. 
+    value of which MUST be unique within the scope of the unitList.
 </p>
 
 <p>
@@ -298,27 +306,32 @@
 </table>
 
 <h2><a name="unit-title">4.2</a> Title</h2>
+
 <p>
     A <code>unit</code> element MUST have a <code>title</code> attribute, the
-    value of which will typically be the full name of the unit whilst the id is typically an 
-    abbreviation. For example, the SI unit of mass is the kilogram; the id is 'kg' and the title is 
+    value of which will typically be the full name of the unit whilst the id is typically an
+    abbreviation. For example, the SI unit of mass is the kilogram; the id is 'kg' and the title is
     'kilogram'.
 </p>
+
 <p>
     The <code>title</code> attribute MUST NOT be empty and MUST contain at least one
     non-whitespace character.
 </p>
 
 <h2><a name="unit-symbol">4.3</a> Symbol</h2>
+
 <p>
     A <code>unit</code> element MUST have a <code>symbol</code> attribute, the
-    value of which is the full symbol used to represent this unit. For example the units 'Kelvin', 
+    value of which is the full symbol used to represent this unit. For example the units 'Kelvin',
     'Hertz', 'Joule' and 'Becquerel' have symbols 'K', 'Hz', 'J' and 'Bq' respectively.
 </p>
+
 <p>
     The <code>symbol</code> attribute MUST NOT be empty and MUST contain at least one
     non-whitespace character.
 </p>
+
 <p>
     The value of the <code>symbol</code> attribute MAY contain any valid unicode
     character, however it is RECOMMENDED that any character from outside of
@@ -326,71 +339,86 @@
 </p>
 
 <h2><a name="unit-parentSI">4.4</a> Parent SI</h2>
+
 <p>
-A <code>unit</code> element MUST have a <code>parentSI</code> attribute, the value of which is a 
-QName referencing the parent SI unit <i>e.g.</i> 'calorie' has the SI parent 'joule'. 
+    A <code>unit</code> element MUST have a <code>parentSI</code> attribute, the value of which is a
+    QName referencing the parent SI unit <i>e.g.</i> 'calorie' has the SI parent 'joule'.
 </p>
 
 <h2><a name="unit-toSI">4.5</a> Multiplier and/or Constant to SI</h2>
+
 <p>
-A <code>unit</code> element MUST have at least one of a <code>multiplierToSI</code> attribute and a 
-<code>constantToSI</code> attribute, the value of which must be a double. 
+    A <code>unit</code> element MUST have at least one of a <code>multiplierToSI</code> attribute and a
+    <code>constantToSI</code> attribute, the value of which must be a double.
 </p>
+
 <p>
-<code>multiplerToSI</code> specifies the factor by which the non-SI unit should be multiplied to 
-convert a quantity to its representation in SI Units. This is applied <em>before</em> 
-<code>constantToSI</code>. The value is unity for an SI unit by definition.
+    <code>multiplerToSI</code> specifies the factor by which the non-SI unit should be multiplied to
+    convert a quantity to its representation in SI Units. This is applied <em>before</em>
+    <code>constantToSI</code>. The value is unity for an SI unit by definition.
 </p>
+
 <p>
-<code>constantToSI</code> specifies the amount to add to a quantity in non-SI units to convert its
-representation to SI Units. This is applied <em>after</em> <code>multiplierToSI</code>. The value is 
-zero for SI units by definition.
+    <code>constantToSI</code> specifies the amount to add to a quantity in non-SI units to convert its
+    representation to SI Units. This is applied <em>after</em> <code>multiplierToSI</code>. The value is
+    zero for SI units by definition.
 </p>
+
 <p>
-A unit that is related to an SI unit only by a constant offset <i>e.g.</i> Celsius, which has a constant to the 
-SI unit of temperature (Kelvin) of '273' need not specify a multiplier (although it MAY specify a 
-multiplier to SI of '1'). 
+    A unit that is related to an SI unit only by a constant offset <i>e.g.</i> Celsius, which has a constant to the
+    SI unit of temperature (Kelvin) of '273' need not specify a multiplier (although it MAY specify a
+    multiplier to SI of '1').
 </p>
+
 <p>
-A unit that is related to an SI unit only by a constant multiplier <i>e.g.</i> gram, which has a 
-multiplier to the SI unit kilogram of '0.001' need not specify a constant (although it MAY specify a
-constant to SI of '0').  
+    A unit that is related to an SI unit only by a constant multiplier <i>e.g.</i> gram, which has a
+    multiplier to the SI unit kilogram of '0.001' need not specify a constant (although it MAY specify a
+    constant to SI of '0').
 </p>
+
 <h2><a name="unit-unitType">4.6</a> Unit Type</h2>
+
 <p>
-    Every <code>unit</code> element MUST have a <code>unitType</code> attribute, the value of which 
+    Every <code>unit</code> element MUST have a <code>unitType</code> attribute, the value of which
     is a QName referencing the unit type (<i>e.g.</i> time, temperature, length, force) of the unit.
 </p>
 
 <h2><a name="unit-definition">4.7</a> Definition</h2>
+
+<p>
     A <code>unit</code> element MUST contain a single <code>definition</code>
-    child element, the content of which provides a concise human-readable definition of the unit. 
+    child element, the content of which provides a concise human-readable definition of the unit.
     For example, the definition of the SI unit of time (a second) would be;
-    <br />
-    "The SI base unit of time, equal to the duration of 9192631770 periods of the radiation 
-    corresponding to the transition between the two hyperfine levels of the ground state of the 
+    <br/>
+    "The SI base unit of time, equal to the duration of 9192631770 periods of the radiation
+    corresponding to the transition between the two hyperfine levels of the ground state of the
     caesium-133 atom."
 </p>
+
 <p>
     The <code>definition</code> element MUST contain one or more child elements in the
     <code>http://www.w3.org/1999/xhtml</code> namespace.
 </p>
+
 <p>
     There MUST be at least one non-whitespace character as a child of the
     <code>http://www.w3.org/1999/xhtml</code> element.
 </p>
 
 <h2><a name="unit-description">4.8</a> Description</h2>
+
 <p>
     A <code>unit</code> element MAY have a single <code>description</code>
     child element, the content of which provides further information regarding
     the unit, including, but not limited to: examples, human-readable semantics
     and hyperlinks to other useful resources.
 </p>
+
 <p>
     The <code>description</code> element MUST contain one or more child elements in the
     <code>http://www.w3.org/1999/xhtml</code> namespace.
 </p>
+
 <p>
     There MUST be at least one non-whitespace character as a child of the
     <code>http://www.w3.org/1999/xhtml</code> element.

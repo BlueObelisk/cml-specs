@@ -2,18 +2,21 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Chemical Markup Language - Molecular Convention</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
 </head>
 
 <body>
 <div class="head">
     <h1>Chemical Markup Language - Molecular Convention</h1>
-    <h2>9 February 2011</h2>
+
+    <h2>11 March 2011</h2>
 
     <dl>
         <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
-        <dd><a href="http://www.xml-cml.org/convention/molecular-xxxx">http://www.xml-cml.org/convention/molecular-xxxx</a></dd>
+        <dd>
+            <a href="http://www.xml-cml.org/convention/molecular-xxxx">http://www.xml-cml.org/convention/molecular-xxxx</a>
+        </dd>
 
         <dt>Latest version:</dt>
         <dd><a href="http://www.xml-cml.org/convention/molecular">http://www.xml-cml.org/convention/molecular</a></dd>
@@ -30,19 +33,21 @@
 
     <p>This specification defines the requirements of the Chemical Markup Language molecular convention.</p>
 
-    <hr />
+    <hr/>
 </div>
 
 <h1><a name="contents" id="contents"></a>Table of Contents</h1>
 
 <p>TODO</p>
 
-<hr />
+<hr/>
 
 
 <h1><a name="introduction">1.</a> Introduction</h1>
 
-<p>The molecular convention is used to specify chemistry relating to molecules; for example connection tables formulae, names and properties. The molecules can also contain spectra though these will have their own conventions depending on whether they are Infra Red, NMR etc.</p>
+<p>The molecular convention is used to specify chemistry relating to molecules; for example connection tables formulae,
+    names and properties. The molecules can also contain spectra though these will have their own conventions depending
+    on whether they are Infra Red, NMR etc.</p>
 
 
 <h2><a name="notational_conventions">1.1</a> Notational Conventions</h2>
@@ -50,7 +55,8 @@
 <p>
     The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
     &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
-    in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC 2119</a></cite>].
+    in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC
+    2119</a></cite>].
 </p>
 
 <p>
@@ -92,15 +98,18 @@
 </table>
 
 
-<h1><a name="applying">2.</a> Applying the molecular convention</a></h1>
+<h1><a name="applying">2.</a> Applying the molecular convention</h1>
 
 <p>
     The molecular convention MUST be specified using the <code>convention</code>
     attribute on either a <code>cml</code> or a <code>molecule</code> element.
     If the convention is specified on a <code>cml</code> element then that element
-    MUST contain one or more child <code>molecule</code> elements, and MUST NOT
-    contain any other child elements in the <code>http://www.xml-cml.org/schema</code>
-    namespace.
+    MUST contain one or more child <code>molecule</code> elements which do not declare a different convention.
+</p>
+
+<p>
+    The molecular convention allows the presence of those elements from the <code>http://www.xml-cml.org/schema</code>
+    namespace but it is RECOMMENDED that these declare a different convention to which they should conform.
 </p>
 
 
@@ -170,7 +179,8 @@
 <h4>4.4.x 3D Coordinates</h4>
 
 <p>
-    An <code>atom</code> MAY specify 3D coordinates using the <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
+    An <code>atom</code> MAY specify 3D coordinates using the <code>x3</code>, <code>y3</code> and <code>z3</code>
+    attributes.
     If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
     it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
 </p>
@@ -226,14 +236,17 @@
     Wedge, hatch, cis and trans bond stereochemistry is specified using the values
     'W', 'H', 'C' and 'T', respectively.
 </p>
+
 <p>
     A <code>bondStereo</code> element specifying cis or trans stereochemistry MUST have an
     <code>atomRefs4</code> attribute, which MUST contain the IDs of the atoms in the parent bond.
 </p>
+
 <p>
     A <code>bondStereo</code> element specifying wedge or hatch stereochemistry MAY have an
     <code>atomRefs2</code> attribute, which MUST contain the IDs of the atoms in the parent bond.
 </p>
+
 <p>
     A <code>bondStereo</code> element of type 'other' SHOULD use a <code>dictRef</code> attribute
     to add further semantics.
@@ -256,20 +269,19 @@
 <p>
     Scalar properties MUST have a child <code>scalar</code> element, containing the value of the property.
     The <code>scalar</code> element MUST have a <code>units</code> attribute, specifying the units of the value.
-    The <code>scalar</code> element MUST have a <code>dataType</code> attribute, specifying the data type of the value (i.e. string, integer, double etc...).
+    The <code>scalar</code> element MUST have a <code>dataType</code> attribute, specifying the data type of the value
+    (i.e. string, integer, double etc...).
 </p>
-
 
 
 <h1>TODO</h1>
 
 <p>name</p>
+
 <p>label</p>
 
 
 <h1>x. Example</h1>
-
-
 
 
 <h1><a name="refs">A.</a> References</h1>
@@ -280,7 +292,8 @@
         <a name="ref-RFC2119">[RFC2119]</a>
     </dt>
     <dd>
-        IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
+        IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate
+        Requirement Levels</a></cite>,
         S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
     </dd>
 
@@ -288,9 +301,11 @@
         <a name="ref-XML">[XML]</a>
     </dt>
     <dd>
-        <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a></cite>,
-        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
-        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+        <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth
+            Edition)</a></cite>,
+        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors. World Wide Web Consortium.
+        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a
+            href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
     </dd>
 
 </dl>
@@ -304,9 +319,13 @@
     <li>Sam Adams</li>
 </ul>
 
-<hr />
+<hr/>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence"
+                                                                         style="border-width:0"
+                                                                         src="http://i.creativecommons.org/l/by/3.0/88x31.png"/></a><br/>This
+work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+    Attribution 3.0 Unported License</a>.
 
 </body>
 </html>

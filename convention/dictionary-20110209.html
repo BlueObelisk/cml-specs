@@ -2,22 +2,24 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <title>Chemical Markup Language - Dictionary Convention</title>
-    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css" />
+    <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8"/>
+    <link rel="stylesheet" href="http://www.xml-cml.org/style/cml-spec.css" type="text/css"/>
 </head>
 
 <body>
 <div class="head">
     <h1>Chemical Markup Language - Dictionary Convention</h1>
+
     <h2>9 February 2011</h2>
 
     <dl>
         <dt><a id="thisVersion" name="thisVersion">This version</a>:</dt>
-        <dd><a href="http://www.xml-cml.org/convention/dictionary-20110209">http://www.xml-cml.org/convention/dictionary-20110209</a></dd>
+        <dd><a href="http://www.xml-cml.org/convention/dictionary-20110209">http://www.xml-cml.org/convention/dictionary-20110209</a>
+        </dd>
 
         <dt>Latest version:</dt>
         <dd><a href="http://www.xml-cml.org/convention/dictionary">http://www.xml-cml.org/convention/dictionary</a></dd>
-        
+
         <dt>Authors:</dt>
         <dd>See <a href="#acks">acknowledgments</a>.</dd>
 
@@ -30,54 +32,62 @@
 
     <p>This specification defines the requirements of the Chemical Markup Language dictionary convention.</p>
 
-    <hr />
+    <hr/>
 </div>
 
 <h1><a name="contents" id="contents"></a>Table of Contents</h1>
 
 <p class="toc">1. <a href="#introduction">Introduction</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1.1 <a href="#notational_conventions">Notational Conventions</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a><br/>
-2. <a href="#applying">Applying the dictionary convention</a><br/>
-3. <a href="#dictionary_element">Dictionary Element</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.1 <a href="#dictionary_namespace">Namespace</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.2 <a href="#dictionary-prefix">Prefix</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.3 <a href="#dictionary-title">Title</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.4 <a href="#dictionary-description">Description</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;3.5<a href="#dictionary-entries">Entries</a><br/>
-4. <a href="#entry-elements">Entry Elements</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#entry-id">Id</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#entry-term">Term</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.3 <a href="#entry-definition">Definition</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.4 <a href="#entry-description">Description</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.5 <a href="#entry-data-type">Data type</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.6 <a href="#entry-unit-type">Unit type</a><br/>
-&nbsp;&nbsp;&nbsp;&nbsp;4.7 <a href="#entry-default-unit">Default units</a><br/>
-5. <a href="#example">Example Dictionary</a></p>
-<h2>Appendices</h2>
-<p>A. <a href="#refs">References</a><br/>
-B. <a href="#acks">Acknowledgements</a></p>
+    &nbsp;&nbsp;&nbsp;&nbsp;1.1 <a href="#notational_conventions">Notational Conventions</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;1.2 <a href="#namespaces">Namespaces</a><br/>
+    2. <a href="#applying">Applying the dictionary convention</a><br/>
+    3. <a href="#dictionary_element">Dictionary Element</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.1 <a href="#dictionary_namespace">Namespace</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.2 <a href="#dictionary-prefix">Prefix</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.3 <a href="#dictionary-title">Title</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.4 <a href="#dictionary-description">Description</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;3.5<a href="#dictionary-entries">Entries</a><br/>
+    4. <a href="#entry-elements">Entry Elements</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.1 <a href="#entry-id">Id</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.2 <a href="#entry-term">Term</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.3 <a href="#entry-definition">Definition</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.4 <a href="#entry-description">Description</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.5 <a href="#entry-data-type">Data type</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.6 <a href="#entry-unit-type">Unit type</a><br/>
+    &nbsp;&nbsp;&nbsp;&nbsp;4.7 <a href="#entry-default-unit">Default units</a><br/>
+    5. <a href="#example">Example Dictionary</a></p>
 
-<hr />
+<h2>Appendices</h2>
+
+<p>A. <a href="#refs">References</a><br/>
+    B. <a href="#acks">Acknowledgements</a></p>
+
+<hr/>
 
 
 <h1><a name="introduction">1.</a> Introduction</h1>
 
-<p>Dictionaries allow CML to be understood by machines. Much of physical science is managed through the dictionary mechanism. We find terms and units relating to a aspect of science (such as heat of formation, melting point, point group) and create entries for these items in a dictionary.</p>
+<p>Dictionaries allow CML to be understood by machines. Much of physical science is managed through the dictionary
+    mechanism. We find terms and units relating to a aspect of science (such as heat of formation, melting point, point
+    group) and create entries for these items in a dictionary.</p>
 
-<p>The entries can consist of just a unique id (within the dictionary's namespace) and some human-understandable definition but we highly encourage more information to be given. For instance what are the units, are there upper and lower bounds, what is the type of the data (string, integer, float etc).</p>
+<p>The entries can consist of just a unique id (within the dictionary's namespace) and some human-understandable
+    definition but we highly encourage more information to be given. For instance what are the units, are there upper
+    and lower bounds, what is the type of the data (string, integer, float etc).</p>
 
-<p>Different programs sometimes produce data with the same label but a different interpretation; does density mean electron density or physical density? Therefore each computational chemistry code will have its own dictionary and then the community can then decide to group particular concepts together.</p>
+<p>Different programs sometimes produce data with the same label but a different interpretation; does density mean
+    electron density or physical density? Therefore each computational chemistry code will have its own dictionary and
+    then the community can then decide to group particular concepts together.</p>
 
 
 <p>
     Where concepts are defined by the CML schema they SHOULD NOT be redefined using the dictionary mechanism.
 </p>
+
 <p>
     Where concepts are defined by standard dictionaries these entries SHOULD be referenced, rather than
     redefining the concept in another dictionary.
 </p>
-
 
 
 <h2><a name="notational_conventions">1.1</a> Notational Conventions</h2>
@@ -85,7 +95,8 @@ B. <a href="#acks">Acknowledgements</a></p>
 <p>
     The keywords &quot;MUST&quot;, &quot;MUST NOT&quot;, &quot;REQUIRED&quot;, &quot;SHALL&quot;, &quot;SHALL NOT&quot;,
     &quot;SHOULD&quot;, &quot;SHOULD NOT&quot;, &quot;RECOMMENDED&quot;, &quot;MAY&quot;, and &quot;OPTIONAL&quot;
-    in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC 2119</a></cite>].
+    in this document are to be interpreted as described in RFC 2119 [<cite><a href="#ref-RFC2119">IETF RFC
+    2119</a></cite>].
 </p>
 
 <p>
@@ -127,7 +138,7 @@ B. <a href="#acks">Acknowledgements</a></p>
 </table>
 
 
-<h1><a name="applying">2.</a> Applying the dictionary convention</a></h1>
+<h1><a name="applying">2.</a> Applying the dictionary convention</h1>
 
 <p>
     The dictionary convention MUST be specified using the <code>convention</code>
@@ -199,6 +210,7 @@ B. <a href="#acks">Acknowledgements</a></p>
     An <code>entry</code> element MUST have an <code>id</code> attribute, the
     value of which MUST be unique within the scope of the dictionary.
 </p>
+
 <p>
     The value of the <code>id</code> attribute MUST start with a letter, and
     MUST only contain letters, numbers, dot, hyphen or underscore.
@@ -229,6 +241,7 @@ B. <a href="#acks">Acknowledgements</a></p>
     value of which provides a unique nounal phrase linguistically identifying
     the subject of the entry.
 </p>
+
 <p>
     The value of the <code>term</code> attribute MAY contain any valid unicode
     character, however it is RECOMMENDED that any character from outside of
@@ -243,6 +256,7 @@ B. <a href="#acks">Acknowledgements</a></p>
     child element, the content of which provides a nounal phrase defining of the
     subject of the entry more verbosely than the term.
 </p>
+
 <p>
     The <code>definition</code> element MUST contain one or more child elements in the
     <code>http://www.w3.org/1999/xhtml</code> namespace.
@@ -259,6 +273,7 @@ B. <a href="#acks">Acknowledgements</a></p>
     the term, including, but not limited to: examples, human-readable semantics
     and hyperlinks to other useful resources.
 </p>
+
 <p>
     The <code>description</code> element MUST contain one or more child elements in the
     <code>http://www.w3.org/1999/xhtml</code> namespace.
@@ -385,7 +400,6 @@ B. <a href="#acks">Acknowledgements</a></p>
 </div>
 
 
-
 <h1><a name="refs">A.</a> References</h1>
 
 <dl>
@@ -394,7 +408,8 @@ B. <a href="#acks">Acknowledgements</a></p>
         <a name="ref-RFC2119">[RFC2119]</a>
     </dt>
     <dd>
-        IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</a></cite>,
+        IETF <cite><a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate
+        Requirement Levels</a></cite>,
         S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
     </dd>
 
@@ -402,9 +417,11 @@ B. <a href="#acks">Acknowledgements</a></p>
         <a name="ref-XML">[XML]</a>
     </dt>
     <dd>
-        <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a></cite>,
-        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
-        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+        <cite><a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth
+            Edition)</a></cite>,
+        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors. World Wide Web Consortium.
+        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a
+            href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
     </dd>
 
 </dl>
@@ -422,9 +439,13 @@ B. <a href="#acks">Acknowledgements</a></p>
     <li>Hannah Barjat</li>
 </ul>
 
-<hr />
+<hr/>
 
-<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" /></a><br />This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
+<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons Licence"
+                                                                         style="border-width:0"
+                                                                         src="http://i.creativecommons.org/l/by/3.0/88x31.png"/></a><br/>This
+work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons
+    Attribution 3.0 Unported License</a>.
 
 </body>
 </html>

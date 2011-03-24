@@ -1,7 +1,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
     <head>
-        <title>Chemical Markup Language - CMLComp Convention</title>
+        <title>Chemical Markup Language - CompChem Convention</title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
         <meta http-equiv="refresh" content="30" /> 
         <link rel="stylesheet" href="../style/W3C-PR.css" type="text/css" />
@@ -10,19 +10,19 @@
 
     <body>
         <div class="head">
-            <h1>Chemical Markup Language - CMLComp Convention</h1>
+            <h1>Chemical Markup Language - CompChem Convention</h1>
             <h2>08 March 2011</h2>
 
             <dl>
                 <dt>
                     <a id="thisVersion" name="thisVersion">This version</a>:</dt>
                 <dd>
-                    <a href="http://www.xml-cml.org/convention/cmlcomp-20110308">http://www.xml-cml.org/convention/cmlcomp-20110308</a>
+                    <a href="http://www.xml-cml.org/convention/compchem-20110308">http://www.xml-cml.org/convention/compchem-20110308</a>
                 </dd>
 
                 <dt>Latest version:</dt>
                 <dd>
-                    <a href="http://www.xml-cml.org/convention/cmlcomp">http://www.xml-cml.org/convention/cmlcomp</a>
+                    <a href="http://www.xml-cml.org/convention/compchem">http://www.xml-cml.org/convention/compchem</a>
                 </dd>
 
                 <dt>Authors:</dt>
@@ -35,7 +35,7 @@
             <h2>
                 <a name="abstract" id="abstract"/> Abstract</h2>
 
-            <p>This specification defines the requirements of the Chemical Markup Language CMLComp convention.</p>
+            <p>This specification defines the requirements of the Chemical Markup Language CompChem convention.</p>
 
             <hr />
         </div>
@@ -52,15 +52,15 @@
             <a name="introduction">1.</a> Introduction</h1>
 
         <p>
-            The CMLComp convention is used to specify computational chemistry documents. It is 
+            The CompChem convention is used to specify computational chemistry documents. It is 
             intented to capture the typical underlying processes of quantum calculations and their relationships
             in a well defined implicit semantic structure using Chemical Markup Language (CML).
         </p>
 
         <p>
-            This document describes the concepts which are introduced in CMLComp, explains how to 
-            compose a CMLComp document and illustrates it with examples. The core concepts that make up
-            CMLComp are:
+            This document describes the concepts which are introduced in CompChem, explains how to 
+            compose a CompChem document and illustrates it with examples. The core concepts that make up
+            CompChem are:
         </p>
 
         <ul>
@@ -68,19 +68,19 @@
             <li><a href="#job">Job</a></li>
             <li><a href="#initialization">Initialization</a></li>
             <li><a href="#calculation">Calculation</a></li>
-            <li><a href="#finalization">Finalisation</a></li>
-            <li>Environment</li>
-            <li>User defined concept</li>
+            <li><a href="#finalization">Finalization</a></li>
+            <li><a href="#environment">Environment</a></li>
+            <li><a href="#userDefinedConcept">User defined concept</a></li>
         </ul>
 
         <p>
-            The CMLComp convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-            or other RECOMMENDED molecular convention which defines a set of constraints for storing to
-            representations of molecules in CML. CMLComp requires that any molecules <i>e.g.</i> in the
-            input molecular geometry and the optimised geometry result conform to the molecular convention.
-            The molecular convention is not explained here and the reader should consult the 
-            <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-            specification for more information.
+            The CompChem convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
+            or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>
+            which defines a set of constraints for storing to representations of molecules in CML. CompChem requires
+            that any molecules <i>e.g.</i> in the input molecular geometry and the optimised geometry result conform
+            to the molecular convention. The molecular convention is not explained here and the reader should consult
+            the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a> specification for more
+            information.
         </p>
 
 
@@ -139,12 +139,12 @@
             </tr>
             <tr>
                 <td>
-                    <code>cmlcomp</code>
+                    <code>compchem</code>
                 </td>
                 <td>
-                    <code>http://www.xml-cml.org/dictionary/cmlcomp/</code>
+                    <code>http://www.xml-cml.org/dictionary/compchem/</code>
                 </td>
-                <td>CMLComp Dictionary namespace</td>
+                <td>CompChem Dictionary namespace</td>
             </tr>
             <tr>
                 <td>
@@ -158,25 +158,25 @@
         </table>
 
 
-        <h1 id="CMLComp">
-            <a name="applying">2.</a> Applying the CMLComp convention on CML module element</h1>
+        <h1 id="CompChem">
+            <a name="applying">2.</a> Applying the CompChem convention on CML module element</h1>
 
         <p>
-            The CMLComp convention MUST be specified using the <code>convention</code> attribute
-            on a <code>module</code> element and the value MUST be QName that represents CMLComp
-            convention, i.e. <code>convention:cmlcomp</code>. Such a module will be addressed as
-            a CMLComp module or a CMLComp module element in this convention. The <a href="#example1">
-            Example 1</a> shows the namespaces and the convention declarations for the CMLComp module. 
+            The CompChem convention MUST be specified using the <code>convention</code> attribute
+            on a <code>module</code> element and the value MUST be QName that represents CompChem
+            convention, i.e. <code>convention:compchem</code>. Such a module will be addressed as
+            a CompChem module or a CompChem module element in this convention. The <a href="#example1">
+            Example 1</a> shows the namespaces and the convention declarations for the CompChem module. 
         </p>
 
         <p id="example1">
-            <strong>Example 1: Minimal requirements for CMLComp module element.</strong>
+            <strong>Example 1: Minimal requirements for CompChem module element.</strong>
         </p>
         <div class="good">
             <pre>
 &lt;module xmlns="http://www.xml-cml.org/schema"
         xmlns:convention="http://www.xml-cml.org/convention/"
-        convention="convention:cmlcomp"&gt;
+        convention="convention:compchem"&gt;
 
         &lt;!-- body is omitted. --&gt;
 
@@ -185,27 +185,27 @@
         </div>
 
         <p>
-            A CMLComp module MUST contain at least one child of a <a href="#jobList">job list</a> module element, <em>i.e.</em>
-            <code>&lt;module dictRef="cmlcomp:jobList" id="jobList-0000"&gt;</code>, and MUST NOT contain any other child elements
-            in any namespace, see <a href="#example2">Example 2</a>.
+            A CompChem module MUST contain at least one child of a <a href="#jobList">job list module</a>
+            element, <em>i.e.</em> <code>&lt;module dictRef="compchem:jobList" id="jobList-0000"&gt;</code>,
+            and MUST NOT contain any other child elements in any namespace, see <a href="#example2">Example 2</a>.
         </p>
 
         <p id="example2">
-            <strong>Example 2: CMLComp module as root element and contains Joblist modules.</strong>
+            <strong>Example 2: CompChem module as root element and contains Joblist modules.</strong>
         </p>
         <div class="good">
             <pre>
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;module xmlns="http://www.xml-cml.org/schema"
-        xmlns:cmlcomp="http://www.xml-cml.org/dictionary/cmlcomp/"
+        xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
         xmlns:convention="http://www.xml-cml.org/convention/"
-        convention="convention:cmlcomp"&gt;
+        convention="convention:compchem"&gt;
 
-    &lt;module dictRef="cmlcomp:jobList" id="jobList-0001"&gt;
+    &lt;module dictRef="compchem:jobList" id="jobList-0001"&gt;
         &lt;!-- 1st job list body is omitted. --&gt;
     &lt;/module&gt;
 
-    &lt;module dictRef="cmlcomp:jobList" id="jobList-0002"&gt;
+    &lt;module dictRef="compchem:jobList" id="jobList-0002"&gt;
         &lt;!-- 2nd job list body is omitted. --&gt;
     &lt;/module&gt;
 
@@ -213,7 +213,7 @@
             </pre>
         </div>
 
-        <h1>3. CMLComp Concepts and Elements</h1>
+        <h1>3. CompChem Concepts and Elements</h1>
 
         <h2 id="jobList">3.1 Joblist</h2>
         <p>
@@ -225,8 +225,8 @@
             </p>
 
         <p>
-            A job list concept in CMLComp is represented by a <code>module</code> element with
-            a <code>dictRef="cmlcomp:jobList"</code>. Such a module will be addressed as a job list
+            A job list concept in CompChem is represented by a <code>module</code> element with
+            a <code>dictRef="compchem:jobList"</code>. Such a module will be addressed as a job list
             module or a job list module element in this convention.
         </p>
         
@@ -234,9 +234,9 @@
 
         <ul>
         <li>
-            A job list module MUST be defined by a <code>dictRef="cmlcomp:jobList"</code>
+            A job list module MUST be defined by a <code>dictRef="compchem:jobList"</code>
             attribute on a <code>module</code> element, i.e.
-            <code>&lt;module dictRef="cmlcomp:jobList"&gt;</code>. This is shown in 
+            <code>&lt;module dictRef="compchem:jobList"&gt;</code>. This is shown in 
             <a href="#example3">Example 3</a>.
         </li>
 
@@ -246,7 +246,7 @@
         
         <li>
             A job list module element MUST contain at <strong><em>least one</em></strong>
-            child of a job list module element. (See <a href="#example3">Example 3</a>.)
+            child of a <a href="#job">job module</a> element. (See <a href="#example3">Example 3</a>.)
         </li>
 
         <li>
@@ -256,12 +256,12 @@
         </ul>
 
         <p id="example3">
-            <strong>Example 3: Minimal requirements for CMLComp Joblist</strong>
+            <strong>Example 3: Minimal requirements for CompChem Joblist</strong>
         </p>
         <div class="good">
 <pre>
-&lt;module dictRef="cmlcomp:jobList" id="jobList-0000" &gt;
-    &lt;module dictRef="cmlcomp:job"&gt;
+&lt;module dictRef="compchem:jobList" id="jobList-0000" &gt;
+    &lt;module dictRef="compchem:job"&gt;
         &lt;!-- job body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
@@ -277,15 +277,17 @@
         </p>
 
         <p>
-            A job consists of model parameters, model optimisations or calculations and
-            model results. These three components are fundamental to modelling in every
-            field. However, a job does not require all three components.
+            A job consists of model parameters (<a href="#initialization">3.3</a>), model
+            optimisations or calculations (<a href="#calculation">3.4</a>), model results
+            (<a href="#finalization">3.5</a>) and computing environments
+            (<a href="#environment">3.6</a>). These four components are fundamental to
+            modelling in every field. However, a job does not require all four components.
             Only model parameters are mandatory.
         </p>
         
         <p>
-            A job concept in CMLComp is represented by a <code>module</code> element with
-            a <code>dictRef="cmlcomp:job"</code>. Such a module will be addressed as a job
+            A job concept in CompChem is represented by a <code>module</code> element with
+            a <code>dictRef="compchem:job"</code>. Such a module will be addressed as a job
             module or a job module element in this convention.
         </p>
 
@@ -293,10 +295,10 @@
 
         <ul>
         <li>
-            A job module MUST be defined by a <code>dictRef="cmlcomp:job"</code> attribute on
+            A job module MUST be defined by a <code>dictRef="compchem:job"</code> attribute on
             a <code>module</code> element, i.e.
-            <code>&lt;module dictRef="cmlcomp:job"&gt;</code>. This is shown in 
-            <a href="#example3">Example 3</a>.
+            <code>&lt;module dictRef="compchem:job"&gt;</code>. This is shown in 
+            <a href="#example4">Example 4</a>.
         </li>
 
         <li>
@@ -304,45 +306,48 @@
         </li>
 
         <li>
-            A job module element MUST contains <strong> <em>exactly one</em></strong> initialization module.
-        </li>
-
-        <li>
-            If the calculation modules are present in a job module element, a finalisation
-            module MUST also be present but it is not the other way round.
-        </li>
-
-        <li>
-            The finalisation module MUST be the <strong><em>last</em></strong> child element
-            of a job module element.
-        </li>
-
-
-        <li>
             A job module element SHOULD have a <code>title</code> attribute specifying a
             human-readable name for the module. 
         </li>
 
         <li>
-            A job module element MAY contains at <strong><em>least one</em></strong> of an calculation
-            module element <strong><em>after</em></strong> the initialization module stated
-            in previous bullet point.
+            A job module element MUST contains <strong> <em>exactly one</em></strong>
+            <a href="#initialization">initialization module</a>.
         </li>
 
         <li>
-            A job module element MAY contains <strong><em>exactly one</em></strong>
-            finalisation module <strong><em>after</em></strong> the calculation modules
-            (if present) stated in previous bullet point <strong><em>or</em></strong>
-            <strong><em>after</em></strong> the initialization module (if calculation
-            modules are not present).
+            A job module element MAY contain at <strong><em>least one</em></strong> child of a
+            <a href="#calculation">calculation module</a> element <strong><em>after</em></strong>
+            the <a href="#initialization">initialization module</a> element (<a href="#example5">Example 5</a>).
+        </li>
+
+        <li>
+            If a job module element contains a <a href="#calculation">calculation modules</a>,
+            it MUST also contain a child of <a href="#finalization">finalization module</a> element
+            but it is not the other way round.
+        </li>
+
+        <li>
+            A job module element MAY contain <strong><em>exactly one</em></strong> child of a
+            <a href="#finalization">finalization module</a> element <strong><em>after</em></strong>
+            the <a href="#calculation">calculation module</a> elements
+            (if present) <strong><em>or</em></strong> <strong><em>after</em></strong> the 
+            <a href="#initialization">initialization module</a> element 
+            (if <a href="#calculation">calculation module</a> elements are not present, 
+            shown in <a href="#example6">Example 6</a>).
+        </li>
+
+        <li>
+            A <a href="#finalization">finalization module</a> element MUST be the <strong><em>last</em></strong>
+            child element of a job module element if it is present.
         </li>
 
         </ul>
 
         <p>
-            The only requirement for a job module is that it MUST have an initialization
-            module, see <a href="#example4">Example 4</a>. Such a module represents a model
-            input for a computational job.
+            The only requirement for a job module is that it MUST have an <a href="#initialization">initialization module</a>
+            , see <a href="#example4">Example 4</a>. Such a module represents a model input for a
+            computational job.
         </p>
 
         <p id="example4">
@@ -351,8 +356,8 @@
 
         <div class="good">
             <pre>
-&lt;module dictRef="cmlcomp:job" id="job-0000" title="input for coarse geometry optimisation"&gt;
-    &lt;module dictRef="cmlcomp:initialization"&gt;
+&lt;module dictRef="compchem:job" id="job-0000" title="input for coarse geometry optimisation"&gt;
+    &lt;module dictRef="compchem:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
@@ -364,20 +369,20 @@
         </p>
         <div class="good">
             <pre>
-&lt;module dictRef="cmlcomp:job" id="job-0000" title="coarse geometry optimisation"&gt;
-    &lt;module dictRef="cmlcomp:initialization"&gt;
+&lt;module dictRef="compchem:job" id="job-0000" title="coarse geometry optimisation"&gt;
+    &lt;module dictRef="compchem:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
     &lt;/module&gt;
-    &lt;module dictRef="cmlcomp:calculation"&gt;
+    &lt;module dictRef="compchem:calculation"&gt;
         &lt;!-- requried calculation body is omitted. --&gt;
     &lt;/module&gt;
-    &lt;module dictRef="cmlcomp:calculation"&gt;
+    &lt;module dictRef="compchem:calculation"&gt;
         &lt;!-- requried calculation body is omitted. --&gt;
     &lt;/module&gt;
-    &lt;module dictRef="cmlcomp:calculation"&gt;
+    &lt;module dictRef="compchem:calculation"&gt;
         &lt;!-- requried calculation body is omitted. --&gt;
     &lt;/module&gt;
-    &lt;module dictRef="cmlcomp:finalization"&gt;
+    &lt;module dictRef="compchem:finalization"&gt;
         &lt;!-- requried final body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
@@ -390,29 +395,29 @@
 
         <div class="good">
             <pre>
-&lt;module dictRef="cmlcomp:job" id="job-0000" title="coarse geometry optimisation"&gt;
-    &lt;module dictRef="cmlcomp:initialization"&gt;
+&lt;module dictRef="compchem:job" id="job-0000" title="coarse geometry optimisation"&gt;
+    &lt;module dictRef="compchem:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
     &lt;/module&gt;
-    &lt;module dictRef="cmlcomp:finalization"&gt;
+    &lt;module dictRef="compchem:finalization"&gt;
         &lt;!-- requried final body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
             </pre>
         </div>
 
-        <h2>3.3 Model Initialization</h2>
+        <h2 id="initialization">3.3 Model Initialization</h2>
 
         <p>
             A model initialization concept represents the model parameters and inputs
             for computational job. The model parameters are one of the most important
             elements and exist in every modelling study. Therefore, this concept is a
-            REQUIRED element in the CMLComp convention.
+            REQUIRED element in the CompChem convention.
         </p>
 
         <p>
-            A model initialization concept in CMLComp is represented by a <code>module</code>
-            element with a <code>dictRef="cmlcomp:initialization"</code>. Such a module will
+            A model initialization concept in CompChem is represented by a <code>module</code>
+            element with a <code>dictRef="compchem:initialization"</code>. Such a module will
             be addressed as an initialization module or an initialization module element in
             this convention.
         </p>
@@ -423,38 +428,48 @@
 
         <ul>
             <li>
-                An initialization module MUST be defined by a <code>dictRef="cmlcomp:initialization"</code>
+                An initialization module MUST be defined by a <code>dictRef="compchem:initialization"</code>
                 attribute on a <code>module</code> element, i.e. 
-                <code>&lt;module dictRef="cmlcomp:initialization"&gt;</code>.
-                This is shown in <a href="#example7">Example 7</a>.
+                <code>&lt;module dictRef="compchem:initialization"&gt;</code>
+                (<a href="#example7">Example 7</a>).
             </li>
 
             <li>
-                An initialization module MUST contains at <strong><em>least one</em></strong>
-                child of <code>molecule</code>, <code>parameterList</code> or user defined <code>module</code> elements.
+                An initialization module element MUST contains at <strong><em>least one</em></strong>
+                child of <code>molecule</code>, <code>parameterList</code> or <a href="#userDefinedConcept">user defined module</a> element.
             </li>
 
-            <li>There MUST NOT be any other elements than given above in CMLComp Init <strong>
-                    <em>except for one or more</em>
-                </strong> of user defined <code>module</code>.</li>
-            <li>The CMLComp Init MAY contains <strong>
-                    <em>exactly one</em>
-                </strong>
-                <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-            <li>The CMLComp Init MAY contains <strong>
-                    <em>exactly one</em>
-                </strong>
-                <code>cml:parameterList</code> element.</li>
+            <li>
+                An initialization module element MUST NOT conatin any other elements except <code>molecule</code>,
+                <code>parameterList</code> or <a href="#userDefinedConcept">user defined module</a> element.
+            </li>
+
+            <li>
+                An initialization module element MAY contains <strong><em>exactly one</em></strong>
+                <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
+                or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>,
+                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
+            </li>
+
+            <li>
+                An initialization module element MAY contains <strong><em>exactly one</em></strong>
+                <code>parameterList</code> element.
+            </li>
+
+            <li>
+                An initialization module element MAY contains <strong><em>any number</em></strong> of
+                <a href="#userDefinedConcept">user defnied module</a> element.
+            </li>
         </ul>
 
         <p id="example7">
-            <strong>Example 7: CMLComp Init module</strong>
+            <strong>Example 7: An initialization module</strong>
         </p>
         <div class="good">
             <pre>
-&lt;module dictRef="cmlcomp:initialization"&gt;
+&lt;module dictRef="compchem:initialization"&gt;
     &lt;molecule convention="convention:molecular"&gt;
-        &lt;!-- consult molecular convention and molecule section below. --&gt;
+        &lt;!-- consult molecular convention or recommended molecular convention. --&gt;
     &lt;/molecule&gt;
     &lt;parameterList&gt;
         &lt;!-- parameterList body is omitted. --&gt;
@@ -463,37 +478,55 @@
             </pre>
         </div>
 
-<h2>3.4 Calculation</h2>
+        <h2 id="calculation">3.4 Model Calculation</h2>
 
-<p>
-    A calculation module represents the concept of the model calculation or optimisation or iteration processes for computational job. The calculation module is optional in CMLComp. Here is a list of requirements:
-</p>
+        <p>
+            A model calculation concept represents the computation, the optimisation or the iteration 
+            processes for computational job. The calculation process may or may not be of interest by
+            many scientists, therfore, the model calculation is an OPTIONAL information in CompChem.
+        </p>
 
-<ul>
-    <li>The CMLComp Calculation is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>calculation</code>.</li>
-    <li>The CMLComp Calculation MAY contains <strong>
-            <em>exactly one</em>
-        </strong>
-        <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-    <li>The CMLComp Calculation MAY contains <strong>
-            <em>exactly one</em>
-        </strong>
-        <code>cml:parameterList</code> element.</li>
-    <li>The CMLComp Calculation MAY contains <strong>
-            <em>exactly one</em>
-        </strong>
-        <code>cml:propertyList</code> element.</li>
-    <li>The CMLComp Calculation MUST contains at <strong>
-            <em>least one</em>
-        </strong> of <code>cml:molecule</code>, <code>cml:parameterList</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
-    <li>There MAY be <strong>
-            <em>zero or more than one</em>
-        </strong> of CMLComp Calculation in a given CMLComp Job.</li>
-    <li>There MUST NOT be any other elements than given above in CMLComp Calculation.</li>
-</ul>
+        <p>
+            A model calculation concept in CompChem is represented by a <code>module</code>
+            element with a <code>dictRef="compchem:calculation"</code>. Such a module will
+            be addressed as an calculation module or an calculation module element in
+            this convention.
+        </p>
+
+        <p>
+            A calculation module are constructed according to the following rules:
+        </p>
+
+        <ul>
+            <li>
+                An calculation module MUST be defined by a <code>dictRef="compchem:calculation"</code>
+                attribute on a <code>module</code> element, i.e. 
+                <code>&lt;module dictRef="compchem:calculation"&gt;</code>
+                (<a href="#example8">Example 8</a>).
+            </li>
+
+            <li>
+                An calculation module MAY contains <strong><em>exactly one</em></strong>
+                <code>molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CompChem Calculation MAY contains <strong>
+                    <em>exactly one</em>
+                </strong>
+                <code>cml:parameterList</code> element.</li>
+            <li>The CompChem Calculation MAY contains <strong>
+                    <em>exactly one</em>
+                </strong>
+                <code>cml:propertyList</code> element.</li>
+            <li>The CompChem Calculation MUST contains at <strong>
+                    <em>least one</em>
+                </strong> of <code>cml:molecule</code>, <code>cml:parameterList</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
+            <li>There MAY be <strong>
+                    <em>zero or more than one</em>
+                </strong> of CompChem Calculation in a given CompChem Job.</li>
+            <li>There MUST NOT be any other elements than given above in CompChem Calculation.</li>
+        </ul>
 
 <p id="example8">
-    <strong>Example 8: CMLComp Calculation module</strong>
+    <strong>Example 8: CompChem Calculation module</strong>
 </p>
 <div class="good">
     <pre>
@@ -510,33 +543,33 @@
         &lt;/module&gt;
     </pre>
 </div>
-<h2>3.5 Final</h2>
+<h2 id="finalization">3.5 Model Finalization</h2>
 
 <p>
-    A finalisation module represents the concept of the model results for computational job. The finalisation module is optional in CMLComp. Here is a list of requirements:
+    A finalization module represents the concept of the model results for computational job. The finalization module is optional in CompChem. Here is a list of requirements:
 </p>
 
 <ul>
-    <li>The CMLComp Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
-    <li>The CMLComp Final MAY contains <strong>
+    <li>The CompChem Final is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>final</code>.</li>
+    <li>The CompChem Final MAY contains <strong>
             <em>exactly one</em>
         </strong>
         <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-    <li>The CMLComp Final MAY contains <strong>
+    <li>The CompChem Final MAY contains <strong>
             <em>exactly one</em>
         </strong>
         <code>cml:propertyList</code> element.</li>
-    <li>The CMLComp Final MUST contains at <strong>
+    <li>The CompChem Final MUST contains at <strong>
             <em>least one</em>
         </strong> of <code>cml:molecule</code>, <code>cml:propertyList</code> or user defined <code>module</code> element.</li>
     <li>There MUST be <strong>
             <em>exactly one</em>
-        </strong> of CMLComp Final in a given CMLComp Job.</li>
-    <li>There MUST NOT be any other elements than given above in CMLComp Final.</li>
+        </strong> of CompChem Final in a given CompChem Job.</li>
+    <li>There MUST NOT be any other elements than given above in CompChem Final.</li>
 </ul>
 
 <p id="example9">
-    <strong>Example 8: CMLComp Final module</strong>
+    <strong>Example 8: CompChem Final module</strong>
 </p>
 <div class="good">
     <pre>
@@ -552,10 +585,10 @@
 </div>
 
 <h2>3.6 User Defined Module</h2>
-CMLComp allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CMLComp validator.<em class="bad">Not finished</em>
+CompChem allows user the add their own data structure. This is done by using <code>module[@dictRef="userDefinedDictionaryEntry"]</code>. This module will not be validated by CompChem validator.<em class="bad">Not finished</em>
 
         <p id="exampleX">
-            <strong>Example X: CMLComp User Defined module</strong>
+            <strong>Example X: CompChem User Defined module</strong>
         </p>
         <div class="good">
             <pre>
@@ -572,34 +605,34 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 
         <h1>4. Data Structure with CML Elements</h1>
         <p>
-            CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+            CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
         </p>
 <h1>4. Data Structure with CML Elements</h1>
 <p>
-    CMLComp has adopted a set of elements from CML to store the contents of the computational data. This section describes how CMLComp constructs the data structure from these CML elements set.
+    CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
 </p>
 
 <h2>4.1 Molecule</h2>
 
-<p>CMLComp uses CML Molecule to store molecular geometry and coordinates. CML Molecule specifications are defined in molecular convention so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of molecular convention for more details.</p>
+<p>CompChem uses CML Molecule to store molecular geometry and coordinates. CML Molecule specifications are defined in molecular convention so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of molecular convention for more details.</p>
 
 <h2>4.2 z-Matrix</h2>
 
-<p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CMLComp adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. However, this is an important element and must be part of the CMLComp)</em>
+<p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CompChem adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. However, this is an important element and must be part of the CompChem)</em>
 </p>
 
 
 <h2>4.3 ParameterList</h2>
 
-<p>CMLComp uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST have only the CML Parameter(s) as child(s).</p>
+<p>CompChem uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST have only the CML Parameter(s) as child(s).</p>
 
 <h2>4.4 PropertyList</h2>
 
-<p>CMLComp uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST have only the CML Property(s) as child(s).</p>
+<p>CompChem uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST have only the CML Property(s) as child(s).</p>
 
 <h2>4.5 Parameter</h2>
 
-<p>CMLComp uses CML Parameter to represent the concept of the inputs of the quantum chemistry calculations.</p>
+<p>CompChem uses CML Parameter to represent the concept of the inputs of the quantum chemistry calculations.</p>
 
 <p>A CML Parameter is defined by <code>cml:parameter</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the parameter.</p>
 
@@ -609,7 +642,7 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 
 <h2>4.6 Property</h2>
 
-<p>CMLComp uses CML Property to represent the concept of the outputs of the quantum chemistry calculations.</p>
+<p>CompChem uses CML Property to represent the concept of the outputs of the quantum chemistry calculations.</p>
 
 <p>A CML Property is defined by <code>cml:property</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the property.</p>
 
@@ -624,14 +657,14 @@ CMLComp allows user the add their own data structure. This is done by using <cod
     </strong> that they are string or text values.</p>
 
 <ul>
-    <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CMLComp document if the unit entry used in the CMLComp document does not exist on xml-cml.org.</li>
+    <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CompChem document if the unit entry used in the CompChem document does not exist on xml-cml.org.</li>
     <li>
         <em class="bad">TODO: Define units for dimensionles quantity.</em>
     </li>
 </ul>
 
 <h2>4.8 Value container</h2>
-<p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CMLComp, we current <strong>
+<p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CompChem, we current <strong>
         <em>only</em>
     </strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
 
@@ -639,11 +672,11 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 <h3>4.8.1 Scalar</h3>
 
 <p>
-    A CML Scalar element in CMLComp is used to hold a scalar data, which can be a single value of integer or real. The CML Scalar is also extended to include string or text value.
+    A CML Scalar element in CompChem is used to hold a scalar data, which can be a single value of integer or real. The CML Scalar is also extended to include string or text value.
 </p>
 
 <p>
-    In CMLComp, the CML Scalar MUST conform with the following rules :
+    In CompChem, the CML Scalar MUST conform with the following rules :
 </p>
 
 <ul>
@@ -662,7 +695,7 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 <h3>4.8.2 Array</h3>
 
 <p>
-    A CML Array element in CMLComp is used to hold a one dimentioanl array data structure of <strong>
+    A CML Array element in CompChem is used to hold a one dimentioanl array data structure of <strong>
         <em>only either</em>
     </strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong>
         <em>only</em>
@@ -687,7 +720,7 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 <h3>4.8.3 Matrix</h3>
 
 <p>
-    A CML Matrix element in CMLComp is used to hold a two-dimensional rectangular matrix data structure of <strong>
+    A CML Matrix element in CompChem is used to hold a two-dimensional rectangular matrix data structure of <strong>
         <em>only either</em>
     </strong> integer or real values. Thus, the data type of this value container MUST <strong>
         <em>only</em>
@@ -711,15 +744,15 @@ CMLComp allows user the add their own data structure. This is done by using <cod
 </ul>
 
 <p id="example10">
-    <strong>Example : Fully qualified CMLComp document (Isn't qualified at the moment due to change in the rules)</strong>
+    <strong>Example : Fully qualified CompChem document (Isn't qualified at the moment due to change in the rules)</strong>
 </p>
 
 <div class="good">
     <pre>
         &lt;?xml version="1.0" encoding="UTF-8"?&gt;
         &lt;cml 
-        cmlx:note="A valid cmlcomp containg two jobs is valid."
-        convention="conventions:cmlcomp"
+        cmlx:note="A valid compchem containg two jobs is valid."
+        convention="conventions:compchem"
         xmlns="http://www.xml-cml.org/schema"
         xmlns:conventions="http://www.xml-cml.org/convention/"
         xmlns:units="http://www.xml-cml.org/units/units"

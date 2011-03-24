@@ -51,30 +51,37 @@
         <h1>
             <a name="introduction">1.</a> Introduction</h1>
 
-        <p>The CMLComp convention is used to specify computational chemistry documents. It is 
-        intented to capture the typical underlying processes of quantum calculations and their relationships
-            in a well defined implicit semantic structure using Chemical Markup Language (CML). </p>
-
-        <p>This document describes the concepts which are introduced in CMLComp, explains how to 
-        compose a CMLComp document and illustrates it with examples. The core concepts that make up
-        CMLComp are:
-
+        <p>
+            The CMLComp convention is used to specify computational chemistry documents. It is 
+            intented to capture the typical underlying processes of quantum calculations and their relationships
+            in a well defined implicit semantic structure using Chemical Markup Language (CML).
         </p>
+
+        <p>
+            This document describes the concepts which are introduced in CMLComp, explains how to 
+            compose a CMLComp document and illustrates it with examples. The core concepts that make up
+            CMLComp are:
+        </p>
+
         <ul>
-            <li>Job list</li>
-            <li>Job </li>
-            <li>Initialisation </li>
-            <li>Iteration or calculation </li>
-            <li>Finalisation </li>
+            <li><a href="#jobList">Job list</a></li>
+            <li><a href="#job">Job</a></li>
+            <li><a href="#initialization">Initialization</a></li>
+            <li><a href="#calculation">Calculation</a></li>
+            <li><a href="#finalization">Finalisation</a></li>
+            <li>Environment</li>
             <li>User defined concept</li>
         </ul>
 
-        <p>The CMLComp convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-        which defines a set of constraints for storing to representations of molecules in CML. 
-        CMLComp requires that any molecules <i>e.g.</i> in the input molecular geometry and the 
-        optimised geometry result conform to the molecular convention. The molecular convention is 
-        not explained here and the reader should consult the 
-        <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a> specification for more information.</p>
+        <p>
+            The CMLComp convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
+            or other RECOMMENDED molecular convention which defines a set of constraints for storing to
+            representations of molecules in CML. CMLComp requires that any molecules <i>e.g.</i> in the
+            input molecular geometry and the optimised geometry result conform to the molecular convention.
+            The molecular convention is not explained here and the reader should consult the 
+            <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
+            specification for more information.
+        </p>
 
 
         <h2>
@@ -151,7 +158,7 @@
         </table>
 
 
-        <h1>
+        <h1 id="CMLComp">
             <a name="applying">2.</a> Applying the CMLComp convention on CML module element</h1>
 
         <p>
@@ -159,7 +166,7 @@
             on a <code>module</code> element and the value MUST be QName that represents CMLComp
             convention, i.e. <code>convention:cmlcomp</code>. Such a module will be addressed as
             a CMLComp module or a CMLComp module element in this convention. The <a href="#example1">
-            Example 1</a> shows the declarations of the namespaces and the convention for CMLComp module. 
+            Example 1</a> shows the namespaces and the convention declarations for the CMLComp module. 
         </p>
 
         <p id="example1">
@@ -171,15 +178,15 @@
         xmlns:convention="http://www.xml-cml.org/convention/"
         convention="convention:cmlcomp"&gt;
 
-    &lt;!-- document body is omitted. --&gt;
+        &lt;!-- body is omitted. --&gt;
 
 &lt;/module&gt;
             </pre>
         </div>
 
         <p>
-            A CMLComp module MUST contain at least one <code>module</code> child element (with a 
-            <code>dictRef="cmlcomp:jobList"</code> attribute), and MUST NOT contain any other child elements
+            A CMLComp module MUST contain at least one child of a <a href="#jobList">job list</a> module element, <em>i.e.</em>
+            <code>&lt;module dictRef="cmlcomp:jobList" id="jobList-0000"&gt;</code>, and MUST NOT contain any other child elements
             in any namespace, see <a href="#example2">Example 2</a>.
         </p>
 
@@ -208,7 +215,7 @@
 
         <h1>3. CMLComp Concepts and Elements</h1>
 
-        <h2>3.1 Joblist</h2>
+        <h2 id="jobList">3.1 Joblist</h2>
         <p>
             A quantum chemistry calculation is often comprised of a series of subtasks, 
             <i>e.g.</i> coarse optimisation -> fine optimisation -> NMR Spectrum Analysis; this is 
@@ -234,17 +241,17 @@
         </li>
 
         <li>
-            A job list module is a REQUIRED element and there MUST be at least one
-            job list <code>module</code> element within any CMLComp module 
-            (See <a href="#example3">Example 3</a>.)
-        </li>
-
-        <li>
             A job list module element MUST have an <code>id</code> attribute specified.
         </li>
+        
+        <li>
+            A job list module element MUST contain at <strong><em>least one</em></strong>
+            child of a job list module element. (See <a href="#example3">Example 3</a>.)
+        </li>
 
         <li>
-            A job list module element SHOULD have a <code>title</code> attribute specifying a human-readable name for the module. 
+            A job list module element SHOULD have a <code>title</code> attribute specifying
+            a human-readable name for the module. 
         </li>
         </ul>
 
@@ -292,15 +299,12 @@
             <a href="#example3">Example 3</a>.
         </li>
 
-
         <li>
-            There MUST be at <strong><em>least one</em></strong> of a job module element
-            in any job list module element.
+            A job module element MUST have an <code>id</code> attribute specified.
         </li>
 
         <li>
-            There MUST contains <strong><em>exactly one</em></strong> of an initialisation
-            module element.
+            A job module element MUST contains <strong> <em>exactly one</em></strong> initialization module.
         </li>
 
         <li>
@@ -313,10 +317,7 @@
             of a job module element.
         </li>
 
-        <li>
-            A job module element MUST have an <code>id</code> attribute specified.
-        </li>
-        
+
         <li>
             A job module element SHOULD have a <code>title</code> attribute specifying a
             human-readable name for the module. 
@@ -324,7 +325,7 @@
 
         <li>
             A job module element MAY contains at <strong><em>least one</em></strong> of an calculation
-            module element <strong><em>after</em></strong> the initialisation module stated
+            module element <strong><em>after</em></strong> the initialization module stated
             in previous bullet point.
         </li>
 
@@ -332,15 +333,16 @@
             A job module element MAY contains <strong><em>exactly one</em></strong>
             finalisation module <strong><em>after</em></strong> the calculation modules
             (if present) stated in previous bullet point <strong><em>or</em></strong>
-            <strong><em>after</em></strong> the initialisation module (if calculation
+            <strong><em>after</em></strong> the initialization module (if calculation
             modules are not present).
         </li>
 
         </ul>
 
         <p>
-            The only requirement for a job module is that it MUST have an initialisation module, see <a href="#example4">Example 4</a>.
-            Such a module represents a model input for a computational job.
+            The only requirement for a job module is that it MUST have an initialization
+            module, see <a href="#example4">Example 4</a>. Such a module represents a model
+            input for a computational job.
         </p>
 
         <p id="example4">
@@ -382,12 +384,12 @@
             </pre>
         </div>
 
-    <p id="example6">
-        <strong>Example 6: A job module without calculation steps</strong>
-    </p>
+        <p id="example6">
+            <strong>Example 6: A job module without calculation steps</strong>
+        </p>
 
-    <div class="good">
-        <pre>
+        <div class="good">
+            <pre>
 &lt;module dictRef="cmlcomp:job" id="job-0000" title="coarse geometry optimisation"&gt;
     &lt;module dictRef="cmlcomp:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
@@ -396,51 +398,70 @@
         &lt;!-- requried final body is omitted. --&gt;
     &lt;/module&gt;
 &lt;/module&gt;
-        </pre>
-    </div>
+            </pre>
+        </div>
 
-<h2>3.3 Init</h2>
+        <h2>3.3 Model Initialization</h2>
 
-<p>
-    An initialisation module represents the concept of the model parameters and inputs for computational job. The initialisation module is mandatory in CMLComp. Here is a list of requirements:
-</p>
+        <p>
+            A model initialization concept represents the model parameters and inputs
+            for computational job. The model parameters are one of the most important
+            elements and exist in every modelling study. Therefore, this concept is a
+            REQUIRED element in the CMLComp convention.
+        </p>
 
-<ul>
-    <li>The CMLComp Init is defined by a <code>cml:module</code> which value of <code>role</code> attribute MUST be set to <code>init</code>.</li>
-    <li>The CMLComp Init MAY contains <strong>
-            <em>exactly one</em>
-        </strong>
-        <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
-    <li>The CMLComp Init MAY contains <strong>
-            <em>exactly one</em>
-        </strong>
-        <code>cml:parameterList</code> element.</li>
-    <li>The CMLComp Init MUST contains at <strong>
-            <em>least one</em>
-        </strong> of <code>cml:molecule</code>, <code>cml:parameterList</code> or user defined <code>module</code> element.</li>
-    <li>There MUST be <strong>
-            <em>exactly one</em>
-        </strong> of CMLComp Init in a given CMLComp Job.</li>
-    <li>There MUST NOT be any other elements than given above in CMLComp Init <strong>
-            <em>except for one or more</em>
-        </strong> of user defined <code>module</code>.</li>
-</ul>
+        <p>
+            A model initialization concept in CMLComp is represented by a <code>module</code>
+            element with a <code>dictRef="cmlcomp:initialization"</code>. Such a module will
+            be addressed as an initialization module or an initialization module element in
+            this convention.
+        </p>
 
-<p id="example7">
-    <strong>Example 7: CMLComp Init module</strong>
-</p>
-<div class="good">
-    <pre>
-        &lt;module role="init"&gt;
-        &lt;molecule convention="convention:molecular"&gt;
+        <p>
+            An initialization module are constructed according to the following rules:
+        </p>
+
+        <ul>
+            <li>
+                An initialization module MUST be defined by a <code>dictRef="cmlcomp:initialization"</code>
+                attribute on a <code>module</code> element, i.e. 
+                <code>&lt;module dictRef="cmlcomp:initialization"&gt;</code>.
+                This is shown in <a href="#example7">Example 7</a>.
+            </li>
+
+            <li>
+                An initialization module MUST contains at <strong><em>least one</em></strong>
+                child of <code>molecule</code>, <code>parameterList</code> or user defined <code>module</code> elements.
+            </li>
+
+            <li>There MUST NOT be any other elements than given above in CMLComp Init <strong>
+                    <em>except for one or more</em>
+                </strong> of user defined <code>module</code>.</li>
+            <li>The CMLComp Init MAY contains <strong>
+                    <em>exactly one</em>
+                </strong>
+                <code>cml:molecule</code> element in molecular convention, i.e. molecular convention MUST be specified in <code>molecule</code> element.</li>
+            <li>The CMLComp Init MAY contains <strong>
+                    <em>exactly one</em>
+                </strong>
+                <code>cml:parameterList</code> element.</li>
+        </ul>
+
+        <p id="example7">
+            <strong>Example 7: CMLComp Init module</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module dictRef="cmlcomp:initialization"&gt;
+    &lt;molecule convention="convention:molecular"&gt;
         &lt;!-- consult molecular convention and molecule section below. --&gt;
-        &lt;/molecule&gt;
-        &lt;parameterList&gt;
+    &lt;/molecule&gt;
+    &lt;parameterList&gt;
         &lt;!-- parameterList body is omitted. --&gt;
-        &lt;/parameterList&gt;
-        &lt;/module&gt;
-    </pre>
-</div>
+    &lt;/parameterList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
 
 <h2>3.4 Calculation</h2>
 

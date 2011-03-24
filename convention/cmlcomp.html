@@ -194,11 +194,11 @@
         xmlns:convention="http://www.xml-cml.org/convention/"
         convention="convention:cmlcomp"&gt;
 
-    &lt;module dictRef="cmlcomp:jobList"&gt;
+    &lt;module dictRef="cmlcomp:jobList" id="jobList-0001"&gt;
         &lt;!-- 1st job list body is omitted. --&gt;
     &lt;/module&gt;
 
-    &lt;module dictRef="cmlcomp:jobList"&gt;
+    &lt;module dictRef="cmlcomp:jobList" id="jobList-0002"&gt;
         &lt;!-- 2nd job list body is omitted. --&gt;
     &lt;/module&gt;
 
@@ -253,7 +253,7 @@
         </p>
         <div class="good">
 <pre>
-&lt;module dictRef="cmlcomp:jobList"&gt;
+&lt;module dictRef="cmlcomp:jobList" id="jobList-0000" &gt;
     &lt;module dictRef="cmlcomp:job"&gt;
         &lt;!-- job body is omitted. --&gt;
     &lt;/module&gt;
@@ -339,64 +339,65 @@
         </ul>
 
         <p>
-            A job module that contains only the initialisation module can be used for 
-            storing program or model inputs. It can be considered as an XML version of
-            program input file.
+            The only requirement for a job module is that it MUST have an initialisation module, see <a href="#example4">Example 4</a>.
+            Such a module represents a model input for a computational job.
         </p>
 
-<p id="example4">
-    <strong>Example 4: Minimal requirements for CMLComp Job module</strong>
-</p>
-<div class="good">
-    <pre>
-        &lt;module role="job" title="coarse geometry optimisation"&gt;
-        &lt;module role="init"&gt;
-        &lt;!-- requried init body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;/module&gt;
-    </pre>
-</div>
+        <p id="example4">
+            <strong>Example 4: Minimal requirements for a job module</strong>
+        </p>
 
-<p id="example5">
-    <strong>Example 5: CMLComp Job module with multiple calculation steps</strong>
-</p>
-<div class="good">
-    <pre>
-        &lt;module role="job" title="coarse geometry optimisation"&gt;
-        &lt;module role="init"&gt;
+        <div class="good">
+            <pre>
+&lt;module dictRef="cmlcomp:job" id="job-0000" title="input for coarse geometry optimisation"&gt;
+    &lt;module dictRef="cmlcomp:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;module role="calculation"&gt;
-        &lt;!-- requried calculation body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;module role="calculation"&gt;
-        &lt;!-- requried calculation body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;module role="calculation"&gt;
-        &lt;!-- requried calculation body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;module role="final"&gt;
-        &lt;!-- requried final body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;/module&gt;
-    </pre>
-</div>
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
 
-<p id="example6">
-    <strong>Example 6: CMLComp Job module without calculation steps</strong>
-</p>
-<div class="good">
-    <pre>
-        &lt;module role="job" title="coarse geometry optimisation"&gt;
-        &lt;module role="init"&gt;
+        <p id="example5">
+            <strong>Example 5: A job module with multiple calculation steps</strong>
+        </p>
+        <div class="good">
+            <pre>
+&lt;module dictRef="cmlcomp:job" id="job-0000" title="coarse geometry optimisation"&gt;
+    &lt;module dictRef="cmlcomp:initialization"&gt;
         &lt;!-- requried init body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;module role="final"&gt;
+    &lt;/module&gt;
+    &lt;module dictRef="cmlcomp:calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module dictRef="cmlcomp:calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module dictRef="cmlcomp:calculation"&gt;
+        &lt;!-- requried calculation body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module dictRef="cmlcomp:finalization"&gt;
         &lt;!-- requried final body is omitted. --&gt;
-        &lt;/module&gt;
-        &lt;/module&gt;
-    </pre>
-</div>
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+    <p id="example6">
+        <strong>Example 6: A job module without calculation steps</strong>
+    </p>
+
+    <div class="good">
+        <pre>
+&lt;module dictRef="cmlcomp:job" id="job-0000" title="coarse geometry optimisation"&gt;
+    &lt;module dictRef="cmlcomp:initialization"&gt;
+        &lt;!-- requried init body is omitted. --&gt;
+    &lt;/module&gt;
+    &lt;module dictRef="cmlcomp:finalization"&gt;
+        &lt;!-- requried final body is omitted. --&gt;
+    &lt;/module&gt;
+&lt;/module&gt;
+        </pre>
+    </div>
 
 <h2>3.3 Init</h2>
 

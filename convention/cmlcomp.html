@@ -157,8 +157,9 @@
         <p>
             The CMLComp convention MUST be specified using the <code>convention</code> attribute
             on a <code>module</code> element and the value MUST be QName that represents CMLComp
-            convention, i.e. <code>convention:cmlcomp</code>. This is shown in <a href="#example1">
-            Example 1</a>.
+            convention, i.e. <code>convention:cmlcomp</code>. Such a module will be addressed as
+            a CMLComp module or a CMLComp module element in this convention. The <a href="#example1">
+            Example 1</a> shows the declarations of the namespaces and the convention for CMLComp module. 
         </p>
 
         <p id="example1">
@@ -217,25 +218,35 @@
             </p>
 
         <p>
-            A job list module can be defined by a <code>dictRef="cmlcomp:jobList"</code>
+            A job list concept in CMLComp is represented by a <code>module</code> element with
+            a <code>dictRef="cmlcomp:jobList"</code>. Such a module will be addressed as a job list
+            module or a job list module element in this convention.
+        </p>
+        
+        <p>A job list module are constructed according to the following rules:</p>
+
+        <ul>
+        <li>
+            A job list module MUST be defined by a <code>dictRef="cmlcomp:jobList"</code>
             attribute on a <code>module</code> element, i.e.
             <code>&lt;module dictRef="cmlcomp:jobList"&gt;</code>. This is shown in 
-            <a href="#example1">Example 1</a>.
-        </p>
+            <a href="#example3">Example 3</a>.
+        </li>
 
-        <p>
+        <li>
             A job list module is a REQUIRED element and there MUST be at least one
             job list <code>module</code> element within any CMLComp module 
             (See <a href="#example3">Example 3</a>.)
-        </p>
+        </li>
 
-        <p>
-            A job list module element SHOULD have an <code>id</code> attribute specifying.
-        </p>
+        <li>
+            A job list module element MUST have an <code>id</code> attribute specified.
+        </li>
 
-        <p>
+        <li>
             A job list module element SHOULD have a <code>title</code> attribute specifying a human-readable name for the module. 
-        </p>
+        </li>
+        </ul>
 
         <p id="example3">
             <strong>Example 3: Minimal requirements for CMLComp Joblist</strong>
@@ -261,59 +272,71 @@
         <p>
             A job consists of model parameters, model optimisations or calculations and
             model results. These three components are fundamental to modelling in every
-            field. However, a job in CMLComp does not require all three components.
+            field. However, a job does not require all three components.
             Only model parameters are mandatory.
         </p>
-
+        
         <p>
-            A job module element can be defined by a <code>dictRef="cmlcomp:job"</code> attribute on
+            A job concept in CMLComp is represented by a <code>module</code> element with
+            a <code>dictRef="cmlcomp:job"</code>. Such a module will be addressed as a job
+            module or a job module element in this convention.
+        </p>
+
+        <p>A job module are constructed according to the following rules:</p>
+
+        <ul>
+        <li>
+            A job module MUST be defined by a <code>dictRef="cmlcomp:job"</code> attribute on
             a <code>module</code> element, i.e.
             <code>&lt;module dictRef="cmlcomp:job"&gt;</code>. This is shown in 
             <a href="#example3">Example 3</a>.
-        </p>
+        </li>
 
-        <p>
-            A job module element SHOULD have an <code>id</code> attribute specifying.
-        </p>
 
-        <p>
-            A job module element SHOULD have a <code>title</code> attribute specifying a
-            human-readable name for the module. 
-        </p>
-
-        <p>
+        <li>
             There MUST be at <strong><em>least one</em></strong> of a job module element
             in any job list module element.
-        </p>
+        </li>
 
-        <p>
+        <li>
             There MUST contains <strong><em>exactly one</em></strong> of an initialisation
             module element.
-        </p>
+        </li>
 
-        <p>
+        <li>
+            If the calculation modules are present in a job module element, a finalisation
+            module MUST also be present but it is not the other way round.
+        </li>
+
+        <li>
+            The finalisation module MUST be the <strong><em>last</em></strong> child element
+            of a job module element.
+        </li>
+
+        <li>
+            A job module element MUST have an <code>id</code> attribute specified.
+        </li>
+        
+        <li>
+            A job module element SHOULD have a <code>title</code> attribute specifying a
+            human-readable name for the module. 
+        </li>
+
+        <li>
             A job module element MAY contains at <strong><em>least one</em></strong> of an calculation
             module element <strong><em>after</em></strong> the initialisation module stated
             in previous bullet point.
-        </p>
+        </li>
 
-        <p>
+        <li>
             A job module element MAY contains <strong><em>exactly one</em></strong>
             finalisation module <strong><em>after</em></strong> the calculation modules
             (if present) stated in previous bullet point <strong><em>or</em></strong>
             <strong><em>after</em></strong> the initialisation module (if calculation
             modules are not present).
-        </p>
+        </li>
 
-        <p>
-            If the calculation modules are present, a job module element MUST contain
-            a finalisation module.
-        </p>
-
-        <p>
-            The finalisation module MUST be the <strong><em>last</em></strong> element
-            in CMLComp Job.
-        </p>
+        </ul>
 
         <p>
             A job module that contains only the initialisation module can be used for 

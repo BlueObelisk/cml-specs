@@ -202,7 +202,7 @@
         </p>
 
         <p>
-            A CompChem module MAY contain <strong><em>more than one</strong></em> child element in any namespace, see <a href="#example2">Example 2</a>.
+            A CompChem module MAY contain <strong><em>more than one</em></strong> child element in any namespace, see <a href="#example2">Example 2</a>.
         </p>
 
         <p id="example2">
@@ -279,7 +279,8 @@
             </li>
 
             <li>
-                A job list module element MAY contain <strong><em>more than one</strong></em> child element in any namespace, see <a href="#example3">Example 3</a>.
+                A job list module element MAY contain <strong><em>more than one</em></strong> child element in any namespace,
+                see <a href="#example3">Example 3</a>.
             </li>
         </ul>
 
@@ -500,7 +501,7 @@
             </li>
 
             <li>
-                An initialization module element MAY contain <strong><em>more than one</strong></em>
+                An initialization module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace but MUST NOT contain a <code>propery</code>
                 child element or a <code>propertyList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
@@ -586,7 +587,7 @@
             </li>
 
             <li>
-                A calculation module element MAY contain <strong><em>more than one</strong></em>
+                A calculation module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace, see <a href="#example8">Example 8</a>.
             </li>
         </ul>
@@ -667,7 +668,7 @@
             </li>
 
             <li>
-                A finalization module element MAY contain <strong><em>more than one</strong></em>
+                A finalization module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace but MUST NOT contain a <code>parameter</code>
                 child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
@@ -736,14 +737,15 @@
             </li>
 
             <li>
-                An environment module element MAY contain <strong><em>more than one</strong></em> child element in any namespace including 
+                An environment module element MAY contain <strong><em>more than one</em></strong> child element in any
+                namespace including
                 any number of <a href="#userDefinedConcept">user defnied module</a> elements, see <a href="#example10">Example 10</a>.
                 However, CompChem can only understand a particular set of concepts. The concepts that are well understood by
                 CompChem are RECOMMENDED in section XXX.
             </li>
 
             <li>
-                An environment module element MAY contain <strong><em>more than one</strong></em>
+                An environment module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace but MUST NOT contain a <code>parameter</code>
                 child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
@@ -967,7 +969,8 @@
     <li>The dimension of <code>matrix</code> is requried and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code>)</em>
     </li>
     <li>
-        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em>
+        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for
+            delimeter but cmlxom does.</em>
     </li>
     <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
             <em>one of</em>
@@ -978,7 +981,7 @@
         <code>matrix</code> MUST have unit even if they are dimensionless.</li>
 </ul>
 
-<p id="example10">
+<p id="example">
     <strong>Example : Fully qualified CompChem document (Isn't qualified at the moment due to change in the rules)</strong>
 </p>
 

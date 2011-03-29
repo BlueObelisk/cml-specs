@@ -146,3 +146,14 @@ body {
     text-decoration: line-through;
     color: #c08000;
 }
+
+/* wp214 modification*/
+li {
+   margin-top:0.5em;
+   margin-bottom:0.5em;
+}
+
+ul {
+   margin-top:1.0em;
+   margin-bottom:2.0em;
+}

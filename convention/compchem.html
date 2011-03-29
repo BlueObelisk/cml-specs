@@ -3,7 +3,7 @@
     <head>
         <title>Chemical Markup Language - CompChem Convention</title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <meta http-equiv="refresh" content="30" /> 
+        <!-- meta http-equiv="refresh" content="30" /--> 
         <link rel="stylesheet" href="../style/W3C-PR.css" type="text/css" />
         <link rel="stylesheet" href="../style/cml-spec.css" type="text/css" />
     </head>
@@ -75,7 +75,7 @@
 
         <p>
             The CompChem convention also relies on the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-            or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>
+            or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>
             which defines a set of constraints for storing to representations of molecules in CML. CompChem requires
             that any molecules <i>e.g.</i> in the input molecular geometry and the optimised geometry result conform
             to the molecular convention. The molecular convention is not explained here and the reader should consult
@@ -156,6 +156,15 @@
                 </td>
                 <td>XHTML</td>
             </tr>
+            <tr>
+                <td>
+                    <code>dc</code>
+                </td>
+                <td>
+                    <code>http://purl.org/dc/elements/1.1/</code>
+                </td>
+                <td>Dublin Core Metadata Element Set, Version 1.1</td>
+            </tr>
         </table>
 
 
@@ -167,7 +176,7 @@
             on a <code>module</code> element and the value MUST be QName that represents CompChem
             convention, i.e. <code>convention:compchem</code>. Such a module will be addressed as
             a CompChem module or a CompChem module element in this convention. The <a href="#example1">
-            Example 1</a> shows the namespaces and the convention declarations for the CompChem module. 
+            Example 1</a> shows the declarations of the namespaces and the convention for the CompChem module element. 
         </p>
 
         <p id="example1">
@@ -189,7 +198,11 @@
         <p>
             A CompChem module MUST contain at least one child of a <a href="#jobList">job list module</a>
             element, <em>i.e.</em> <code>&lt;module dictRef="compchem:jobList" id="jobList-0000"&gt;</code>,
-            and MUST NOT contain any other child elements in any namespace, see <a href="#example2">Example 2</a>.
+            see <a href="#example2">Example 2</a>.
+        </p>
+
+        <p>
+            A CompChem module MAY contain <strong><em>more than one</strong></em> child element in any namespace, see <a href="#example2">Example 2</a>.
         </p>
 
         <p id="example2">
@@ -200,6 +213,7 @@
             <pre>
 &lt;?xml version="1.0" encoding="UTF-8" ?&gt;
 &lt;module xmlns="http://www.xml-cml.org/schema"
+        xmlns:dc="http://purl.org/dc/elements/1.1/"
         xmlns:compchem="http://www.xml-cml.org/dictionary/compchem/"
         xmlns:convention="http://www.xml-cml.org/convention/"
         convention="convention:compchem"&gt;
@@ -211,6 +225,11 @@
     &lt;module dictRef="compchem:jobList" id="jobList-0002"&gt;
         &lt;!-- 2nd job list body is omitted. --&gt;
     &lt;/module&gt;
+
+    &lt;dc:creator&gt;Weerapong Phadungsukanan&lt;/dc:creator&gt;
+    &lt;dc:title&gt;Geometry optimization for hydrocarbon species&lt;/dc:title&gt;
+    &lt;dc:description&gt;Consist of CH4 and CH3 molecules&lt;/dc:description&gt; 
+    &lt;dc:date&gt;2011-03-25&lt;/dc:date&gt;
 
 &lt;/module&gt;
             </pre>
@@ -226,11 +245,12 @@
             because most quantum chemistry software packages are designed to be modularised and only 
             to perform a single task at a time. The job list concept is introduced to capture these 
             series of successive subtasks and links the information from one subtask to the next subtask.
-            </p>
+        </p>
 
         <p>
             A job list concept in CompChem is represented by a <code>module</code> element with
-            a <code>dictRef="compchem:jobList"</code>. Such a module will be addressed as a job list
+            a <code>dictRef="compchem:jobList"</code> attribute on a <code>module</code>
+            element. Such a module will be addressed as a job list
             module or a job list module element in this convention.
         </p>
         
@@ -247,20 +267,24 @@
             <li>
                 A job list module element MUST have an <code>id</code> attribute specified.
             </li>
-            
+
             <li>
                 A job list module element MUST contain at <strong><em>least one</em></strong>
                 child of a <a href="#job">job module</a> element. (See <a href="#example3">Example 3</a>.)
             </li>
 
             <li>
-                A job list module element SHOULD have a <code>title</code> attribute specifying
-                a human-readable name for the module. 
+                A job list module element SHOULD contain a <code>dc:title</code> element specifying
+                a human-readable title for the module. 
+            </li>
+
+            <li>
+                A job list module element MAY contain <strong><em>more than one</strong></em> child element in any namespace, see <a href="#example3">Example 3</a>.
             </li>
         </ul>
 
         <p id="example3">
-            <strong>Example 3: Minimal requirements for CompChem Joblist</strong>
+            <strong>Example 3: A job list module</strong>
         </p>
         <div class="good">
             <pre>
@@ -268,6 +292,10 @@
     &lt;module dictRef="compchem:job"&gt;
         &lt;!-- job body is omitted. --&gt;
     &lt;/module&gt;
+
+    &lt;dc:title&gt;Geometry optimization for hydrocarbon species&lt;/dc:title&gt;
+    &lt;dc:date&gt;2011-03-25&lt;/dc:date&gt;
+
 &lt;/module&gt;
             </pre>
         </div>
@@ -281,17 +309,18 @@
         </p>
 
         <p>
-            A job consists of computing environments
-            (<a href="#environment">3.3</a>), model parameters (<a href="#initialization">3.4</a>) and  model
-            optimisations or calculations (<a href="#calculation">3.5</a>), model results
-            (<a href="#finalization">3.6</a>). These four components are fundamental to
+            A job consists of model parameters (<a href="#initialization">3.3</a>) and  model
+            optimisations or calculations (<a href="#calculation">3.4</a>), model results
+            (<a href="#finalization">3.5</a>) and computing environments
+            (<a href="#environment">3.6</a>). These four components are fundamental to
             modelling in every field. However, a job does not require all four components.
             Only model parameters are mandatory.
         </p>
         
         <p>
             A job concept in CompChem is represented by a <code>module</code> element with
-            a <code>dictRef="compchem:job"</code>. Such a module will be addressed as a job
+            a <code>dictRef="compchem:job"</code> attribute on a <code>module</code> 
+            element. Such a module will be addressed as a job
             module or a job module element in this convention.
         </p>
 
@@ -309,55 +338,58 @@
                 A job module element MUST have an <code>id</code> attribute specified.
             </li>
 
-            <li>
+            <!--li>
                 A job module element SHOULD have a <code>title</code> attribute specifying a
                 human-readable name for the module. 
+            </li-->
+
+            <li>
+                A job module element MUST contain <strong><em>no more than one</em></strong>
+                child of an <a href="#initialization">initialization module</a> element.
             </li>
 
             <li>
-                A job module element MAY contains <strong> <em>exactly one</em></strong>
-                child of an <a href="#environment">environment module</a> as a 
-                <strong><em>first</em></strong> child.
+                A job module element MAY contain <strong><em>zero or more</em></strong> child(s) of a
+                <a href="#calculation">calculation module</a> element.
             </li>
 
             <li>
-                A job module element MUST contains <strong> <em>exactly one</em></strong>
-                child of an <a href="#initialization">initialization module</a> after 
-                an <a href="#environment">environment module</a> (if present).
+                A job module element MAY contain <strong><em>no more than one</em></strong>
+                child of an <a href="#finalization">finalization module</a> element.
             </li>
 
             <li>
-                A job module element MAY contain at <strong><em>least one</em></strong> child of a
-                <a href="#calculation">calculation module</a> element <strong><em>after</em></strong>
-                the <a href="#initialization">initialization module</a> element (<a href="#example5">Example 5</a>).
+                A job module element MAY contain <strong><em>no more than one</em></strong>
+                child of an <a href="#environment">environment module</a> element.
             </li>
 
             <li>
-                If a job module element contains a <a href="#calculation">calculation modules</a>,
-                it MUST also contain a child of <a href="#finalization">finalization module</a> element
-                but it is not the other way round.
+                The order of the <a href="#calculation">calculation module</a> elements in a
+                job module MUST represent the order of the calculation steps but there are
+                no restriction on the order of other child element types.
             </li>
 
             <li>
-                A job module element MAY contain <strong><em>exactly one</em></strong> child of a
-                <a href="#finalization">finalization module</a> element <strong><em>after</em></strong>
-                the <a href="#calculation">calculation module</a> elements
-                (if present) <strong><em>or</em></strong> <strong><em>after</em></strong> the 
-                <a href="#initialization">initialization module</a> element 
-                (if <a href="#calculation">calculation module</a> elements are not present, 
-                shown in <a href="#example6">Example 6</a>).
+                If a <a href="#calculation">calculation modules</a> element is present,
+                a <a href="#finalization">finalization module</a> element MUST also be 
+                present as a child of a job module element.
             </li>
 
             <li>
-                A <a href="#finalization">finalization module</a> element MUST be the <strong><em>last</em></strong>
-                child element of a job module element if it is present.
+                A job module element SHOULD contain a <code>dc:title</code> element specifying
+                a human-readable title for the module.
+            </li>
+
+            <li>
+                A job module element MAY also contain other child element in any namespace,
+                see <a href="#example4">Example 4</a>.
             </li>
         </ul>
 
         <p>
-            The only requirement for a job module is that it MUST have an <a href="#initialization">initialization module</a>
-            , see <a href="#example4">Example 4</a>. Such a module represents a model input for a
-            computational job.
+            The only essential child element for a job module is an <a href="#initialization">initialization module</a>
+            which represents a model input for a computational job, see 
+            <a href="#example4">Example 4</a>.
         </p>
 
         <p id="example4">
@@ -416,77 +448,7 @@
             </pre>
         </div>
 
-        <h2 id="environment">3.3 Computing Environment</h2>
-
-        <p>
-            A computing environment concept refers to a hardware platform, software application,
-            the operating system and any hardware and software configurations used in order to
-            run the job or computational task. The environment also includes the meta data such as
-            machine id, username, starting and finishing date time, tools, compilers, IP and etc.
-        </p>
-
-        <p>
-            These information are not related to input and output of the model but they are
-            supplementary for the software application to run properly and may be vary from machine
-            to machine. Therefore, the computing environment is OPTIONAL element in the CompChem
-            convention.
-        </p>
-
-        <p>
-            A computing environment concept in CompChem is represented by a <code>module</code>
-            element with a <code>dictRef="compchem:environment"</code>. Such a module will
-            be addressed as an environment module or an environment module element in
-            this convention.
-        </p>
-
-        <p>
-            An environment module are constructed according to the following rules:
-        </p>
-
-        <ul>
-            <li>
-                An environment module MUST be defined by a <code>dictRef="compchem:environment"</code>
-                attribute on a <code>module</code> element, i.e. 
-                <code>&lt;module dictRef="compchem:environment"&gt;</code>
-                (<a href="#example7">Example 7</a>).
-            </li>
-
-            <li>
-                An environment module element MUST contain at <strong><em>least one</em></strong>
-                <code>propertyList</code> or <a href="#userDefinedConcept">user defined module</a> element.
-            </li>
-
-            <li>
-                An environment module element MUST NOT conatin any other elements except
-                <code>propertyList</code> or <a href="#userDefinedConcept">user defined module</a> element.
-            </li>
-
-            <li>
-                An environment module element MAY contain <strong><em>exactly one</em></strong>
-                <code>propertyList</code> element.
-            </li>
-
-            <li>
-                An environment module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> element.
-            </li>
-        </ul>
-
-        <p id="example7a">
-            <strong>Example 7: An environment module</strong>
-        </p>
-
-        <div class="good">
-            <pre>
-&lt;module dictRef="compchem:environment"&gt;
-    &lt;propertyList&gt;
-        &lt;!-- propertyList body is omitted. --&gt;
-    &lt;/propertyList&gt;
-&lt;/module&gt;
-            </pre>
-        </div>
-
-        <h2 id="initialization">3.4 Model Initialization</h2>
+        <h2 id="initialization">3.3 Model Initialization</h2>
 
         <p>
             A model initialization concept represents the model parameters and inputs
@@ -497,7 +459,8 @@
 
         <p>
             A model initialization concept in CompChem is represented by a <code>module</code>
-            element with a <code>dictRef="compchem:initialization"</code>. Such a module will
+            element with a <code>dictRef="compchem:initialization"</code> attribute on a
+            <code>module</code> element. Such a module will
             be addressed as an initialization module or an initialization module element in
             this convention.
         </p>
@@ -511,7 +474,24 @@
                 An initialization module MUST be defined by a <code>dictRef="compchem:initialization"</code>
                 attribute on a <code>module</code> element, i.e. 
                 <code>&lt;module dictRef="compchem:initialization"&gt;</code>
-                (<a href="#example8">Example 8</a>).
+                (<a href="#example7">Example 7</a>).
+            </li>
+
+            <li>
+                An initialization module element MAY contain <strong><em>no more than one</em></strong>
+                <code>molecule</code> child element using <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
+                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
+                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
+            </li>
+
+            <li>
+                An initialization module element MAY contain <strong><em>no more than one</em></strong>
+                <code>parameterList</code> element.
+            </li>
+
+            <li>
+                An initialization module element MAY contain <strong><em>any number</em></strong> of
+                <a href="#userDefinedConcept">user defnied module</a> element.
             </li>
 
             <li>
@@ -520,30 +500,14 @@
             </li>
 
             <li>
-                An initialization module element MUST NOT conatin any other elements except <code>molecule</code>,
-                <code>parameterList</code> or <a href="#userDefinedConcept">user defined module</a> element.
-            </li>
-
-            <li>
-                An initialization module element MAY contain <strong><em>exactly one</em></strong>
-                <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>,
-                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
-            </li>
-
-            <li>
-                An initialization module element MAY contain <strong><em>exactly one</em></strong>
-                <code>parameterList</code> element.
-            </li>
-
-            <li>
-                An initialization module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> element.
+                An initialization module element MAY contain <strong><em>more than one</strong></em>
+                child element in any namespace but MUST NOT contain a <code>propery</code>
+                child element or a <code>propertyList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
         </ul>
 
         <p id="example7">
-            <strong>Example 8: An initialization module</strong>
+            <strong>Example 7: An initialization module</strong>
         </p>
 
         <div class="good">
@@ -559,7 +523,7 @@
             </pre>
         </div>
 
-        <h2 id="calculation">3.5 Model Calculation</h2>
+        <h2 id="calculation">3.4 Model Calculation</h2>
 
         <p>
             A model calculation concept represents the computation, the optimisation or the iteration 
@@ -569,7 +533,8 @@
 
         <p>
             A model calculation concept in CompChem is represented by a <code>module</code>
-            element with a <code>dictRef="compchem:calculation"</code>. Such a module will
+            element with a <code>dictRef="compchem:calculation"</code> attribute on a
+            <code>module</code> element. Such a module will
             be addressed as an calculation module or an calculation module element in
             this convention.
         </p>
@@ -583,7 +548,7 @@
                 A calculation module MUST be defined by a <code>dictRef="compchem:calculation"</code>
                 attribute on a <code>module</code> element, i.e. 
                 <code>&lt;module dictRef="compchem:calculation"&gt;</code>
-                (<a href="#example9">Example 9</a>).
+                (<a href="#example8">Example 8</a>).
             </li>
 
             <li>
@@ -601,7 +566,7 @@
             <li>
                 A calculation module element MAY contain <strong><em>exactly one</em></strong>
                 <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>,
+                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
                 <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
             </li>
 
@@ -619,10 +584,15 @@
                 A calculation module element MAY contain <strong><em>any number</em></strong> of
                 <a href="#userDefinedConcept">user defnied module</a> element.
             </li>
+
+            <li>
+                A calculation module element MAY contain <strong><em>more than one</strong></em>
+                child element in any namespace, see <a href="#example8">Example 8</a>.
+            </li>
         </ul>
 
         <p id="example8">
-            <strong>Example 9: CompChem Calculation module</strong>
+            <strong>Example 8: CompChem Calculation module</strong>
         </p>
         <div class="good">
             <pre>
@@ -640,7 +610,7 @@
             </pre>
         </div>
 
-        <h2 id="finalization">3.6 Model Finalization</h2>
+        <h2 id="finalization">3.5 Model Finalization</h2>
 
         <p>
             A model finalization concept represents the model outputs or results for computational job.
@@ -650,7 +620,8 @@
 
         <p>
             A model finalization concept in CompChem is represented by a <code>module</code>
-            element with a <code>dictRef="compchem:finalization"</code>. Such a module will
+            element with a <code>dictRef="compchem:finalization"</code> attribute on a
+            <code>module</code> element. Such a module will
             be addressed as an finalization module or an finalization module element in
             this convention.
         </p>
@@ -664,7 +635,7 @@
                 A finalization module MUST be defined by a <code>dictRef="compchem:finalization"</code>
                 attribute on a <code>module</code> element, i.e. 
                 <code>&lt;module dictRef="compchem:finalization"&gt;</code>
-                (<a href="#example10">Example 10</a>).
+                (<a href="#example9">Example 9</a>).
             </li>
 
             <li>
@@ -681,7 +652,7 @@
             <li>
                 A finalization module element MAY contain <strong><em>exactly one</em></strong>
                 <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other RECOMMENDED molecular conventions <em class="bad">Make link to recomended conventions in the page</em>,
+                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
                 <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
             </li>
 
@@ -694,17 +665,102 @@
                 A finalization module element MAY contain <strong><em>any number</em></strong> of
                 <a href="#userDefinedConcept">user defnied module</a> element.
             </li>
+
+            <li>
+                A finalization module element MAY contain <strong><em>more than one</strong></em>
+                child element in any namespace but MUST NOT contain a <code>parameter</code>
+                child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
+            </li>
         </ul>
 
-        <p id="example10">
-            <strong>Example 10: CompChem Final module</strong>
+        <p id="example9">
+            <strong>Example 9: CompChem Final module</strong>
         </p>
+
         <div class="good">
             <pre>
 &lt;module dictRef="compchem:final"&gt;
     &lt;molecule convention="convention:molecular"&gt;
         &lt;!-- consult molecular convention and molecule section below. --&gt;
     &lt;/molecule&gt;
+    &lt;propertyList&gt;
+        &lt;!-- propertyList body is omitted. --&gt;
+    &lt;/propertyList&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+
+        <h2 id="environment">3.6 Computing Environment</h2>
+
+        <p>
+            A computing environment concept refers to a hardware platform, software application,
+            the operating system and any hardware and software configurations used in order to
+            run the job or computational task. The environment also includes the meta data such as
+            machine id, username, starting and finishing date time, tools, compilers, IP and etc.
+        </p>
+
+        <p>
+            These information are not related to input and output of the model but they are
+            supplementary for the software application to run properly and may be vary from machine
+            to machine. Therefore, the computing environment is OPTIONAL element in the CompChem
+            convention.
+        </p>
+
+        <p>
+            A computing environment concept in CompChem is represented by a <code>module</code>
+            element with a <code>dictRef="compchem:environment"</code> attribute on a <code>
+            module</code> element. Such a module will
+            be addressed as an environment module or an environment module element in
+            this convention.
+        </p>
+
+        <p>
+            An environment module are constructed according to the following rules:
+        </p>
+
+        <ul>
+            <li>
+                An environment module MUST be defined by a <code>dictRef="compchem:environment"</code>
+                attribute on a <code>module</code> element, i.e. 
+                <code>&lt;module dictRef="compchem:environment"&gt;</code>
+                (<a href="#example10">Example 10</a>).
+            </li>
+
+            <li>
+                An environment module element MAY have <strong><em>no more than one</em></strong>
+                child of a <code>propertyList</code> element.
+            </li>
+
+            <li>
+                Any environmental <code>property</code> element MUST be a child of a <code>propertyList</code> element, see XXX.
+            </li>
+
+            <li>
+                An environment module element MAY contain <strong><em>more than one</strong></em> child element in any namespace including 
+                any number of <a href="#userDefinedConcept">user defnied module</a> elements, see <a href="#example10">Example 10</a>.
+                However, CompChem can only understand a particular set of concepts. The concepts that are well understood by
+                CompChem are RECOMMENDED in section XXX.
+            </li>
+
+            <li>
+                An environment module element MAY contain <strong><em>more than one</strong></em>
+                child element in any namespace but MUST NOT contain a <code>parameter</code>
+                child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
+            </li>
+        </ul>
+        
+        <p>
+            Although CompChem allows an environment module element to contain elements that represent the concept of parameters,
+            this is highly NOT RECOMMENDED.
+        </p>
+
+        <p id="example10">
+            <strong>Example 10: An environment module</strong>
+        </p>
+
+        <div class="good">
+            <pre>
+&lt;module dictRef="compchem:environment"&gt;
     &lt;propertyList&gt;
         &lt;!-- propertyList body is omitted. --&gt;
     &lt;/propertyList&gt;
@@ -752,31 +808,32 @@
 &lt;/module&gt;
             </pre>
         </div>
+        <h1>4. Metadata</h1>
 
-        <h1>4. Adding Properties and Parameters</h1>
+        <h1>5. Adding Properties and Parameters</h1>
         
         <p>
             MUST follow the RECOMMENDED style for property and parameter, visit external link.
         </p>
 
-        <h1>5. Recommended Properties and Parameters for CompChem</h1>
-        <h2>5.1 Recommended Properties for an environment module</h2>
+        <h1>6. Recommended Properties and Parameters for CompChem</h1>
+        <h2>6.1 Recommended Properties for an environment module</h2>
         
         <p>TABLE</p>
         
-        <h2>5.2 Recommended Parameters for an initalization module</h2>
+        <h2>6.2 Recommended Parameters for an initalization module</h2>
          
         <p>TABLE</p>
         
-       <h2>5.3 Recommended Properties and Parameters for a calculation module</h2>
+        <h2>6.3 Recommended Properties and Parameters for a calculation module</h2>
         
         <p>TABLE</p>
         
-        <h2>5.4 Recommended Properties for a finalization module</h2>
+        <h2>6.4 Recommended Properties for a finalization module</h2>
         
         <p>TABLE</p>
         
-        <h1>6. Recommended Conventions for a molecule element</h1>
+        <h1 id="recommendedMoleculeConvention">7. Recommended Conventions for a molecule element</h1>
 
         <p>TABLE</p>
         

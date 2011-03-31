@@ -3,7 +3,7 @@
     <head>
         <title>Chemical Markup Language - CompChem Convention</title>
         <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=utf-8" />
-        <!-- meta http-equiv="refresh" content="30" /--> 
+        <!-- meta http-equiv="refresh" content="30" /-->
         <link rel="stylesheet" href="../style/W3C-PR.css" type="text/css" />
         <link rel="stylesheet" href="../style/cml-spec.css" type="text/css" />
     </head>
@@ -52,15 +52,13 @@
             <a name="introduction">1.</a> Introduction</h1>
 
         <p>
-            The CompChem convention is used to specify computational chemistry documents. It is 
-            intented to capture the typical underlying processes of quantum calculations and their relationships
-            in a well defined implicit semantic structure using Chemical Markup Language (CML).
+            The CompChem convention is used to specify computational chemistry documents. It is
+            designed to capture the typical underlying processes of quantum calculations and their relationships in a well defined implicit semantic structure using Chemical Markup Language (CML).
         </p>
 
         <p>
-            This document describes the concepts which are introduced in CompChem, explains how to 
-            compose a CompChem document and illustrates it with examples. The core concepts that make up
-            CompChem are:
+            This document describes the concepts which are introduced in CompChem, explains how to
+            compose a CompChem document and illustrates it with examples. The core concepts that make up CompChem are:
         </p>
 
         <ul>
@@ -107,6 +105,7 @@
 
         <ul>
             <li>Schema terms, including elements and attributes, are written in <code>this font</code>.</li>
+            <li>Reserved attribute values (e.g. of <code>dictRef</code>), are written in <code>this font</code>.</li>
         </ul>
 
         <h2>
@@ -173,10 +172,10 @@
 
         <p>
             The CompChem convention MUST be specified using the <code>convention</code> attribute
-            on a <code>module</code> element and the value MUST be QName that represents CompChem
+            on a <code>module</code> element and the value MUST be a QName that represents the CompChem
             convention, i.e. <code>convention:compchem</code>. Such a module will be addressed as
             a CompChem module or a CompChem module element in this convention. The <a href="#example1">
-            Example 1</a> shows the declarations of the namespaces and the convention for the CompChem module element. 
+            Example 1</a> shows the declarations of the namespaces and the convention for the CompChem module element.
         </p>
 
         <p id="example1">
@@ -196,8 +195,8 @@
         </div>
 
         <p>
-            A CompChem module MUST contain at least one child of a <a href="#jobList">job list module</a>
-            element, <em>i.e.</em> <code>&lt;module dictRef="compchem:jobList" id="jobList-0000"&gt;</code>,
+            A CompChem module MUST contain at least one <a href="#jobList"><code>jobList</code> module</a>
+            element, <em>e.g.</em> <code>&lt;module dictRef="compchem:jobList" id="jobList-0000"&gt;</code>,
             see <a href="#example2">Example 2</a>.
         </p>
 
@@ -206,7 +205,7 @@
         </p>
 
         <p id="example2">
-            <strong>Example 2: CompChem module as root element and contains Joblist modules.</strong>
+            <strong>Example 2: CompChem module as root element and contains <çode>jobList</code> modules.</strong>
         </p>
 
         <div class="good">
@@ -228,7 +227,7 @@
 
     &lt;dc:creator&gt;Weerapong Phadungsukanan&lt;/dc:creator&gt;
     &lt;dc:title&gt;Geometry optimization for hydrocarbon species&lt;/dc:title&gt;
-    &lt;dc:description&gt;Consist of CH4 and CH3 molecules&lt;/dc:description&gt; 
+    &lt;dc:description&gt;Consist of CH4 and CH3 molecules&lt;/dc:description&gt;
     &lt;dc:date&gt;2011-03-25&lt;/dc:date&gt;
 
 &lt;/module&gt;
@@ -240,52 +239,52 @@
         <h2 id="jobList">3.1 Joblist</h2>
 
         <p>
-            A quantum chemistry calculation is often comprised of a series of subtasks, 
-            <i>e.g.</i> coarse optimisation -> fine optimisation -> NMR Spectrum Analysis; this is 
-            because most quantum chemistry software packages are designed to be modularised and only 
-            to perform a single task at a time. The job list concept is introduced to capture these 
+            A quantum chemistry calculation is often comprised of a series of subtasks,
+            <i>e.g.</i> coarse optimisation -> fine optimisation -> NMR Spectrum Analysis; this is
+            because most quantum chemistry software packages are designed to be modularised and only
+            to perform a single task at a time. The <code>jobList</code> concept is introduced to capture these
             series of successive subtasks and links the information from one subtask to the next subtask.
         </p>
 
         <p>
             A job list concept in CompChem is represented by a <code>module</code> element with
             a <code>dictRef="compchem:jobList"</code> attribute on a <code>module</code>
-            element. Such a module will be addressed as a job list
-            module or a job list module element in this convention.
+            element. Such a module will be addressed as a <code>jobList</code>
+            module or a <code>jobList</code> module element in this convention.
         </p>
-        
-        <p>A job list module are constructed according to the following rules:</p>
+
+        <p>A <code>jobList</code> module is constructed according to the following rules:</p>
 
         <ul>
             <li>
-                A job list module MUST be defined by a <code>dictRef="compchem:jobList"</code>
-                attribute on a <code>module</code> element, i.e.
-                <code>&lt;module dictRef="compchem:jobList"&gt;</code>. This is shown in 
+                A <code>jobList</code> module MUST be defined by a <code>dictRef="compchem:jobList"</code>
+                attribute on a <code>module</code> element, e.g.
+                <code>&lt;module dictRef="compchem:jobList"&gt;</code>. This is shown in
                 <a href="#example3">Example 3</a>.
             </li>
 
             <li>
-                A job list module element MUST have an <code>id</code> attribute specified.
+                A <code>jobList</code> module element MUST have an <code>id</code> attribute specified.
             </li>
 
             <li>
-                A job list module element MUST contain at <strong><em>least one</em></strong>
-                child of a <a href="#job">job module</a> element. (See <a href="#example3">Example 3</a>.)
+                A <code>jobList</code> module element MUST contain at <strong><em>least one</em></strong>
+                <a href="#job"><code>job</code> module</a> child element. (See <a href="#example3">Example 3</a>.)
             </li>
 
             <li>
-                A job list module element SHOULD contain a <code>dc:title</code> element specifying
-                a human-readable title for the module. 
+                A <code>jobList</code> module element SHOULD contain a <code>dc:title</code> element specifying
+                a human-readable title for the module.
             </li>
 
             <li>
-                A job list module element MAY contain <strong><em>more than one</em></strong> child element in any namespace,
+                A <code>jobList</code> module element MAY contain <strong><em>more than one</em></strong> child element in any namespace,
                 see <a href="#example3">Example 3</a>.
             </li>
         </ul>
 
         <p id="example3">
-            <strong>Example 3: A job list module</strong>
+            <strong>Example 3: A <code>jobList</code> module</strong>
         </p>
         <div class="good">
             <pre>
@@ -303,93 +302,93 @@
 
         <h2>3.2 Job</h2>
         <p>
-            A job concept represents a computational job performed by quantum chemistry
+            A <code>job</code> concept represents a computational job performed by quantum chemistry
             software, <i>e.g.</i> geometry optimisation job, frequency analysis job.
-            The job concept is the smallest unit which can fully describe a general
-            picture of computational modelling. 
+            The <code>job</code> concept is the smallest unit which can fully describe a general
+            picture of computational modelling.
         </p>
 
         <p>
-            A job consists of model parameters (<a href="#initialization">3.3</a>) and  model
+            A <code>job</code> consists of model parameters (<a href="#initialization">3.3</a>) and  model
             optimisations or calculations (<a href="#calculation">3.4</a>), model results
             (<a href="#finalization">3.5</a>) and computing environments
             (<a href="#environment">3.6</a>). These four components are fundamental to
-            modelling in every field. However, a job does not require all four components.
+            modelling in every field. However, a <code>job</code> does not require all four components.
             Only model parameters are mandatory.
         </p>
-        
+
         <p>
-            A job concept in CompChem is represented by a <code>module</code> element with
-            a <code>dictRef="compchem:job"</code> attribute on a <code>module</code> 
-            element. Such a module will be addressed as a job
-            module or a job module element in this convention.
+            A <code>job</code> concept in CompChem is represented by a <code>module</code> element with
+            a <code>dictRef="compchem:job"</code> attribute on a <code>module</code>
+            element. Such a module will be addressed as a <code>job</code>
+            module or a <code>job</code> module element in this convention.
         </p>
 
-        <p>A job module are constructed according to the following rules:</p>
+        <p>A <code>job</code> module is constructed according to the following rules:</p>
 
         <ul>
             <li>
-                A job module MUST be defined by a <code>dictRef="compchem:job"</code> attribute on
-                a <code>module</code> element, i.e.
-                <code>&lt;module dictRef="compchem:job"&gt;</code>. This is shown in 
+                A <code>job</code> module MUST be defined by a <code>dictRef="compchem:job"</code> attribute on
+                a <code>module</code> element, e.g.
+                <code>&lt;module dictRef="compchem:job"&gt;</code>. This is shown in
                 <a href="#example4">Example 4</a>.
             </li>
 
             <li>
-                A job module element MUST have an <code>id</code> attribute specified.
+                A <code>job</code> module element MUST have an <code>id</code> attribute specified.
             </li>
 
             <!--li>
                 A job module element SHOULD have a <code>title</code> attribute specifying a
-                human-readable name for the module. 
+                human-readable name for the module.
             </li-->
 
             <li>
-                A job module element MUST contain <strong><em>no more than one</em></strong>
-                child of an <a href="#initialization">initialization module</a> element.
+                A <code>job</code> module element MUST contain <strong><em>no more than one</em></strong>
+                <a href="#initialization">initialization module</a> child element.
             </li>
 
             <li>
-                A job module element MAY contain <strong><em>zero or more</em></strong> child(s) of a
-                <a href="#calculation">calculation module</a> element.
+                A <code>job</code> module element MAY contain <strong><em>zero or more</em></strong>
+                <a href="#calculation">calculation module</a> child elements.
             </li>
 
             <li>
-                A job module element MAY contain <strong><em>no more than one</em></strong>
-                child of an <a href="#finalization">finalization module</a> element.
+                A <code>job</code> module element MAY contain <strong><em>no more than one</em></strong>
+                <a href="#finalization">finalization module</a> child element.
             </li>
 
             <li>
-                A job module element MAY contain <strong><em>no more than one</em></strong>
-                child of an <a href="#environment">environment module</a> element.
+                A <code>job</code> module element MAY contain <strong><em>no more than one</em></strong>
+                <a href="#environment">child environment module </a> element.
             </li>
 
             <li>
                 The order of the <a href="#calculation">calculation module</a> elements in a
-                job module MUST represent the order of the calculation steps but there are
+                job module MUST represent the order of the calculation steps but there is
                 no restriction on the order of other child element types.
             </li>
 
             <li>
                 If a <a href="#calculation">calculation modules</a> element is present,
-                a <a href="#finalization">finalization module</a> element MUST also be 
-                present as a child of a job module element.
+                a <a href="#finalization">finalization module</a> element MUST also be
+                present as a child of a <code>job</code> module element.
             </li>
 
             <li>
-                A job module element SHOULD contain a <code>dc:title</code> element specifying
+                A <code>job</code> module element SHOULD contain a <code>dc:title</code> element specifying
                 a human-readable title for the module.
             </li>
 
             <li>
-                A job module element MAY also contain other child element in any namespace,
+                A <code>job</code> module element MAY also contain other child elements in any namespace,
                 see <a href="#example4">Example 4</a>.
             </li>
         </ul>
 
         <p>
-            The only essential child element for a job module is an <a href="#initialization">initialization module</a>
-            which represents a model input for a computational job, see 
+            The only essential child element of a job module is an <a href="#initialization">initialization module</a>
+            which represents a model input for a computational job, see
             <a href="#example4">Example 4</a>.
         </p>
 
@@ -408,7 +407,7 @@
         </div>
 
         <p id="example5">
-            <strong>Example 5: A job module with multiple calculation steps</strong>
+            <strong>Example 5: A <code>job</code> module with multiple calculation steps</strong>
         </p>
         <div class="good">
             <pre>
@@ -433,7 +432,7 @@
         </div>
 
         <p id="example6">
-            <strong>Example 6: A job module without calculation steps</strong>
+            <strong>Example 6: A <code>job</code> module without calculation steps</strong>
         </p>
 
         <div class="good">
@@ -452,63 +451,63 @@
         <h2 id="initialization">3.3 Model Initialization</h2>
 
         <p>
-            A model initialization concept represents the model parameters and inputs
+            The model initialization concept represents the model parameters and inputs
             for computational job. The model parameters are one of the most important
             elements and exist in every modelling study. Therefore, this concept is a
             REQUIRED element in the CompChem convention.
         </p>
 
         <p>
-            A model initialization concept in CompChem is represented by a <code>module</code>
+            The model initialization concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef="compchem:initialization"</code> attribute on a
             <code>module</code> element. Such a module will
-            be addressed as an initialization module or an initialization module element in
+            be addressed as an <code>initialization</code> module or an <code>initialization</code> module element in
             this convention.
         </p>
 
         <p>
-            An initialization module are constructed according to the following rules:
+            An <code>initialization</code> module is constructed according to the following rules:
         </p>
 
         <ul>
             <li>
-                An initialization module MUST be defined by a <code>dictRef="compchem:initialization"</code>
-                attribute on a <code>module</code> element, i.e. 
+                An <code>initialization</code> module MUST be defined by a <code>dictRef="compchem:initialization"</code>
+                attribute on a <code>module</code> element, e.g.
                 <code>&lt;module dictRef="compchem:initialization"&gt;</code>
                 (<a href="#example7">Example 7</a>).
             </li>
 
             <li>
-                An initialization module element MAY contain <strong><em>no more than one</em></strong>
+                An <code>initialization</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>molecule</code> child element using <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
                 or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
                 <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
             </li>
 
             <li>
-                An initialization module element MAY contain <strong><em>no more than one</em></strong>
+                An <code>initialization</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>parameterList</code> element.
             </li>
 
             <li>
-                An initialization module element MAY contain <strong><em>any number</em></strong> of
+                An <code>initialization</code> module element MAY contain <strong><em>any number</em></strong> of
                 <a href="#userDefinedConcept">user defnied module</a> element.
             </li>
 
             <li>
-                An initialization module element MUST contain at <strong><em>least one</em></strong>
+                An <code>initialization</code> module element MUST contain at <strong><em>least one</em></strong>
                 child of <code>molecule</code>, <code>parameterList</code> or <a href="#userDefinedConcept">user defined module</a> element.
             </li>
 
             <li>
-                An initialization module element MAY contain <strong><em>more than one</em></strong>
-                child element in any namespace but MUST NOT contain a <code>propery</code>
+                An <code>initialization</code> module element MAY contain <strong><em>more than one</em></strong>
+                child element in any namespace but MUST NOT contain a <code>property</code>
                 child element or a <code>propertyList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
         </ul>
 
         <p id="example7">
-            <strong>Example 7: An initialization module</strong>
+            <strong>Example 7: An <code>initialization</code> module</strong>
         </p>
 
         <div class="good">
@@ -527,57 +526,57 @@
         <h2 id="calculation">3.4 Model Calculation</h2>
 
         <p>
-            A model calculation concept represents the computation, the optimisation or the iteration 
-            processes for computational job. The calculation process may or may not be of interest by
-            many scientists, therfore, the model calculation is an OPTIONAL information in CompChem.
+            A model <code>calculation</code> concept represents the computation, the optimisation or the iteration
+            processes for computational job. The <code>calculation</code> process may or may not be of interest to
+            some scientists; therefore, the model <code>calculation</code> is an OPTIONAL information in CompChem.
         </p>
 
         <p>
-            A model calculation concept in CompChem is represented by a <code>module</code>
+            A model <code>calculation</code> concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef="compchem:calculation"</code> attribute on a
             <code>module</code> element. Such a module will
-            be addressed as an calculation module or an calculation module element in
+            be addressed as an <code>calculation</code> module or an calculation module element in
             this convention.
         </p>
 
         <p>
-            A calculation module are constructed according to the following rules:
+            A <code>calculation</code> module are constructed according to the following rules:
         </p>
 
         <ul>
             <li>
-                A calculation module MUST be defined by a <code>dictRef="compchem:calculation"</code>
-                attribute on a <code>module</code> element, i.e. 
+                A <code>calculation</code> module MUST be defined by a <code>dictRef="compchem:calculation"</code>
+                attribute on a <code>module</code> element, i.e.
                 <code>&lt;module dictRef="compchem:calculation"&gt;</code>
                 (<a href="#example8">Example 8</a>).
             </li>
 
             <li>
-                A calculation module element MAY contain <strong><em>no more than one</em></strong>
+                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
                 or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
                 <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
             </li>
 
             <li>
-                A calculation module element MAY contain <strong><em>no more than one</em></strong>
+                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>parameterList</code> element.
             </li>
 
             <li>
-                A calculation module element MAY contain <strong><em>no more than one</em></strong>
+                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>propertyList</code> element.
             </li>
 
             <li>
-                A calculation module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> element.
+                A <code>calculation</code> module element MAY contain <strong><em>any number</em></strong> of
+                <a href="#userDefinedConcept">user defnied module</a> elements.
             </li>
 
             <li>
-                A calculation module element MUST contain at <strong><em>least one</em></strong>
+                A <code>calculation</code> module element MUST contain at <strong><em>least one</em></strong>
                 child of <code>molecule</code>, <code>parameterList</code>, <code>propertyList</code> or
-                <a href="#userDefinedConcept">user defined module</a> element.
+                <a href="#userDefinedConcept">user defined module</a> elements.
             </li>
 
             <li>
@@ -608,56 +607,55 @@
         <h2 id="finalization">3.5 Model Finalization</h2>
 
         <p>
-            A model finalization concept represents the model outputs or results for computational job.
+            A model <code>finalization</code> concept represents the model outputs or results for computational job.
             In some cases, a CompChem module MAY only represent the model inputs and does not contain
             any calculations, therfore, the model finalization is an OPTIONAL information in CompChem.
         </p>
 
         <p>
-            A model finalization concept in CompChem is represented by a <code>module</code>
+            A model <code>finalization</code> concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef="compchem:finalization"</code> attribute on a
             <code>module</code> element. Such a module will
-            be addressed as an finalization module or an finalization module element in
-            this convention.
+            be addressed as a <code>finalization</code> module or a <code>finalization</code> module element in this convention.
         </p>
 
         <p>
-            A finalization module are constructed according to the following rules:
+            A <code>finalization</code> module is constructed according to the following rules:
         </p>
 
         <ul>
             <li>
-                A finalization module MUST be defined by a <code>dictRef="compchem:finalization"</code>
-                attribute on a <code>module</code> element, i.e. 
+                A <code>finalization</code> module MUST be defined by a <code>dictRef="compchem:finalization"</code>
+                attribute on a <code>module</code> element, i.e.
                 <code>&lt;module dictRef="compchem:finalization"&gt;</code>
                 (<a href="#example9">Example 9</a>).
             </li>
 
             <li>
-                A finalization module element MAY contain <strong><em>no more than one</em></strong>
+                A <code>finalization</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
                 or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
                 <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
             </li>
 
             <li>
-                A finalization module element MAY contain <strong><em>no more than one</em></strong>
+                A <code>finalization</code> module element MAY contain <strong><em>no more than one</em></strong>
                 <code>propertyList</code> element.
             </li>
 
             <li>
-                A finalization module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> element.
-            </li>
-
-            <li>
-                A finalization module element MUST contain at <strong><em>least one</em></strong>
-                child of <code>molecule</code>, <code>propertyList</code> or
+                A <code>finalization</code> module element MAY contain <strong><em>any number</em></strong> of
                 <a href="#userDefinedConcept">user defined module</a> element.
             </li>
 
             <li>
-                A finalization module element MAY contain <strong><em>more than one</em></strong>
+                A <code>finalization</code> module element MUST contain at <strong><em>least one</em></strong>
+                <code>molecule</code> child, <code>propertyList</code> child or
+                <a href="#userDefinedConcept">user defined module</a> element.
+            </li>
+
+            <li>
+                A <code>finalization</code> module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace but MUST NOT contain a <code>parameter</code>
                 child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
@@ -683,50 +681,50 @@
         <h2 id="environment">3.6 Computing Environment</h2>
 
         <p>
-            A computing environment concept refers to a hardware platform, software application,
+            The computing <code>environment</code> concept refers to a hardware platform, software application,
             the operating system and any hardware and software configurations used in order to
-            run the job or computational task. The environment also includes the meta data such as
-            machine id, username, starting and finishing date time, tools, compilers, IP and etc.
+            run the job or computational task. The <code>environment</code> also includes the metadata such as
+            machine id, username, starting and finishing date time, tools, compilers, IP, etc.
         </p>
 
         <p>
-            These information are not related to input and output of the model but they are
-            supplementary for the software application to run properly and may be vary from machine
+            This information is not related to input and output of the model but is
+            supplementary to the software application to run properly and may vary from machine
             to machine. Therefore, the computing environment is OPTIONAL element in the CompChem
             convention.
         </p>
 
         <p>
-            A computing environment concept in CompChem is represented by a <code>module</code>
+            The computing <code>environment</code> concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef="compchem:environment"</code> attribute on a <code>
             module</code> element. Such a module will
-            be addressed as an environment module or an environment module element in
+            be addressed as an <code>environment</code> module or an <code>environment</code> module element in
             this convention.
         </p>
 
         <p>
-            An environment module are constructed according to the following rules:
+            An <code>environment</code> module is constructed according to the following rules:
         </p>
 
         <ul>
             <li>
-                An environment module MUST be defined by a <code>dictRef="compchem:environment"</code>
-                attribute on a <code>module</code> element, i.e. 
+                An <code>environment</code> module MUST be defined by a <code>dictRef="compchem:environment"</code>
+                attribute on a <code>module</code> element, i.e.
                 <code>&lt;module dictRef="compchem:environment"&gt;</code>
                 (<a href="#example10">Example 10</a>).
             </li>
 
             <li>
-                An environment module element MAY have <strong><em>no more than one</em></strong>
-                child of a <code>propertyList</code> element.
+                An <code>environment</code> module element MAY have <strong><em>no more than one</em></strong>
+                <code>propertyList</code> child element.
             </li>
 
             <li>
-                Any environmental <code>property</code> element MUST be a child of a <code>propertyList</code> element, see XXX.
+                Any <code>environment</code> <code>property</code> element MUST be a child of a <code>propertyList</code> element, see XXX.
             </li>
 
             <li>
-                An environment module element MAY contain <strong><em>more than one</em></strong> child element in any
+                An <code>environment</code> module element MAY contain <strong><em>more than one</em></strong> child element in any
                 namespace including
                 any number of <a href="#userDefinedConcept">user defnied module</a> elements, see <a href="#example10">Example 10</a>.
                 However, CompChem can only understand a particular set of concepts. The concepts that are well understood by
@@ -734,19 +732,19 @@
             </li>
 
             <li>
-                An environment module element MAY contain <strong><em>more than one</em></strong>
+                An <code>environment</code> module element MAY contain <strong><em>more than one</em></strong>
                 child element in any namespace but MUST NOT contain a <code>parameter</code>
                 child element or a <code>parameterList</code> child element, see <a href="#example7">Example 7</a>.
             </li>
         </ul>
-        
+
         <p>
-            Although CompChem allows an environment module element to contain elements that represent the concept of parameters,
-            this is highly NOT RECOMMENDED.
+            Although CompChem allows an <code>environment</code> module element to contain elements that represent the concept of parameters,
+            this is NOT RECOMMENDED.
         </p>
 
         <p id="example10">
-            <strong>Example 10: An environment module</strong>
+            <strong>Example 10: An <code>environment</code> module</strong>
         </p>
 
         <div class="good">
@@ -760,32 +758,32 @@
         </div>
 
         <h2>3.7 User Defined Module</h2>
-        
+
         <p>
-            CompChem allows user or author to define their own concept if the RECOMMENDED concepts
+            CompChem allows users or authors to define their own concepts if the RECOMMENDED concepts
             above do not fit into their requirements.
         </p>
 
         <p>
             A user defined concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef</code> attribute whose value points to an entry in a dictionary
-            that defines the concept, see <a href="#example11">Example 11</a>. Such a module will be addressed as a user defined module or a user
-            defined mdule element in this convention.
-        </p>
-        
-        <p>
-            Unlike the environment, initialization, calculation and finalization, the user defined module
-            element MUST NOT be a child of either a job list or a job module element. It can only be a
-            child of the environment, initialization, calculation or finalization module element.
+            that defines the concept, see <a href="#example11">Example 11</a>. Such a module will be addressed as a <i>user defined module</i> or a <i>user
+            defined module element</i> in this convention.
         </p>
 
         <p>
-            Users are free to design any sturcture for a user define module. However, it is RECOMMENDED to use
-            existing structure or a structure that has a schema for validation.
+            Unlike the <code>environment</code>, <code>initialization</code>, <code>calculation</code> and <code>finalization<code>, the user defined module
+            element MUST NOT be a child of either a <code>jobList</code> or a <code>job</code> module element. It can only be a
+            child of an <code>environment</code>, <code>initialization</code>, <code>calculation</code> or <code>finalization</code> module element.
         </p>
-        
+
         <p>
-            Information in a user defined module can not be gauranteed to be understood by all processing
+            Users are free to design any sturcture for a <i>user defined module</i>. However, it is RECOMMENDED to use
+            existing structures or a structure that has a schema for validation.
+        </p>
+
+        <p>
+            Information in a <i>user defined module</i> cannot be guaranteed to be understandable by all processing
             software tools.
         </p>
 
@@ -800,74 +798,64 @@
             </pre>
         </div>
         <h1>4. Metadata</h1>
-        <p>
-            CompChem has provided a minimum support for storing metadata associated with CompChem
-            elements by itself. However, CompChem allows the use of Dublin Core standard to provide
-            support for a fundamental group of metadata. It is highly RECOMMENDED to use Dublin Core
-            for associating metadata with CompChem elements. All processing software for CompChem
-            SHOULD also provide support for storing and understanding Dublin Core.
-        </p>
 
         <h1>5. Adding Properties and Parameters</h1>
-        
+
         <p>
-            MUST follow the RECOMMENDED style for property and parameter, visit external link.
+            Authors MUST follow the RECOMMENDED style for <code>property</code>s and <code>parameter</code>s, visit external link.
         </p>
 
         <h1>6. Recommended Properties and Parameters for CompChem</h1>
-        <h2>6.1 Recommended Parameters for an initalization module</h2>
-         
+        <h2>6.1 Recommended Properties for an environment module</h2>
+
         <p>TABLE</p>
-        
-        <h2>6.2 Recommended Properties and Parameters for a calculation module</h2>
-        
+
+        <h2>6.2 Recommended Parameters for an initalization module</h2>
+
         <p>TABLE</p>
-        
-        <h2>6.3 Recommended Properties for a finalization module</h2>
-        
+
+        <h2>6.3 Recommended Properties and Parameters for a calculation module</h2>
+
         <p>TABLE</p>
-        <h2>6.4 Recommended Properties for an environment module</h2>
-        
+
+        <h2>6.4 Recommended Properties for a finalization module</h2>
+
         <p>TABLE</p>
-        
-        
+
         <h1 id="recommendedMoleculeConvention">7. Recommended Conventions for a molecule element</h1>
 
         <p>TABLE</p>
-        
-        
-        <!--h1>4. Data Structure with CML Elements</h1>
-                <p>
-                    CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
-                </p>
+
+
 <h1>4. Data Structure with CML Elements</h1>
 <p>
     CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
 </p>
+<p><i>NOTE: elements in the CML namespace (<code>http://www.xml-cml.org/schema</code>) are denoted using the (arbitary) prefix <code>cml:</code>.</i></p>
 
 <h2>4.1 Molecule</h2>
 
-<p>CompChem uses CML Molecule to store molecular geometry and coordinates. CML Molecule specifications are defined in molecular convention so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of molecular convention for more details.</p>
+<p>CompChem uses <code>cml:molecule</code> to store molecular geometry and coordinates. <code>cml:molecule</code> specifications are defined in the <i>molecular convention</i> so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of the <i>molecular convention</i> for more details.</p>
 
 <h2>4.2 z-Matrix</h2>
 
-<p>In many quantum chemistry calculations, the coordinates of the atoms are represented using z-Matrix coordinate system. CompChem adopted z-Matrix from CML schema. <em class="bad">(I have never used z-Matrix so I have very little experience. However, this is an important element and must be part of the CompChem)</em>
+<p>In many quantum chemistry calculations, the coordinates of the atoms are represented using a z-Matrix coordinate system. CompChem adopta the z-Matrix concept from the CML schema. <em class="bad">Z-Matrices and cartesian coordinates can be converted in both directions, but may differ in orientation and translation. There may be some conventions for ordering atoms in z-matrices which cannot be guaranteed.</em>
 </p>
 
 
 <h2>4.3 ParameterList</h2>
 
-<p>CompChem uses CML ParameterList to group the CML Parameter(s) together. CML ParameterList MUST have only the CML Parameter(s) as child(s).</p>
+<p>CompChem uses <code>cml:parameterList</code> to group the <code>cml:parameter</code>(s). <code>cml:parameterList</code> MUST have only <code>cml:parameter</code>(s) as child element(s).</p>
 
 <h2>4.4 PropertyList</h2>
 
-<p>CompChem uses CML PropertyList to group the CML Property(s)  together. CML PropertyList MUST have only the CML Property(s) as child(s).</p>
+<p>CompChem uses <code>cml:propertyList</code> to group the <code>cml:property</code>(s). <code>cml:propertyList</code> MUST have only <code>cml:property</code>(s) as child element(s).</p>
 
 <h2>4.5 Parameter</h2>
 
-<p>CompChem uses CML Parameter to represent the concept of the inputs of the quantum chemistry calculations.</p>
+<p>CompChem uses <code>cml:parameter</code> to represent the inputs of the quantum chemistry calculations.</p>
 
-<p>A CML Parameter is defined by <code>cml:parameter</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the parameter.</p>
+<p>A CML parameter is defined by <code>cml:parameter</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the parameter.</p>
 
 <p>A <code>parameter</code> MUST contain only <strong>
         <em>one of</em>
@@ -875,9 +863,9 @@
 
 <h2>4.6 Property</h2>
 
-<p>CompChem uses CML Property to represent the concept of the outputs of the quantum chemistry calculations.</p>
+<p>CompChem uses <code>cml:property</code> to represent the concept of the outputs of the quantum chemistry calculations.</p>
 
-<p>A CML Property is defined by <code>cml:property</code> element and MUST have a referrence to an entry in a dictionary which specifies the meaning of the property.</p>
+<p>A CML property is defined by <code>cml:property</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the property.</p>
 
 <p>A <code>property</code> MUST contain only <strong>
         <em>one of</em>
@@ -885,69 +873,69 @@
 
 <h2>4.7 Units</h2>
 
-<p>Units are one of the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong>
+<p>Units are among the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong>
         <em>except</em>
-    </strong> that they are string or text values.</p>
+    </strong> for string or text values.</p>
 
 <ul>
-    <li>The unit on a value container MUST be specified using <code>unit</code> attribute and the value MUST be <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CompChem document if the unit entry used in the CompChem document does not exist on xml-cml.org.</li>
+    <li>The unit on a value container MUST be specified using the <code>unit</code> attribute and the value MUST be the <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CompChem document if the unit entry used in the CompChem document does not exist on xml-cml.org.</li>
     <li>
         <em class="bad">TODO: Define units for dimensionles quantity.</em>
     </li>
 </ul>
 
 <h2>4.8 Value container</h2>
-<p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as value container in the current context. In CompChem, we current <strong>
+<p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as <i>value containers</i> in the current context. In CompChem, we currently <strong>
         <em>only</em>
-    </strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficiently enough for many computational outputs. Other type of CML containers will be added later.</p>
+    </strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficient for many computational outputs. Other type of CML containers will be added later and may be built from combinations of primitive containers.</p>
 
 
 <h3>4.8.1 Scalar</h3>
 
 <p>
-    A CML Scalar element in CompChem is used to hold a scalar data, which can be a single value of integer or real. The CML Scalar is also extended to include string or text value.
+    A CML scalar element in CompChem is used to hold scalar data, which can be a single value of <code>dataType</code> integer, real, boolean, string or date.
 </p>
 
 <p>
-    In CompChem, the CML Scalar MUST conform with the following rules :
+    In CompChem, a <code>cml:scalar</code> MUST conform to the following rules :
 </p>
 
 <ul>
-    <li>CML Scalar is defined by a <code>cml:scalar</code> element and MUST conform with CML schema version 3.</li>
-    <li>The data type of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+    <li>a CML scalar is defined by a <code>cml:scalar</code> element and MUST conform to CML schema version 3.</li>
+    <li>The <code>dataType</code> of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
             <em>one of</em>
         </strong>
-        <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, xsd:real, xsd:float</code>.</em>
+        <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, [PMR not float/real] xsd:real, xsd:float</code>.</em>
     </li>
     <li>
-        <code>scalar</code> MUST have unit if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if they are dimensionless.</li>
+        <code>cml:scalar</code> MUST have units if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if the units are unknown or dimensionless.</li>
     <li>
-        <code>scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
+        <code>cml:scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
 </ul>
 
 <h3>4.8.2 Array</h3>
 
 <p>
-    A CML Array element in CompChem is used to hold a one dimentioanl array data structure of <strong>
+    A CML array element in CompChem is used to hold a one dimensional array data structure of <strong>
         <em>only either</em>
     </strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong>
         <em>only</em>
-    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :
+    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
 </p>
 
 <ul>
-    <li>CML Array is defined by a <code>cml:array</code> element and MUST conform with CML schema version 3.</li>
-    <li>The size of <code>array</code> is requried and MUST be specified using <code>size</code> attribute with the minimum value of 1.</li>
+    <li>CML Array is defined by a <code>cml:array</code> element and MUST conform to CML schema version 3.</li>
+    <li>The size of <code>cml:array</code> is requried and MUST be specified using the <code>size</code> attribute with the minimum value of 1.</li>
     <li>
-        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for dilimeter but cmlxom does.</em>
+        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for delimeter but cmlxom does. [PMR to be worked out urgently]</em>
     </li>
-    <li>The data type of <code>array</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+    <li>The data type of <code>cml:array</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
             <em>one of</em>
         </strong>
-        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em>
+        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>. [NO, PMR]</em>
     </li>
     <li>
-        <code>array</code> MUST have unit even if they are dimensionless.</li>
+        <code>cml:array</code> MUST have units even if they are dimensionless.</li>
 </ul>
 
 <h3>4.8.3 Matrix</h3>
@@ -957,24 +945,24 @@
         <em>only either</em>
     </strong> integer or real values. Thus, the data type of this value container MUST <strong>
         <em>only</em>
-    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform with the following rules :
+    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
 </p>
 
 <ul>
-    <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform with CML schema version 3.</li>
-    <li>The dimension of <code>matrix</code> is requried and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code>)</em>
+    <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform to CML schema version 3.</li>
+    <li>The dimension of <code>matrix</code> is required and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code> PMR: agreed)</em>
     </li>
     <li>
         <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for
-            delimeter but cmlxom does.</em>
+            delimeter but cmlxom does. [PMR see above]</em>
     </li>
-    <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+    <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
             <em>one of</em>
         </strong>
-        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>.</em>
+        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code> [PMR: NO].</em>
     </li>
     <li>
-        <code>matrix</code> MUST have unit even if they are dimensionless.</li>
+        <code>cml:matrix</code> MUST have units even if they are dimensionless.</li>
 </ul>
 
 <p id="example">
@@ -984,7 +972,7 @@
 <div class="good">
     <pre>
         &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-        &lt;cml 
+        &lt;cml
         cmlx:note="A valid compchem containg two jobs is valid."
         convention="conventions:compchem"
         xmlns="http://www.xml-cml.org/schema"
@@ -1110,77 +1098,77 @@
         &lt;/module&gt;
         &lt;/cml&gt;
     </pre>
-</div-->
+</div>
 <!--h2>4.x Connection tables</h2>
-        
+
         <h3>4.1 Atom Elements</h3>
-        
+
         <p>
             A <code>molecule</code> MAY contain a single <code>atomArray</code> child.
             An <code>atomArray</code> MUST be a child of a <code>molecule</code>.
             An <code>atomArray</code> MUST contain at least one <code>atom</code>.
             <code>atom</code> elements MUST be children of an <code>atomArray</code>.
         </p>
-        
+
         <h4>4.1.x ID</h4>
-        
+
         <p>
             Unless it is part of a <code>formula</code>, an <code>atom</code> MUST have an <code>id</code> attribute, which
             MUST be unique within the scope of the eldest containing <code>molecule</code>.
         </p>
-        
+
         <h4>4.2.x Element Type</h4>
-        
+
         <p>
             An <code>atom</code> MUST have an <code>elementType</code> attribute.
         </p>
-        
+
         <h4>4.3.x 2D Coordinates</h4>
-        
+
         <p>
             An <code>atom</code> MAY have <code>x2</code> and <code>y2</code> attributes.
             If an <code>atom</code> has either an <code>x2</code> or a <code>y2</code> attribute then
             it MUST have both an <code>x2</code> and a <code>y2</code> attribute.
         </p>
-        
+
         <h4>4.4.x 3D Coordinates</h4>
-        
+
         <p>
             An <code>atom</code> MAY have <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
             If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
             it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
         </p>
-        
+
         <h4>4.5.x Atom Parity Elements</h4>
-        
-        
+
+
         <h3>4.2 Bond Elements</h3>
-        
+
         <p>
             A <code>molecule</code> MAY contain a single <code>bondArray</code> child.
             A <code>bondArray</code> MUST be a child of a <code>molecule</code>.
             A <code>bondArray</code> MUST contain at least one <code>bond</code>.
         </p>
-        
+
         <h4>4.2.1 ID</h4>
-        
+
         <p>
             A <code>bond</code> SHOULD have an <code>id</code> attribute, the value of which MUST be unique within the scope
             of the eldest containing molecule.
         </p>
-        
-        
+
+
         <h4>4.2.2 AtomRefs</h4>
-        
+
         <p>
             A <code>bond</code> MUST have a <code>atomRefs2</code> attribute.
             The atoms in the <code>atomRefs2</code> attribute MUST be within the socpe of the eldest containing molecule.
             A <code>bond</code> MUST be between two different atoms.
         </p>
-        
-        
+
+
         <h4>4.2.3 Order</h4>
-        
+
         <p>
             A <code>bond</code> MUST have an <code>order</code> attribute.
             If the value of the <code>order</code> attribute is <code>other</code>, then the <code>bond</code> SHOULD
@@ -1201,7 +1189,7 @@
     </dt>
     <dd>
         IETF <cite>
-            <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Key words for use in RFCs to Indicate Requirement Levels</a>
+            <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Keywords for use in RFCs to Indicate Requirement Levels</a>
         </cite>,
         S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
     </dd>

@@ -175,7 +175,7 @@
             on a <code>module</code> element and the value MUST be a QName that represents the CompChem
             convention, i.e. <code>convention:compchem</code>. Such a module will be addressed as
             a CompChem module or a CompChem module element in this convention. The <a href="#example1">
-            Example 1</a> shows the declarations of the namespaces and the convention for the CompChem module element.
+                Example 1</a> shows the declarations of the namespaces and the convention for the CompChem module element.
         </p>
 
         <p id="example1">
@@ -205,7 +205,7 @@
         </p>
 
         <p id="example2">
-            <strong>Example 2: CompChem module as root element and contains <çode>jobList</code> modules.</strong>
+            <strong>Example 2: CompChem module as root element and contains <code>jobList</code> modules.</strong>
         </p>
 
         <div class="good">
@@ -697,7 +697,7 @@
         <p>
             The computing <code>environment</code> concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef="compchem:environment"</code> attribute on a <code>
-            module</code> element. Such a module will
+                module</code> element. Such a module will
             be addressed as an <code>environment</code> module or an <code>environment</code> module element in
             this convention.
         </p>
@@ -768,11 +768,11 @@
             A user defined concept in CompChem is represented by a <code>module</code>
             element with a <code>dictRef</code> attribute whose value points to an entry in a dictionary
             that defines the concept, see <a href="#example11">Example 11</a>. Such a module will be addressed as a <i>user defined module</i> or a <i>user
-            defined module element</i> in this convention.
+                defined module element</i> in this convention.
         </p>
 
         <p>
-            Unlike the <code>environment</code>, <code>initialization</code>, <code>calculation</code> and <code>finalization<code>, the user defined module
+            Unlike the <code>environment</code>, <code>initialization</code>, <code>calculation</code> and <code>finalization</code>, the user defined module
             element MUST NOT be a child of either a <code>jobList</code> or a <code>job</code> module element. It can only be a
             child of an <code>environment</code>, <code>initialization</code>, <code>calculation</code> or <code>finalization</code> module element.
         </p>
@@ -827,405 +827,407 @@
         <p>TABLE</p>
 
 
-<h1>4. Data Structure with CML Elements</h1>
-<p>
-    CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
-</p>
-<p><i>NOTE: elements in the CML namespace (<code>http://www.xml-cml.org/schema</code>) are denoted using the (arbitary) prefix <code>cml:</code>.</i></p>
+        <h1>4. Data Structure with CML Elements</h1>
+        <p>
+            CompChem has adopted a set of elements from CML to store the contents of the computational data. This section describes how CompChem constructs the data structure from these CML elements set.
+        </p>
+        <p><i>NOTE: elements in the CML namespace (<code>http://www.xml-cml.org/schema</code>) are denoted using the (arbitary) prefix <code>cml:</code>.</i></p>
 
-<h2>4.1 Molecule</h2>
+        <h2>4.1 Molecule</h2>
 
-<p>CompChem uses <code>cml:molecule</code> to store molecular geometry and coordinates. <code>cml:molecule</code> specifications are defined in the <i>molecular convention</i> so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of the <i>molecular convention</i> for more details.</p>
+        <p>CompChem uses <code>cml:molecule</code> to store molecular geometry and coordinates. <code>cml:molecule</code> specifications are defined in the <i>molecular convention</i> so the convention of the <code>molecule</code> element MUST be specified using the <code>convention</code> attribute with the value of <code>convention:molecular</code>. Readers SHOULD consult the specifications of the <i>molecular convention</i> for more details.</p>
 
-<h2>4.2 z-Matrix</h2>
+        <h2>4.2 z-Matrix</h2>
 
-<p>In many quantum chemistry calculations, the coordinates of the atoms are represented using a z-Matrix coordinate system. CompChem adopta the z-Matrix concept from the CML schema. <em class="bad">Z-Matrices and cartesian coordinates can be converted in both directions, but may differ in orientation and translation. There may be some conventions for ordering atoms in z-matrices which cannot be guaranteed.</em>
-</p>
-
-
-<h2>4.3 ParameterList</h2>
-
-<p>CompChem uses <code>cml:parameterList</code> to group the <code>cml:parameter</code>(s). <code>cml:parameterList</code> MUST have only <code>cml:parameter</code>(s) as child element(s).</p>
-
-<h2>4.4 PropertyList</h2>
-
-<p>CompChem uses <code>cml:propertyList</code> to group the <code>cml:property</code>(s). <code>cml:propertyList</code> MUST have only <code>cml:property</code>(s) as child element(s).</p>
-
-<h2>4.5 Parameter</h2>
-
-<p>CompChem uses <code>cml:parameter</code> to represent the inputs of the quantum chemistry calculations.</p>
-
-<p>A CML parameter is defined by <code>cml:parameter</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the parameter.</p>
-
-<p>A <code>parameter</code> MUST contain only <strong>
-        <em>one of</em>
-    </strong> the value containers given in section 4.8.</p>
-
-<h2>4.6 Property</h2>
-
-<p>CompChem uses <code>cml:property</code> to represent the concept of the outputs of the quantum chemistry calculations.</p>
-
-<p>A CML property is defined by <code>cml:property</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the property.</p>
-
-<p>A <code>property</code> MUST contain only <strong>
-        <em>one of</em>
-    </strong> the value containers given in section 4.8.</p>
-
-<h2>4.7 Units</h2>
-
-<p>Units are among the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong>
-        <em>except</em>
-    </strong> for string or text values.</p>
-
-<ul>
-    <li>The unit on a value container MUST be specified using the <code>unit</code> attribute and the value MUST be the <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CompChem document if the unit entry used in the CompChem document does not exist on xml-cml.org.</li>
-    <li>
-        <em class="bad">TODO: Define units for dimensionles quantity.</em>
-    </li>
-</ul>
-
-<h2>4.8 Value container</h2>
-<p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as <i>value containers</i> in the current context. In CompChem, we currently <strong>
-        <em>only</em>
-    </strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficient for many computational outputs. Other type of CML containers will be added later and may be built from combinations of primitive containers.</p>
+        <p>In many quantum chemistry calculations, the coordinates of the atoms are represented using a z-Matrix coordinate system. CompChem adopta the z-Matrix concept from the CML schema. <em class="bad">Z-Matrices and cartesian coordinates can be converted in both directions, but may differ in orientation and translation. There may be some conventions for ordering atoms in z-matrices which cannot be guaranteed.</em>
+        </p>
 
 
-<h3>4.8.1 Scalar</h3>
+        <h2>4.3 ParameterList</h2>
 
-<p>
-    A CML scalar element in CompChem is used to hold scalar data, which can be a single value of <code>dataType</code> integer, real, boolean, string or date.
-</p>
+        <p>CompChem uses <code>cml:parameterList</code> to group the <code>cml:parameter</code>(s). <code>cml:parameterList</code> MUST have only <code>cml:parameter</code>(s) as child element(s).</p>
 
-<p>
-    In CompChem, a <code>cml:scalar</code> MUST conform to the following rules :
-</p>
+        <h2>4.4 PropertyList</h2>
 
-<ul>
-    <li>a CML scalar is defined by a <code>cml:scalar</code> element and MUST conform to CML schema version 3.</li>
-    <li>The <code>dataType</code> of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
-            <em>one of</em>
-        </strong>
-        <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, [PMR not float/real] xsd:real, xsd:float</code>.</em>
-    </li>
-    <li>
-        <code>cml:scalar</code> MUST have units if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if the units are unknown or dimensionless.</li>
-    <li>
-        <code>cml:scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
-</ul>
+        <p>CompChem uses <code>cml:propertyList</code> to group the <code>cml:property</code>(s). <code>cml:propertyList</code> MUST have only <code>cml:property</code>(s) as child element(s).</p>
 
-<h3>4.8.2 Array</h3>
+        <h2>4.5 Parameter</h2>
 
-<p>
-    A CML array element in CompChem is used to hold a one dimensional array data structure of <strong>
-        <em>only either</em>
-    </strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong>
-        <em>only</em>
-    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
-</p>
+        <p>CompChem uses <code>cml:parameter</code> to represent the inputs of the quantum chemistry calculations.</p>
 
-<ul>
-    <li>CML Array is defined by a <code>cml:array</code> element and MUST conform to CML schema version 3.</li>
-    <li>The size of <code>cml:array</code> is requried and MUST be specified using the <code>size</code> attribute with the minimum value of 1.</li>
-    <li>
-        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for delimeter but cmlxom does. [PMR to be worked out urgently]</em>
-    </li>
-    <li>The data type of <code>cml:array</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
-            <em>one of</em>
-        </strong>
-        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>. [NO, PMR]</em>
-    </li>
-    <li>
-        <code>cml:array</code> MUST have units even if they are dimensionless.</li>
-</ul>
+        <p>A CML parameter is defined by <code>cml:parameter</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the parameter.</p>
 
-<h3>4.8.3 Matrix</h3>
+        <p>A <code>parameter</code> MUST contain only <strong>
+                <em>one of</em>
+            </strong> the value containers given in section 4.8.</p>
 
-<p>
-    A CML Matrix element in CompChem is used to hold a two-dimensional rectangular matrix data structure of <strong>
-        <em>only either</em>
-    </strong> integer or real values. Thus, the data type of this value container MUST <strong>
-        <em>only</em>
-    </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
-</p>
+        <h2>4.6 Property</h2>
 
-<ul>
-    <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform to CML schema version 3.</li>
-    <li>The dimension of <code>matrix</code> is required and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code> PMR: agreed)</em>
-    </li>
-    <li>
-        <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for
-            delimeter but cmlxom does. [PMR see above]</em>
-    </li>
-    <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
-            <em>one of</em>
-        </strong>
-        <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code> [PMR: NO].</em>
-    </li>
-    <li>
-        <code>cml:matrix</code> MUST have units even if they are dimensionless.</li>
-</ul>
+        <p>CompChem uses <code>cml:property</code> to represent the concept of the outputs of the quantum chemistry calculations.</p>
 
-<p id="example">
-    <strong>Example : Fully qualified CompChem document (Isn't qualified at the moment due to change in the rules)</strong>
-</p>
+        <p>A CML property is defined by <code>cml:property</code> element and MUST have a reference to an entry in a dictionary which specifies the meaning of the property.</p>
 
-<div class="good">
-    <pre>
-        &lt;?xml version="1.0" encoding="UTF-8"?&gt;
-        &lt;cml
-        cmlx:note="A valid compchem containg two jobs is valid."
-        convention="conventions:compchem"
-        xmlns="http://www.xml-cml.org/schema"
-        xmlns:conventions="http://www.xml-cml.org/convention/"
-        xmlns:units="http://www.xml-cml.org/units/units"
-        xmlns:xsd="http://www.w3.org/2001/XMLSchema"
-        xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"&gt;
-        &lt;module role="joblist"&gt;
+        <p>A <code>property</code> MUST contain only <strong>
+                <em>one of</em>
+            </strong> the value containers given in section 4.8.</p>
+
+        <h2>4.7 Units</h2>
+
+        <p>Units are among the most important information in scientific data. All value containers, see section 4.8, MUST have units associated with them <strong>
+                <em>except</em>
+            </strong> for string or text values.</p>
+
+        <ul>
+            <li>The unit on a value container MUST be specified using the <code>unit</code> attribute and the value MUST be the <code>QName</code> of an entry in a unit dictionary. The unit dictionary MUST be provided along with the CompChem document if the unit entry used in the CompChem document does not exist on xml-cml.org.</li>
+            <li>
+                <em class="bad">TODO: Define units for dimensionles quantity.</em>
+            </li>
+        </ul>
+
+        <h2>4.8 Value container</h2>
+        <p>CML provides elements to wrap many differrent types of mathematical, scientifical and computational values and variables, e.g. scalar, vector, matrix, array, etc., which will be addressed as <i>value containers</i> in the current context. In CompChem, we currently <strong>
+                <em>only</em>
+            </strong> allow the use of <code>scalar</code>, <code>array</code> and <code>matrix</code> as value containers. This should be sufficient for many computational outputs. Other type of CML containers will be added later and may be built from combinations of primitive containers.</p>
+
+
+        <h3>4.8.1 Scalar</h3>
+
+        <p>
+            A CML scalar element in CompChem is used to hold scalar data, which can be a single value of <code>dataType</code> integer, real, boolean, string or date.
+        </p>
+
+        <p>
+            In CompChem, a <code>cml:scalar</code> MUST conform to the following rules :
+        </p>
+
+        <ul>
+            <li>a CML scalar is defined by a <code>cml:scalar</code> element and MUST conform to CML schema version 3.</li>
+            <li>The <code>dataType</code> of <code>scalar</code> is REQUIRED and MUST be specified using a <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+                    <em>one of</em>
+                </strong>
+                <code>xsd:string</code>, <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:date, [PMR not float/real] xsd:real, xsd:float</code>.</em>
+            </li>
+            <li>
+                <code>cml:scalar</code> MUST have units if the <code>dataType</code> is either <code>xsd:integer</code> or <code>xsd:double</code> even if the units are unknown or dimensionless.</li>
+            <li>
+                <code>cml:scalar</code> MUST NOT have unit and unit type if the <code>dataType</code> is <code>xsd:string</code>.</li>
+        </ul>
+
+        <h3>4.8.2 Array</h3>
+
+        <p>
+            A CML array element in CompChem is used to hold a one dimensional array data structure of <strong>
+                <em>only either</em>
+            </strong> integer or real values, i.e. a collection of integer of real values where each element is identified by index. Thus, the data type of the CML Array MUST <strong>
+                <em>only</em>
+            </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
+        </p>
+
+        <ul>
+            <li>CML Array is defined by a <code>cml:array</code> element and MUST conform to CML schema version 3.</li>
+            <li>The size of <code>cml:array</code> is requried and MUST be specified using the <code>size</code> attribute with the minimum value of 1.</li>
+            <li>
+                <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for delimeter but cmlxom does. [PMR to be worked out urgently]</em>
+            </li>
+            <li>The data type of <code>cml:array</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+                    <em>one of</em>
+                </strong>
+                <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code>. [NO, PMR]</em>
+            </li>
+            <li>
+                <code>cml:array</code> MUST have units even if they are dimensionless.</li>
+        </ul>
+
+        <h3>4.8.3 Matrix</h3>
+
+        <p>
+            A CML Matrix element in CompChem is used to hold a two-dimensional rectangular matrix data structure of <strong>
+                <em>only either</em>
+            </strong> integer or real values. Thus, the data type of this value container MUST <strong>
+                <em>only</em>
+            </strong> be <code>xsd:integer</code> or <code>xsd:double</code>. It MUST also conform to the following rules :
+        </p>
+
+        <ul>
+            <li>CML Matrix is defined by a <code>cml:matrix</code> element and MUST conform to CML schema version 3.</li>
+            <li>The dimension of <code>matrix</code> is required and MUST be specified using <code>rows</code> and <code>columns</code> attributes with the minimum values of 1. <em class="bad">(In CML Schema, this value is <code>xsd:nonNegativeInteger</code> which includes zero. Maybe this should be changed to <code>xsd:positiveInteger</code> PMR: agreed)</em>
+            </li>
+            <li>
+                <em class="bad">TODO: delimiter, not sure what should be put here, the schema does not allow white space for
+                    delimeter but cmlxom does. [PMR see above]</em>
+            </li>
+            <li>The data type of <code>matrix</code> is REQUIRED and MUST be specified using the <code>dataType</code> attribute. The value of <code>dataType</code> attribute MUST be <strong>
+                    <em>one of</em>
+                </strong>
+                <code>xsd:integer</code> or <code>xsd:double</code>. <em class="bad">TODO: Decide whether to include other types, e.g. <code>xsd:real, xsd:float</code> [PMR: NO].</em>
+            </li>
+            <li>
+                <code>cml:matrix</code> MUST have units even if they are dimensionless.</li>
+        </ul>
+
+        <p id="example">
+            <strong>Example : Fully qualified CompChem document (Isn't qualified at the moment due to change in the rules)</strong>
+        </p>
+
+        <div class="good">
+            <pre>
+&lt;?xml version="1.0" encoding="UTF-8"?&gt;
+&lt;module cmlx:note="A valid compchem containg two jobs is valid."
+     convention="convention:compchem"
+     xmlns="http://www.xml-cml.org/schema"
+     xmlns:convention="http://www.xml-cml.org/convention/"
+     xmlns:units="http://www.xml-cml.org/units/units"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+     xmlns:cmlx="http://www.xml-cml.org/schema/cmlx"&gt;
+
+     &lt;module dictRef="compchem:jobList"&gt;
+
         &lt;identifier convention="chemid:EmpiricalFormula" value="CCl2O2"/&gt;
         &lt;identifier convention="chemid:InChI" value="InChI=1/CCl2O2/c2-1(4)5-3"/&gt;
         &lt;identifier convention="chemid:CanonicalSmiles" value="ClOC(=O)Cl"/&gt;
         &lt;identifier convention="chemid:IsomericSmiles" value="C(=O)(Cl)OCl"/&gt;
-        &lt;module role="job" title="job1"&gt;
-        &lt;module role="init"&gt;
-        &lt;parameterList&gt;
-        &lt;parameter dictRef="cmlqm:qm.method"&gt;
-        &lt;scalar dataType="xsd:string"&gt;B97-1&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:qm.basis"&gt;
-        &lt;scalar dataType="xsd:string"&gt;6-311+G(d,p)&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:qm.integral"&gt;
-        &lt;scalar dataType="xsd:string"&gt;UltraFine&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:qm.symm"&gt;
-        &lt;scalar dataType="xsd:string"&gt;None&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:qm.pop"&gt;
-        &lt;scalar dataType="xsd:string"&gt;Regular&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:cmd.freq"&gt;
-        &lt;scalar dataType="xsd:string"&gt;Frequency analysis&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:cmd.geo"&gt;
-        &lt;scalar dataType="xsd:string"&gt;Geometry optimization&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;parameter dictRef="cmlqm:cmd.scf"&gt;
-        &lt;scalar dataType="xsd:string"&gt;Tight, SCF Convergence Criteria of 10^-8&lt;/scalar&gt;
-        &lt;/parameter&gt;
-        &lt;/parameterList&gt;
-        &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
-        &lt;atomArray&gt;
-        &lt;atom id="a1" elementType="C" x3="-1.6629" y3="-1.148" z3="-0.0578"/&gt;
-        &lt;atom id="a2" elementType="Cl" x3="-3.0407" y3="-0.0568" z3="-0.2355"/&gt;
-        &lt;atom id="a3" elementType="O" x3="-0.5528" y3="-0.8196" z3="0.1622"/&gt;
-        &lt;atom id="a4" elementType="O" x3="-2.1799" y3="-2.3872" z3="-0.2293"/&gt;
-        &lt;atom id="a5" elementType="Cl" x3="-1.0066" y3="-3.6732" z3="-0.1014"/&gt;
-        &lt;/atomArray&gt;
-        &lt;bondArray&gt;
-        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
-        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
-        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
-        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
-        &lt;/bondArray&gt;
-        &lt;/molecule&gt;
+
+        &lt;module dictRef="compchem:job"&gt;
+            &lt;module dictRef="compchem:initialization"&gt;
+                &lt;parameterList&gt;
+                    &lt;parameter dictRef="cmlqm:qm.method"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;B97-1&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.basis"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;6-311+G(d,p)&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.integral"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;UltraFine&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.symm"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;None&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:qm.pop"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Regular&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.freq"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Frequency analysis&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.geo"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Geometry optimization&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                    &lt;parameter dictRef="cmlqm:cmd.scf"&gt;
+                        &lt;scalar dataType="xsd:string"&gt;Tight, SCF Convergence Criteria of 10^-8&lt;/scalar&gt;
+                    &lt;/parameter&gt;
+                &lt;/parameterList&gt;
+                &lt;molecule convention="convention:molecular" formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.6629" y3="-1.148" z3="-0.0578"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.0407" y3="-0.0568" z3="-0.2355"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.5528" y3="-0.8196" z3="0.1622"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.1799" y3="-2.3872" z3="-0.2293"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.0066" y3="-3.6732" z3="-0.1014"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+            &lt;/module&gt;
+            &lt;module dictRef="compchem:finalization"&gt;
+                &lt;molecule convention="convention:molecular" formalCharge="0" spinMultiplicity="1"&gt;
+                    &lt;atomArray&gt;
+                        &lt;atom id="a1" elementType="C" x3="-1.661722" y3="-1.150648" z3="-0.057744"/&gt;
+                        &lt;atom id="a2" elementType="Cl" x3="-3.041068" y3="-0.059007" z3="-0.235698"/&gt;
+                        &lt;atom id="a3" elementType="O" x3="-0.55104" y3="-0.821319" z3="0.162394"/&gt;
+                        &lt;atom id="a4" elementType="O" x3="-2.180501" y3="-2.387568" z3="-0.229457"/&gt;
+                        &lt;atom id="a5" elementType="Cl" x3="-1.00857" y3="-3.666258" z3="-0.101295"/&gt;
+                    &lt;/atomArray&gt;
+                    &lt;bondArray&gt;
+                        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
+                        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
+                        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
+                        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
+                    &lt;/bondArray&gt;
+                &lt;/molecule&gt;
+                &lt;propertyList&gt;
+                    &lt;property dictRef="cmlqm:property.nsymrot"&gt;
+                        &lt;scalar dataType="xsd:integer"&gt;1&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.rotconstants"&gt;
+                        &lt;array dataType="xsd:double" units="units:GHz" delimiter="" size="3"&gt;
+                        9.610774107948902 1.6540686120943338 1.4111941740951228
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoi"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu.rbohr2" delimiter="" size="3"&gt;
+                        187.7832739452039 1091.092965516907 1278.876188881425
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.pmoiaxis"&gt;
+                        &lt;matrix rows="3" columns="3" dataType="xsd:double"&gt;
+                        0.4547378900162555 0.8730253212283468 -0.17618240513089256
+                        -0.8902808990268888 0.45108016953679547 -0.06266260031733822
+                        0.02476635240479569 0.18534688868388882 0.9823610123797482
+                        &lt;/matrix&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.scfenergy"&gt;
+                        &lt;scalar dataType="xsd:double" units="units:hartree"&gt;-1108.82623721&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.hf298"&gt;
+                        &lt;scalar units="units:kcal.mol-1" dataType="xsd:double"&gt;-61.5885860322&lt;/scalar&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.freqmode"&gt;
+                        &lt;array dataType="xsd:double" units="units:cm-1" delimiter="" size="9"&gt;
+                        142.6122 218.2282 326.208 471.9528 665.9777 708.8044 841.3894 1047.4277 1905.0634
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.forceconstant"&gt;
+                        &lt;array dataType="xsd:double" units="units:mDyne.A-1" delimiter="" size="9"&gt;
+                        0.2216 0.5379 1.7308 2.7391 3.3245 5.34 6.1336 8.6831 28.3818
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.irintensity"&gt;
+                        &lt;array dataType="xsd:double" units="units:KM.mol-1" delimiter="" size="9"&gt;
+                        0.4756 1.7945 5.3957 3.2514 12.5217 26.7365 85.8421 376.7849 400.4058
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                    &lt;property dictRef="cmlqm:property.reducedmass"&gt;
+                        &lt;array dataType="xsd:double" units="units:amu" delimiter="" size="9"&gt;
+                        18.4952 19.1715 27.6069 20.8721 12.7222 18.04 14.7051 13.4331 13.273
+                        &lt;/array&gt;
+                    &lt;/property&gt;
+                &lt;/propertyList&gt;
+            &lt;/module&gt;
         &lt;/module&gt;
-        &lt;module role="final"&gt;
-        &lt;molecule formalCharge="0" spinMultiplicity="1"&gt;
-        &lt;atomArray&gt;
-        &lt;atom id="a1" elementType="C" x3="-1.661722" y3="-1.150648" z3="-0.057744"/&gt;
-        &lt;atom id="a2" elementType="Cl" x3="-3.041068" y3="-0.059007" z3="-0.235698"/&gt;
-        &lt;atom id="a3" elementType="O" x3="-0.55104" y3="-0.821319" z3="0.162394"/&gt;
-        &lt;atom id="a4" elementType="O" x3="-2.180501" y3="-2.387568" z3="-0.229457"/&gt;
-        &lt;atom id="a5" elementType="Cl" x3="-1.00857" y3="-3.666258" z3="-0.101295"/&gt;
-        &lt;/atomArray&gt;
-        &lt;bondArray&gt;
-        &lt;bond atomRefs2="a1 a2" order="S" id="a1_a2"/&gt;
-        &lt;bond atomRefs2="a1 a3" order="D" id="a1_a3"/&gt;
-        &lt;bond atomRefs2="a1 a4" order="S" id="a1_a4"/&gt;
-        &lt;bond atomRefs2="a4 a5" order="S" id="a4_a5"/&gt;
-        &lt;/bondArray&gt;
-        &lt;/molecule&gt;
-        &lt;propertyList&gt;
-        &lt;property dictRef="cmlqm:property.nsymrot"&gt;
-        &lt;scalar dataType="xsd:integer"&gt;1&lt;/scalar&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.rotconstants"&gt;
-        &lt;array dataType="xsd:double" units="units:GHz" delimiter="" size="3"&gt;
-        9.610774107948902 1.6540686120943338 1.4111941740951228
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.pmoi"&gt;
-        &lt;array dataType="xsd:double" units="units:amu.rbohr2" delimiter="" size="3"&gt;
-        187.7832739452039 1091.092965516907 1278.876188881425
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.pmoiaxis"&gt;
-        &lt;matrix rows="3" columns="3" dataType="xsd:double"&gt;
-        0.4547378900162555 0.8730253212283468 -0.17618240513089256
-        -0.8902808990268888 0.45108016953679547 -0.06266260031733822
-        0.02476635240479569 0.18534688868388882 0.9823610123797482
-        &lt;/matrix&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.scfenergy"&gt;
-        &lt;scalar dataType="xsd:double" units="units:hartree"&gt;-1108.82623721&lt;/scalar&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.hf298"&gt;
-        &lt;scalar units="units:kcal.mol-1" dataType="xsd:double"&gt;-61.5885860322&lt;/scalar&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.freqmode"&gt;
-        &lt;array dataType="xsd:double" units="units:cm-1" delimiter="" size="9"&gt;
-        142.6122 218.2282 326.208 471.9528 665.9777 708.8044 841.3894 1047.4277 1905.0634
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.forceconstant"&gt;
-        &lt;array dataType="xsd:double" units="units:mDyne.A-1" delimiter="" size="9"&gt;
-        0.2216 0.5379 1.7308 2.7391 3.3245 5.34 6.1336 8.6831 28.3818
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.irintensity"&gt;
-        &lt;array dataType="xsd:double" units="units:KM.mol-1" delimiter="" size="9"&gt;
-        0.4756 1.7945 5.3957 3.2514 12.5217 26.7365 85.8421 376.7849 400.4058
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;property dictRef="cmlqm:property.reducedmass"&gt;
-        &lt;array dataType="xsd:double" units="units:amu" delimiter="" size="9"&gt;
-        18.4952 19.1715 27.6069 20.8721 12.7222 18.04 14.7051 13.4331 13.273
-        &lt;/array&gt;
-        &lt;/property&gt;
-        &lt;/propertyList&gt;
-        &lt;/module&gt;
-        &lt;/module&gt;
-        &lt;/module&gt;
-        &lt;/cml&gt;
-    </pre>
-</div>
-<!--h2>4.x Connection tables</h2>
+    &lt;/module&gt;
+&lt;/module&gt;
+            </pre>
+        </div>
+        <!--h2>4.x Connection tables</h2>
+        
+                <h3>4.1 Atom Elements</h3>
+        
+                <p>
+                    A <code>molecule</code> MAY contain a single <code>atomArray</code> child.
+                    An <code>atomArray</code> MUST be a child of a <code>molecule</code>.
+                    An <code>atomArray</code> MUST contain at least one <code>atom</code>.
+                    <code>atom</code> elements MUST be children of an <code>atomArray</code>.
+                </p>
+        
+                <h4>4.1.x ID</h4>
+        
+                <p>
+                    Unless it is part of a <code>formula</code>, an <code>atom</code> MUST have an <code>id</code> attribute, which
+                    MUST be unique within the scope of the eldest containing <code>molecule</code>.
+                </p>
+        
+                <h4>4.2.x Element Type</h4>
+        
+                <p>
+                    An <code>atom</code> MUST have an <code>elementType</code> attribute.
+                </p>
+        
+                <h4>4.3.x 2D Coordinates</h4>
+        
+                <p>
+                    An <code>atom</code> MAY have <code>x2</code> and <code>y2</code> attributes.
+                    If an <code>atom</code> has either an <code>x2</code> or a <code>y2</code> attribute then
+                    it MUST have both an <code>x2</code> and a <code>y2</code> attribute.
+                </p>
+        
+                <h4>4.4.x 3D Coordinates</h4>
+        
+                <p>
+                    An <code>atom</code> MAY have <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
+                    If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
+                    it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
+                </p>
+        
+                <h4>4.5.x Atom Parity Elements</h4>
+        
+        
+                <h3>4.2 Bond Elements</h3>
+        
+                <p>
+                    A <code>molecule</code> MAY contain a single <code>bondArray</code> child.
+                    A <code>bondArray</code> MUST be a child of a <code>molecule</code>.
+                    A <code>bondArray</code> MUST contain at least one <code>bond</code>.
+                </p>
+        
+                <h4>4.2.1 ID</h4>
+        
+                <p>
+                    A <code>bond</code> SHOULD have an <code>id</code> attribute, the value of which MUST be unique within the scope
+                    of the eldest containing molecule.
+                </p>
+        
+        
+                <h4>4.2.2 AtomRefs</h4>
+        
+                <p>
+                    A <code>bond</code> MUST have a <code>atomRefs2</code> attribute.
+                    The atoms in the <code>atomRefs2</code> attribute MUST be within the socpe of the eldest containing molecule.
+                    A <code>bond</code> MUST be between two different atoms.
+                </p>
+        
+        
+                <h4>4.2.3 Order</h4>
+        
+                <p>
+                    A <code>bond</code> MUST have an <code>order</code> attribute.
+                    If the value of the <code>order</code> attribute is <code>other</code>, then the <code>bond</code> SHOULD
+                    have further semantics given using the <code>dictRef</code> attribute.
+                </p-->
 
-        <h3>4.1 Atom Elements</h3>
+
+
+
+
+        <h1>
+            <a name="refs">A.</a> References</h1>
+
+        <dl>
+
+            <dt>
+                <a name="ref-RFC2119">[RFC2119]</a>
+            </dt>
+            <dd>
+                IETF <cite>
+                    <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Keywords for use in RFCs to Indicate Requirement Levels</a>
+                </cite>,
+                S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
+            </dd>
+
+            <dt>
+                <a name="ref-XML">[XML]</a>
+            </dt>
+            <dd>
+                <cite>
+                    <a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>
+                </cite>,
+                T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
+                26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
+            </dd>
+
+        </dl>
+
+
+        <h1>
+            <a name="acks">B.</a> Acknowledgements</h1>
+
+        <ul>
+            <li>Peter Murray-Rust</li>
+            <li>Joe Townsend</li>
+            <li>Sam Adams</li>
+        </ul>
+
+        <hr />
 
         <p>
-            A <code>molecule</code> MAY contain a single <code>atomArray</code> child.
-            An <code>atomArray</code> MUST be a child of a <code>molecule</code>.
-            An <code>atomArray</code> MUST contain at least one <code>atom</code>.
-            <code>atom</code> elements MUST be children of an <code>atomArray</code>.
+            <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
+                <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
+            </a>
+            <br/>
+            This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
         </p>
 
-        <h4>4.1.x ID</h4>
-
-        <p>
-            Unless it is part of a <code>formula</code>, an <code>atom</code> MUST have an <code>id</code> attribute, which
-            MUST be unique within the scope of the eldest containing <code>molecule</code>.
-        </p>
-
-        <h4>4.2.x Element Type</h4>
-
-        <p>
-            An <code>atom</code> MUST have an <code>elementType</code> attribute.
-        </p>
-
-        <h4>4.3.x 2D Coordinates</h4>
-
-        <p>
-            An <code>atom</code> MAY have <code>x2</code> and <code>y2</code> attributes.
-            If an <code>atom</code> has either an <code>x2</code> or a <code>y2</code> attribute then
-            it MUST have both an <code>x2</code> and a <code>y2</code> attribute.
-        </p>
-
-        <h4>4.4.x 3D Coordinates</h4>
-
-        <p>
-            An <code>atom</code> MAY have <code>x3</code>, <code>y3</code> and <code>z3</code> attributes.
-            If an <code>atom</code> has any of <code>x3</code>, <code>y3</code> or <code>z3</code> attributes then
-            it MUST have both all <code>x3</code>, <code>y3</code> and <code>z3</code> attribute.
-        </p>
-
-        <h4>4.5.x Atom Parity Elements</h4>
-
-
-        <h3>4.2 Bond Elements</h3>
-
-        <p>
-            A <code>molecule</code> MAY contain a single <code>bondArray</code> child.
-            A <code>bondArray</code> MUST be a child of a <code>molecule</code>.
-            A <code>bondArray</code> MUST contain at least one <code>bond</code>.
-        </p>
-
-        <h4>4.2.1 ID</h4>
-
-        <p>
-            A <code>bond</code> SHOULD have an <code>id</code> attribute, the value of which MUST be unique within the scope
-            of the eldest containing molecule.
-        </p>
-
-
-        <h4>4.2.2 AtomRefs</h4>
-
-        <p>
-            A <code>bond</code> MUST have a <code>atomRefs2</code> attribute.
-            The atoms in the <code>atomRefs2</code> attribute MUST be within the socpe of the eldest containing molecule.
-            A <code>bond</code> MUST be between two different atoms.
-        </p>
-
-
-        <h4>4.2.3 Order</h4>
-
-        <p>
-            A <code>bond</code> MUST have an <code>order</code> attribute.
-            If the value of the <code>order</code> attribute is <code>other</code>, then the <code>bond</code> SHOULD
-            have further semantics given using the <code>dictRef</code> attribute.
-        </p-->
-
-
-
-
-
-<h1>
-    <a name="refs">A.</a> References</h1>
-
-<dl>
-
-    <dt>
-        <a name="ref-RFC2119">[RFC2119]</a>
-    </dt>
-    <dd>
-        IETF <cite>
-            <a href="http://www.ietf.org/rfc/rfc2119.txt">RFC 2119: Keywords for use in RFCs to Indicate Requirement Levels</a>
-        </cite>,
-        S. Bradner, March 1997. Available at http://www.ietf.org/rfc/rfc2119.txt.
-    </dd>
-
-    <dt>
-        <a name="ref-XML">[XML]</a>
-    </dt>
-    <dd>
-        <cite>
-            <a href="http://www.w3.org/TR/2008/REC-xml-20081126">Extensible Markup Language (XML) 1.0 (Fifth Edition)</a>
-        </cite>,
-        T. Bray, J. Paoli, C.M. Sperberg-McQueen E. Maler and F. Yergeau, Editors.  World Wide Web Consortium.
-        26 October 2008. This version is http://www.w3.org/TR/2008/REC-xml-20081126. <a href="http://www.w3.org/TR/REC-xml">latest version of XML</a> is available at http://www.w3.org/TR/REC-xml.
-    </dd>
-
-</dl>
-
-
-<h1>
-    <a name="acks">B.</a> Acknowledgements</h1>
-
-<ul>
-    <li>Peter Murray-Rust</li>
-    <li>Joe Townsend</li>
-    <li>Sam Adams</li>
-</ul>
-
-<hr />
-
-<p>
-    <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">
-        <img alt="Creative Commons Licence" style="border-width:0" src="http://i.creativecommons.org/l/by/3.0/88x31.png" />
-    </a>
-    <br/>
-    This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.
-</p>
-
-</body>
+    </body>
 </html>

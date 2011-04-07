@@ -68,7 +68,7 @@
             <li><a href="#calculation">Calculation</a></li>
             <li><a href="#finalization">Finalization</a></li>
             <li><a href="#environment">Environment</a></li>
-            <li><a href="#userDefinedConcept">User defined concept</a></li>
+            <li><a href="#userDefinedModule">User defined concept</a></li>
         </ul>
 
         <p>
@@ -264,7 +264,8 @@
             </li>
 
             <li>
-                A <code>jobList</code> module element MUST have an <code>id</code> attribute specified.
+                A <code>jobList</code> module element MUST have an <code>id</code> attribute specified
+                the value of which MUST be unique within the module specifying the compchem convention.
             </li>
 
             <li>
@@ -273,8 +274,8 @@
             </li>
 
             <li>
-                A <code>jobList</code> module element SHOULD contain a <code>dc:title</code> element specifying
-                a human-readable title for the module.
+                A <code>jobList</code> module element SHOULD have a <code>title</code> attribute the
+                value of which MUST be a non-empty string specifying a human-readable title for the module.
             </li>
 
             <li>
@@ -289,11 +290,10 @@
         <div class="good">
             <pre>
 &lt;module dictRef="compchem:jobList" id="jobList-0000" &gt;
-    &lt;module dictRef="compchem:job"&gt;
+    &lt;module dictRef="compchem:job" title="Geometry optimization for hydrocarbon species"&gt;
         &lt;!-- job body is omitted. --&gt;
     &lt;/module&gt;
 
-    &lt;dc:title&gt;Geometry optimization for hydrocarbon species&lt;/dc:title&gt;
     &lt;dc:date&gt;2011-03-25&lt;/dc:date&gt;
 
 &lt;/module&gt;
@@ -335,16 +335,12 @@
             </li>
 
             <li>
-                A <code>job</code> module element MUST have an <code>id</code> attribute specified.
+                A <code>job</code> module element MUST have an <code>id</code> attribute specified the value of 
+                which must be unique within the module specifying the compchem convention.
             </li>
 
-            <!--li>
-                A job module element SHOULD have a <code>title</code> attribute specifying a
-                human-readable name for the module.
-            </li-->
-
             <li>
-                A <code>job</code> module element MUST contain <strong><em>no more than one</em></strong>
+                A <code>job</code> module element MUST contain <strong><em>exactly one</em></strong>
                 <a href="#initialization">initialization module</a> child element.
             </li>
 
@@ -376,8 +372,8 @@
             </li>
 
             <li>
-                A <code>job</code> module element SHOULD contain a <code>dc:title</code> element specifying
-                a human-readable title for the module.
+                A <code>job</code> module element SHOULD contain a <code>title</code> the value of 
+                which MUST be a non-empty string specifying a human-readable title for the module.
             </li>
 
             <li>
@@ -478,25 +474,25 @@
             </li>
 
             <li>
-                An <code>initialization</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>molecule</code> child element using <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
-                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
+            An <code>initialization</code> module element MUST NOT contain <strong><em>more than one</em></strong> 
+            molecule child element. The molecule MUST specify a convention using the <code>convention</code>
+            attribute and the convention SHOULD be one of the 
+            <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>.
             </li>
 
             <li>
-                An <code>initialization</code> module element MAY contain <strong><em>no more than one</em></strong>
+                An <code>initialization</code> module element MUST NOT contain <strong><em>more than one</em></strong>
                 <code>parameterList</code> element.
             </li>
 
             <li>
                 An <code>initialization</code> module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> element.
+                <a href="#userDefinedModule">user defined module</a> element.
             </li>
 
             <li>
                 An <code>initialization</code> module element MUST contain at <strong><em>least one</em></strong>
-                child of <code>molecule</code>, <code>parameterList</code> or <a href="#userDefinedConcept">user defined module</a> element.
+                child of <code>molecule</code>, <code>parameterList</code> or <a href="#userDefinedModule">user defined module</a> element.
             </li>
 
             <li>
@@ -550,33 +546,34 @@
                 <code>&lt;module dictRef="compchem:calculation"&gt;</code>
                 (<a href="#example8">Example 8</a>).
             </li>
-
+          
             <li>
-                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
-                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
+                A <code>calculation</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>molecule</code> child element. The molecule MUST specify a 
+                convention using the <code>convention</code> attribute and the convention SHOULD be 
+                one of the 
+                <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>.
             </li>
 
             <li>
-                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>parameterList</code> element.
+                A <code>calculation</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>parameterList</code> element.
             </li>
 
             <li>
-                A <code>calculation</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>propertyList</code> element.
+                A <code>calculation</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>propertyList</code> element.
             </li>
 
             <li>
                 A <code>calculation</code> module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defnied module</a> elements.
+                <a href="#userDefinedModule">user defined module</a> elements.
             </li>
 
             <li>
                 A <code>calculation</code> module element MUST contain at <strong><em>least one</em></strong>
                 child of <code>molecule</code>, <code>parameterList</code>, <code>propertyList</code> or
-                <a href="#userDefinedConcept">user defined module</a> elements.
+                <a href="#userDefinedModule">user defined module</a> elements.
             </li>
 
             <li>
@@ -609,7 +606,7 @@
         <p>
             A model <code>finalization</code> concept represents the model outputs or results for computational job.
             In some cases, a CompChem module MAY only represent the model inputs and does not contain
-            any calculations, therfore, the model finalization is an OPTIONAL information in CompChem.
+            any calculations, therefore, the model finalization is an OPTIONAL information in CompChem.
         </p>
 
         <p>
@@ -632,26 +629,27 @@
             </li>
 
             <li>
-                A <code>finalization</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>molecule</code> element in <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a>
-                or other <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>,
-                <em>e.g.</em> molecular convention MUST be specified for <code>molecule</code> element.
+                A <code>finalization</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>molecule</code> child element. The molecule MUST specify a 
+                convention using the <code>convention</code> attribute and the convention SHOULD be 
+                one of the 
+                <a href="#recommendedMoleculeConvention">RECOMMENDED molecular conventions</a>.
             </li>
-
+            
             <li>
-                A <code>finalization</code> module element MAY contain <strong><em>no more than one</em></strong>
-                <code>propertyList</code> element.
+                A <code>finalization</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>propertyList</code> element.
             </li>
 
             <li>
                 A <code>finalization</code> module element MAY contain <strong><em>any number</em></strong> of
-                <a href="#userDefinedConcept">user defined module</a> element.
+                <a href="#userDefinedModule">user defined module</a> elements.
             </li>
 
             <li>
                 A <code>finalization</code> module element MUST contain at <strong><em>least one</em></strong>
                 <code>molecule</code> child, <code>propertyList</code> child or
-                <a href="#userDefinedConcept">user defined module</a> element.
+                <a href="#userDefinedModule">user defined module</a> element.
             </li>
 
             <li>
@@ -715,8 +713,8 @@
             </li>
 
             <li>
-                An <code>environment</code> module element MAY have <strong><em>no more than one</em></strong>
-                <code>propertyList</code> child element.
+                An <code>environment</code> module element MUST NOT contain <strong><em>more than 
+                one</em></strong> <code>propertyList</code> element.
             </li>
 
             <li>
@@ -726,9 +724,15 @@
             <li>
                 An <code>environment</code> module element MAY contain <strong><em>more than one</em></strong> child element in any
                 namespace including
-                any number of <a href="#userDefinedConcept">user defnied module</a> elements, see <a href="#example10">Example 10</a>.
+                any number of <a href="#userDefinedModule">user defined module</a> elements, see <a href="#example10">Example 10</a>.
                 However, CompChem can only understand a particular set of concepts. The concepts that are well understood by
                 CompChem are RECOMMENDED in section XXX.
+            </li>
+
+            <li>
+                An <code>environment</code> module MUST contain <strong><em>at least one</em></strong>
+                child of <code>parameterList</code> or <a href="userDefinedModule">userDefinedModule</a>
+                elements.
             </li>
 
             <li>
@@ -757,7 +761,7 @@
             </pre>
         </div>
 
-        <h2>3.7 User Defined Module</h2>
+        <h2 id="userDefinedModule">3.7 User Defined Concept</h2>
 
         <p>
             CompChem allows users or authors to define their own concepts if the RECOMMENDED concepts
@@ -772,7 +776,7 @@
         </p>
 
         <p>
-            Users are free to design any sturcture for a <i>user defined module</i>. However, it is RECOMMENDED to use
+            Users are free to design any structure for a <i>user defined module</i>. However, it is RECOMMENDED to use
             existing structures or a structure that has a schema for validation.
         </p>
 

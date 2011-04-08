@@ -305,12 +305,16 @@
 <h2><a name="entry-unit-type">4.6</a> Unit type</h2>
 
 <p>
-    When applicable to the concept defined, an <code>entry</code> SHOULD have
-    a <code>unitType</code> attribute, the value of which is a QName
+    An <code>entry</code> MUST have a <code>unitType</code> attribute, the value of which is a QName
     referencing the unit type (e.g. temperature) of any value defined using
     the <code>entry</code>.
 </p>
 
+<p>
+    An <code>entry</code> describing a concept which should not have units;
+    for example a name of a program should have unitType <a href="http://www.xml-cml.org/unit/unitType#none">none</a>
+    in the default <a href="http://www.xml-cml.org/unit/unitType">unitType dictionary</a>.
+</p>
 
 <h2><a name="entry-default-unit">4.7</a> Default units</h2>
 

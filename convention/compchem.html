@@ -80,6 +80,13 @@
             the <a href="http://www.xml-cml.org/convention/molecular">molecular convention</a> specification for more
             information.
         </p>
+        
+        <p>
+            Except the few instances where they are expressly forbidden, the convention allows users 
+            to optionally include both other cml elements and attributes, and foreign namespaced 
+            elements and attributes. It is expected that in general tools will 
+            silently ignore the extra information because they will not be able to understand it.
+        </p>
 
 
         <h2>
@@ -201,7 +208,8 @@
         </p>
 
         <p>
-            A CompChem module MAY contain <strong><em>more than one</em></strong> child element in any namespace, see <a href="#example2">Example 2</a>.
+            A CompChem module MAY also contain <strong><em>any number</em></strong> of child 
+            elements in any namespace, see <a href="#example2">Example 2</a>.
         </p>
 
         <p id="example2">
